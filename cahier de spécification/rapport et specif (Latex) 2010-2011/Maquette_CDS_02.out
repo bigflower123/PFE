@@ -1,0 +1,35 @@
+\BOOKMARK [-1][]{part*.2}{Cahier de spécification système}{}% 1
+\BOOKMARK [0][]{section.3}{1.1 Introduction}{part*.2}% 2
+\BOOKMARK [1][]{section.4}{1.2 Contexte de la réalisation}{section.3}% 3
+\BOOKMARK [2][]{subsection.5}{1.2.1 Contexte}{section.4}% 4
+\BOOKMARK [2][]{subsection.6}{1.2.2 Objectifs}{section.4}% 5
+\BOOKMARK [2][]{subsection.7}{1.2.3 Hypothèses \(selon les projets\)}{section.4}% 6
+\BOOKMARK [2][]{subsection.8}{1.2.4 Bases méthodologiques \(selon les projets\)}{section.4}% 7
+\BOOKMARK [1][]{section.9}{1.3 Description générale}{section.3}% 8
+\BOOKMARK [2][]{subsection.10}{1.3.1 Environnement du projet}{section.9}% 9
+\BOOKMARK [2][]{subsection.12}{1.3.2 Caractéristiques des utilisateurs}{section.9}% 10
+\BOOKMARK [2][]{subsection.13}{1.3.3 Fonctionnalités et structure générale du système}{section.9}% 11
+\BOOKMARK [2][]{subsection.14}{1.3.4 Contraintes de développement, d'exploitation et de maintenance}{section.9}% 12
+\BOOKMARK [1][]{section.18}{1.4 Description des interfaces externes du logiciel}{section.3}% 13
+\BOOKMARK [2][]{subsection.19}{1.4.1 Interfaces matériel/logiciel}{section.18}% 14
+\BOOKMARK [2][]{subsection.22}{1.4.2 Interfaces homme/machine}{section.18}% 15
+\BOOKMARK [2][]{subsection.38}{1.4.3 Interfaces logiciel/logiciel}{section.18}% 16
+\BOOKMARK [1][]{section.39}{1.5 Architecture générale du système}{section.3}% 17
+\BOOKMARK [1][]{section.40}{1.6 Description des fonctionnalités}{section.3}% 18
+\BOOKMARK [2][]{subsection.41}{1.6.1 Définition de la fonction i}{section.40}% 19
+\BOOKMARK [1][]{section.44}{1.7 Conditions de fonctionnement}{section.3}% 20
+\BOOKMARK [2][]{subsection.45}{1.7.1 Performances}{section.44}% 21
+\BOOKMARK [2][]{subsection.46}{1.7.2 Capacités}{section.44}% 22
+\BOOKMARK [2][]{subsection.47}{1.7.3 Modes de fonctionnement \(optionnel\)}{section.44}% 23
+\BOOKMARK [2][]{subsection.48}{1.7.4 Contrôlabilité}{section.44}% 24
+\BOOKMARK [2][]{subsection.49}{1.7.5 Sécurité}{section.44}% 25
+\BOOKMARK [2][]{subsection.50}{1.7.6 Intégrité \(optionnel\)}{section.44}% 26
+\BOOKMARK [2][]{subsection.51}{1.7.7 Conformité aux standards \(optionnel\)}{section.44}% 27
+\BOOKMARK [2][]{subsection.52}{1.7.8 Facteurs de Qualité \(optionnel\)}{section.44}% 28
+\BOOKMARK [-1][]{part*.53}{Plan de développement}{}% 29
+\BOOKMARK [0][]{section.54}{2.1 Découpage du projet en tâches}{part*.53}% 30
+\BOOKMARK [1][]{subsection.55}{2.1.1 Tâche i}{section.54}% 31
+\BOOKMARK [1][]{section.61}{2.2 Planning}{section.54}% 32
+\BOOKMARK [0][]{appendix.62}{A Glossaire}{part*.53}% 33
+\BOOKMARK [0][]{appendix.63}{B Références}{part*.53}% 34
+\BOOKMARK [0][]{appendix.64}{C Index}{part*.53}% 35
