@@ -9,7 +9,7 @@
 \documentclass[twoside,CDS]{EPURapport}% on reprend ici le style EPU rapport étendu au CDS (version du 21/10/2009)
 \input{include.tex}
 
-\thedocument{Cahier de spécification système \& plan de développement}{Maquette détaillée du cahier de spécif. pour les PFE}{Maquette CDS}
+\thedocument{Cahier de spécification système \& plan de développement}{Etude comportement de l'animal(projet OVIN2A)}{projet OVIN2A}
 
 \grade{Département Informatique}
 
@@ -29,7 +29,7 @@
 }
 
 %l'émetteur remplace ici l'auteur du rapport de PFE
-\emetteur{Lin SHEN}{EPU-DI}
+\emetteur{Lin SHEN}{lin.shen@etu.univ-tours.fr}
 
 \supervisors{% non utilisés ici (remplacés par les validateurs ci-dessous)
 	\category{Encadrants}{%
@@ -62,44 +62,85 @@
 % en revanche on utilise la numérotation quand même
 \chaptermark{Cahier de spécification système} %pour les headers basé sur les chapitres
 
-	\section{Introduction}
-	Nature et objectifs du document, les acteurs mis en jeux (client, MOA, MOE), les auteurs, relecteurs,\ldots
-	
-	\section{Contexte de la réalisation}
-		\subsection{Contexte}
-		Définir les enjeux et le contexte général dans lequel s'inscrit le projet (domaine d'application, marché, cible,\ldots)
-		
-		\subsection{Objectifs}
-		Définir le sujet en quelques lignes~: s'il s'agit de faire ou d'améliorer un système\ldots et surtout la nature du système en question (est-ce un système d'information, un système dynamique i.e. à contraintes temps réel, un logiciel d'aide à la décision ou d'optimisation,\ldots). Expliquer également de quoi doit être constitué le système au niveau matériel et logiciel.
-		
-		\subsection{Hypothèses (selon les projets)}
+\section{Introduction}
+	%Nature et objectifs du document, les acteurs mis en jeux (client, MOA, MOE), les 
+	%  auteurs, relecteurs,\ldots
+\paragraph{}
+	Ce document consistera à décrire le projet de fin d'étude: projet OVIN2A. Le travail est l'amélioration d'un logiciel qui permet de détecter et suivre l'agneau dans un enclos.
+Il existe aujourd'hui une solution qui donne de bons résultats. Nous avons besoin de l'amélioration d'interface de ce logiciel et mettre notre application en le patron MVC(Modèle-Vue-Contrôleur). Ce projet a été proposé par M.Pascal Makris, en collaboration avec M.Donatello 
+Conte.
+\section{Contexte de la réalisation}
+  \subsection{Contexte}
+	%Définir les enjeux et le contexte général dans lequel s'inscrit le projet (domaine %d'application, marché, cible,\ldots)
+	\paragraph{}
+	Pour identifier les causes de mortalité des agneaux, il faut étudier leur comportements dans les premiers années. On a un caméra pour noter les activités des agneaux. En utilisant notre logiciel, nous pouvons analyser les trajectoires des agneaux qui est différencié par la couleur. Un tel algorithme est déjà réalisé. Je vais apprendre les connaissance de traitement d'image et améliorer ce application.
+   \subsection{Objectifs}
+		%Définir le sujet en quelques lignes~: s'il s'agit de faire ou d'améliorer un système\ldots et surtout la nature du système en question (est-ce un système d'information, un système dynamique i.e. à contraintes temps réel, un logiciel d'aide à la décision ou d'optimisation,\ldots). Expliquer également de quoi doit être constitué le système au niveau matériel et logiciel.
+	\paragraph{}
+	Ce projet a pour but de détecter et suivre les agneaux dans un vidéo et étudier les comportement des agneaux. C'est basé sur un projet existant. On a un caméra pour noter les activités des agneaux. On utilise les vidéos pour analyser les comportements des agneaux utilisant notre logiciel. 
+	\paragraph{}
+	Il y a 3 grandes parties:
+	\begin{itemize}
+	\item Création d'une nouvelle interface pour facilité l'utilisation
+	\item Ajoute plusieurs fonctionnalité pour rendre le logiciel plus efficace et humain
+	\item Nettoyage de code source et mettre l'application en le patron MVC
+	\end{itemize}
+	\subsection{Hypothèses (selon les projets)}
 		Les hypothèses décrivent tous les facteurs susceptibles de remettre en cause tout ou une partie de la réalisation des spécifications ainsi que d'éventuelles solutions de repli. Par exemple, <<~Si au cours du projet il se passe X, on fera Y, sinon on fera Z~>> ou encore <<~Si on n'arrive pas à faire X, ou si on ne trouve pas la librairie Y, on  fera Z~>>. Il faut bien détailler toutes les alternatives qui se posent en début de projet.
 		
-		\subsection{Bases méthodologiques (selon les projets)}
-Elles précisent quelles procédures, méthodes, outils, normes, langages, règles de programmation devront être utilisés pour mener à bien le projet.
+	\subsection{Bases méthodologiques}
+%Elles précisent quelles procédures, méthodes, outils, normes, langages, règles de %programmation devront être utilisés pour mener à bien le projet.
+	\subsubsection{Procédure}
+		\begin{itemize}
+		\item Spécifications fonctionnelles et informatiques
+		\item Mise en ?uvre de la charte graphique
+		\item Réalisation et test
+		\item Rédaction des Manuels utilisateurs
+		\item Mise en production
+		\end{itemize}
+	\subsubsection{Méthodes de gestion de projet}
+	\paragraph{}
+	Je utilise la méthode traditionnelle du cycle en V qui ont des phases de conception, développements, tests et intégration. Elle limite un retour aux étapes précédentes. Elle est largement utilisée dans la domaine de gestion de projet.
+	\subsubsection{Outils de gestion de versions}
+	\paragraph{}
+	Je utilise Git pour la gestion de versions. Git est un logiciel de gestion de versions décentralisé. C'est un outil libre, simple et performant.
+	\subsubsection{Langages de programmation}
+	\paragraph{}
+	Langages de programmation que je utilise est C++ avec une bibliothèque graphique libre
+OpenCV(Open Source Computer Vision Library). Elle est spécialisée dans le traitement d'images en temps réel.Elle nous offrit l'interface de langage C/C++.  Le outil de programmation est Qt. 
+
 
 \section{Description générale}
-
 \subsection{Environnement du projet}
 \label{sec:envprojet}
 %Ce paragraphe situe le projet par rapport à l'environnement dont il dépend et par rapport %à d'éventuels projets parallèles. On définira notamment l'environnement logiciel et %matériel associé au projet ainsi que la façon dont celui-ci s'inscrit par rapport à %l'existant. 
 %L'intégration du projet dans son environnement et \textbf{dans l'existant} ainsi que les %interactions entre ces éléments peuvent être visualisées en utilisant un schéma %d'intégration ou le formalisme d'une méthode d'analyse telle que celles présentées dans %le cours de Génie Logiciel.
 \paragraph{}
-Ce projet est basé sur un projet existant. On garde l'algorithme principal et optimise l'interface pour faciliter les utilisations. 
+Ce projet est basé sur un projet existant. On garde l'algorithme principal de traitement de l'image et optimise l'interface pour faciliter les utilisations. On met l'application en patron MVC.
 \subsection{Caractéristiques des utilisateurs}
-Identifier les différents types d'utilisateurs du système. Pour chacun on devra préciser les caractéristiques qui affecteront l'interface utilisateur (menus, commandes textuelles,\ldots) :
-\begin{itemize}
-	\item connaissance ou non de l'informatique~;
-	\item expérience de l'application~;
-	\item utilisateurs réguliers et/ou occasionnels~;
-	\item droits d'accès utilisateurs.
-\end{itemize}
+%Identifier les différents types d'utilisateurs du système. Pour chacun on devra préciser les caractéristiques qui affecteront l'interface utilisateur (menus, commandes textuelles,\ldots) :
+%\begin{itemize}
+	%\item connaissance ou non de l'informatique~;
+	%\item expérience de l'application~;
+	%\item utilisateurs réguliers et/ou occasionnels~;
+	%\item droits d'accès utilisateurs.
+%\end{itemize}
+\paragraph{}
+Les utilisateurs finaux sont les chercheurs d'INRA(Institut national de la recherche agronomique). Ils ont la base de utilisation d'ordinateur, mais ils ne sont pas spécialiste dans la domaine de l'informatique. Nous devrons faciliter les utilisations de 
+ce logiciel. Bien qu'il y a une version précédente de ce logiciel, il n'a pas été mise en service. Les utilisateurs ne connaissent pas beaucoup de ce logiciel. Il faut écrire un 
+manuel de utilisateur après la réalisation. Les utilisateurs pourront récupérer les vidéos
+et les ajouter dans le logiciel. Ils auront le droit de l'accès au dossier de données. Dans le dossier de données, on a les ficher .txt pour stocker les frames, les coordonnées de l'animal et l'heure correspondante aux frames. On a aussi les vidéos avec trajectoire.
+Les utilisateurs n'auront pas de droit de modification des fichiers.
 
 \subsection{Fonctionnalités et structure générale du système}
-\label{sec:foncgales}
-Décrire les fonctions utilisateurs du système et les principaux objets qui constituent le système. Ceci peut être fait au travers d'un ou plusieurs diagrammes de cas d'utilisation généraux par type d'utilisateur, ainsi que par un diagramme statique (<<~objet~>> au sens large) qui est le pendant de la partie~\ref{sec:envprojet} (externe/interne).
-RQ~: ces points seront détaillés par la suite (cf. parties~\ref{sec:archi} et~\ref{sec:fonctions})
+%\label{sec:foncgales}
+%Décrire les fonctions utilisateurs du système et les principaux objets qui constituent le système. Ceci peut être fait au travers d'un ou plusieurs diagrammes de cas d'utilisation généraux par type d'utilisateur, ainsi que par un diagramme statique (<<~objet~>> au sens large) qui est le pendant de la partie~\ref{sec:envprojet} (externe/interne).
+%RQ~: ces points seront détaillés par la suite (cf. parties~\ref{sec:archi} et~\ref{sec:fonctions})
 
+\begin{figure}[ht]\centering
+\includegraphics[scale=0.2]{images/diagramme de cas d'utilisation.png} 
+\caption{Diagramme de cas d'utilisation}
+\end{figure}
 \subsection{Contraintes de développement, d'exploitation et de maintenance}
 				
 \subsubsection{Contraintes de développement}
