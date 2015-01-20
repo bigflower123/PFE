@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>662</width>
-    <height>418</height>
+    <width>750</width>
+    <height>483</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,36 +18,23 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>20</y>
-      <width>500</width>
+      <y>30</y>
+      <width>511</width>
       <height>330</height>
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="msgLabel">
+   <widget class="QPushButton" name="pauseBtn">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>370</y>
-      <width>46</width>
-      <height>13</height>
+      <x>430</x>
+      <y>380</y>
+      <width>75</width>
+      <height>23</height>
      </rect>
     </property>
     <property name="text">
-     <string>TextLabel</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="msgLabel_2">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>370</y>
-      <width>46</width>
-      <height>13</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>TextLabel</string>
+     <string>Pause</string>
     </property>
    </widget>
   </widget>
@@ -56,7 +43,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>662</width>
+     <width>750</width>
      <height>21</height>
     </rect>
    </property>
@@ -65,8 +52,25 @@
      <string>Fichier</string>
     </property>
     <addaction name="actionOuvrirVideo"/>
+    <addaction name="actionSauvegarderVideo"/>
+    <addaction name="actionSauvegarderDonnees"/>
+    <addaction name="actionQuitter"/>
+   </widget>
+   <widget class="QMenu" name="menuInformation">
+    <property name="title">
+     <string>Information</string>
+    </property>
+    <addaction name="actionInformationObjet"/>
+   </widget>
+   <widget class="QMenu" name="menuR_glage">
+    <property name="title">
+     <string>Réglage</string>
+    </property>
+    <addaction name="actionDeplacement"/>
    </widget>
    <addaction name="menuFichier"/>
+   <addaction name="menuInformation"/>
+   <addaction name="menuR_glage"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -82,8 +86,50 @@
     <string>Ouvrir vidéo</string>
    </property>
   </action>
+  <action name="actionSauvegarderVideo">
+   <property name="text">
+    <string>Sauvegarder vidéo</string>
+   </property>
+  </action>
+  <action name="actionSauvegarderDonnees">
+   <property name="text">
+    <string>Sauvegarder données</string>
+   </property>
+  </action>
+  <action name="actionQuitter">
+   <property name="text">
+    <string>Quitter</string>
+   </property>
+  </action>
+  <action name="actionInformationObjet">
+   <property name="text">
+    <string>Information objet</string>
+   </property>
+  </action>
+  <action name="actionDeplacement">
+   <property name="text">
+    <string>Déplacement max</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>actionQuitter</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>330</x>
+     <y>208</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

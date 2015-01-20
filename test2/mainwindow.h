@@ -4,10 +4,11 @@
 #include <QTimer>
 #include <QPainter>
 #include <QPixmap>
-#include <QLabel>
 #include <QImage>
 #include <opencv2\opencv.hpp>
 #include "ui_mainwindow.h"
+#include "fichiercontrol.h"
+
 using namespace cv;
 class MainWindow : public QMainWindow
 {
@@ -16,17 +17,11 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    fichierControl *fichierManage = new fichierControl();
 
 public slots:
-    void openVideo();
-    void DisplayVideo();
+    void chooseVideo();
 
 private:
-    QTimer theTimer;
-    Mat srcImage;
-    VideoCapture videoCap;
-    long totalFrameNumber;
-    double rate;
-
     Ui::MainWindow ui;
 };
