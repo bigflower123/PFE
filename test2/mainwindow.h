@@ -18,7 +18,6 @@ public:
     ~MainWindow();
 
 public slots:
-   // void updateImage();
     void openVideo();
     void DisplayVideo();
 
@@ -26,9 +25,8 @@ private:
     QTimer theTimer;
     Mat srcImage;
     VideoCapture videoCap;
+    long totalFrameNumber;
+    double rate;
 
     Ui::MainWindow ui;
-
-protected:
-    void paintEvent(QPaintEvent);
 };
