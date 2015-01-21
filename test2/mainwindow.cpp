@@ -4,6 +4,7 @@
 using namespace std;
 using namespace cv;
 
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
@@ -25,6 +26,7 @@ void MainWindow::chooseVideo(){
     fichierManage->openVideo(fileName, ui.graphicsView);
 }
 
+
 /*void MainWindow::openVideo()
 {
     //Open filedialog to choose video file
@@ -33,10 +35,10 @@ void MainWindow::chooseVideo(){
                 "",
                 "Vidéo fichiers (*.avi *.mp4 *.asf);;All files (*.*)");
     if (!videoCap.open(fileName.toStdString())){
-          ui.msgLabel->text() == "Problem loading file!";
+          //ui.msgLabel->text() == "Problem loading file!";
           std::abort();
     }else{
-         ui.msgLabel->text() == "Ok!";
+         //ui.msgLabel->text() == "Ok!";
          //Number frame
          totalFrameNumber = videoCap.get(CV_CAP_PROP_FRAME_COUNT);
          //rate

@@ -1,59 +1,91 @@
 #include "fichiercontrol.h"
 
-double totalFrameNumber;
-int currentFrame;
+long currentFrame;
 VideoCapture cap;
-Mat frame;
+
 
 fichierControl::fichierControl()
 {
 }
 
-void tbCallback (int pos,void* usrdata)
+/*void tbCallback (int pos,void* usrdata)
 {
     Mat src = *(Mat*)(usrdata);
     cap.set(CV_CAP_PROP_POS_FRAMES, pos);
     currentFrame = pos;
-    imshow ("MyVideo",src);
-}
+    //imshow ("MyVideo",src);
+}*/
 
 void fichierControl::openVideo(QString &fileName, QGraphicsView *videoGraphicsview)
 {
-    cap.open(fileName.toStdString());
-    if ( !cap.isOpened() )  // if not success, exit program
-    {
-       cout << "Cannot open the video file" << endl;
+    bool stop = false;
+    if (!cap.open(fileName.toStdString())){
+          cout << "Cannot read the frame from video file" << endl;
     }
-    cap.set(CV_CAP_PROP_POS_MSEC, 300); //start the video at 300ms
-    double fps = cap.get(CV_CAP_PROP_FPS); //get the frames per seconds of the video
-    cout << "Frame per seconds : " << fps << endl;
-    totalFrameNumber = cap.get(CV_CAP_PROP_FRAME_COUNT); //Number frame
-    namedWindow("MyVideo",CV_WINDOW_AUTOSIZE); //create a window called "MyVideo"
-    if(totalFrameNumber != 0){
-        createTrackbar("Position", "MyVideo",&currentFrame, totalFrameNumber, tbCallback, &frame);
+    //get the number of frame
+    long totalFrameNumber = cap.get(CV_CAP_PROP_FRAME_COUNT);
+    cout<<"Number of frame"<<totalFrameNumber<<endl;
+
+    //start the video at 300ms
+    long frameToStart = 300;
+    cap.set( CV_CAP_PROP_POS_FRAMES,frameToStart);
+    cout<<"Frame to start"<<frameToStart<<endl;
+
+    //stop the video at 400ms
+    int frameToStop = 320;
+
+    if(frameToStop < frameToStart)
+    {
+        cout<<"Frametostop smaller than frametostart！"<<endl;
+    }
+    else
+    {
+        cout<<"Frame to stop"<<frameToStop<<endl;
     }
 
-    while(1)
+    //get the frames per seconds of the video
+    double rate = cap.get(CV_CAP_PROP_FPS);
+    cout<<"the frames per seconds"<<rate<<endl;
+
+    int delay = 1000/rate;
+    long currentFrame = frameToStart;
+
+    //namedWindow("MyVideo",CV_WINDOW_AUTOSIZE); //create a window called "MyVideo"
+    while(!stop)
     {
-        bool bSuccess = cap.read(frame); // read a new frame from video
+         bool bSuccess = cap.read(frame); // read a new frame from video
          if (!bSuccess) //if not success, break loop
+         {
+                cout << "Cannot read the frame from video file" << endl;
+         }
+         /*******/
+          if(frame.data){
+              cvtColor(frame, frame, CV_BGR2RGB);  //Qt support RGB, OpenCv support BGR
+          }else{
+              cout << "Frame no data" << endl;
+          }
+          QImage image = QImage((uchar*)(frame.data), frame.cols, frame.rows, frame.step, QImage::Format_RGB888);
+          QImage result = image.scaled(800,600).scaled(495,325, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+          QGraphicsScene *scene = new QGraphicsScene;
+          scene->addPixmap(QPixmap::fromImage(result));
+          videoGraphicsview->setScene(scene);
+          videoGraphicsview->show();
+          cout<<"currentFrame"<<currentFrame<<endl;
+         /*******/
+         //imshow("MyVideo", frame); //show the frame in "MyVideo" window
+         if(waitKey(delay) == 27 || currentFrame >= frameToStop) //wait for 'esc' key press for 30 ms. If 'esc' key is pressed, break loop
+         {
+               cout << "esc key is pressed by user" << endl;
+               stop = true;
+         }
+         //suspendre
+        if( waitKey(delay) >= 0)
         {
-               cout << "Cannot read the frame from video file" << endl;
-               break;
+            waitKey(0);
         }
-
-        imshow("MyVideo", frame); //show the frame in "MyVideo" window
-        if(waitKey(30) == 27) //wait for 'esc' key press for 30 ms. If 'esc' key is pressed, break loop
-       {
-              cout << "esc key is pressed by user" << endl;
-              break;
-
-       }else if(waitKey(30) > 0 && waitKey(30) != 27 ){
-            waitKey(-1);
-        }
-       currentFrame++;
-       setTrackbarPos("Position", "MyVideo",currentFrame);
-    }
+        currentFrame++;
+     }
+    //Close video file
+    cap.release();
+    waitKey(0);
 }
-
-
