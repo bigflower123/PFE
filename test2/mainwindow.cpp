@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui.setupUi(this);
     connect(ui.actionOuvrirVideo, SIGNAL(triggered()), this, SLOT(chooseVideo()));
+    connect(ui.pauseBtn, SIGNAL(clicked()), this, SLOT(pauseVideo()));
 }
 
 MainWindow::~MainWindow()
@@ -23,9 +24,12 @@ void MainWindow::chooseVideo(){
                 this, "Ouvrir vidéo",
                 "",
                 "Vidéo fichiers (*.avi *.mp4 *.asf);;All files (*.*)");
-    fichierManage->openVideo(fileName, ui.graphicsView);
+    fichierManage->openVideo(fileName, ui.graphicsView, ui.progressBar);
 }
 
+void MainWindow::pauseVideo(){
+    fichierManage->pauseVideo();
+}
 
 /*void MainWindow::openVideo()
 {

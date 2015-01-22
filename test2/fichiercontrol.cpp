@@ -1,22 +1,22 @@
 #include "fichiercontrol.h"
 
-long currentFrame;
+int currentFrame;
 VideoCapture cap;
-
+int trackbarPos;
 
 fichierControl::fichierControl()
 {
 }
 
-/*void tbCallback (int pos,void* usrdata)
+void tbCallback (int pos,void* usrdata)
 {
     Mat src = *(Mat*)(usrdata);
     cap.set(CV_CAP_PROP_POS_FRAMES, pos);
     currentFrame = pos;
     //imshow ("MyVideo",src);
-}*/
+}
 
-void fichierControl::openVideo(QString &fileName, QGraphicsView *videoGraphicsview)
+void fichierControl::openVideo(QString &fileName, QGraphicsView *videoGraphicsview, QProgressBar *progressBar)
 {
     bool stop = false;
     if (!cap.open(fileName.toStdString())){
@@ -32,7 +32,7 @@ void fichierControl::openVideo(QString &fileName, QGraphicsView *videoGraphicsvi
     cout<<"Frame to start"<<frameToStart<<endl;
 
     //stop the video at 400ms
-    int frameToStop = 320;
+    int frameToStop = 400;
 
     if(frameToStop < frameToStart)
     {
@@ -48,10 +48,18 @@ void fichierControl::openVideo(QString &fileName, QGraphicsView *videoGraphicsvi
     cout<<"the frames per seconds"<<rate<<endl;
 
     int delay = 1000/rate;
-    long currentFrame = frameToStart;
+    currentFrame = frameToStart;
 
-    //namedWindow("MyVideo",CV_WINDOW_AUTOSIZE); //create a window called "MyVideo"
-    while(!stop)
+    //set the minimum and maximum value of progressBar
+    progressBar->setMinimum(frameToStart);
+    progressBar->setMaximum(frameToStop);
+    //namedWindow("MyVideo",WINDOW_NORMAL); //create a window called "MyVideo"
+    //resizeWindow("MyVideo", 400, 300);
+    //Create Trackbar
+    /*if(totalFrameNumber != 0){
+         createTrackbar("Position", "MyVideo", &currentFrame, totalFrameNumber, tbCallback, &frame);
+    }*/
+    while(!stop && !isPause)
     {
          bool bSuccess = cap.read(frame); // read a new frame from video
          if (!bSuccess) //if not success, break loop
@@ -84,8 +92,15 @@ void fichierControl::openVideo(QString &fileName, QGraphicsView *videoGraphicsvi
             waitKey(0);
         }
         currentFrame++;
+        progressBar->setValue(currentFrame);
+         //setTrackbarPos("Position", "MyVideo",currentFrame);
      }
     //Close video file
+    isPause = false;
     cap.release();
     waitKey(0);
+}
+
+void fichierControl::pauseVideo(){
+    isPause = true;
 }

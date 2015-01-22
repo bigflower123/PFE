@@ -50,3 +50,6 @@ LIBS += C:/opencv/build/x86/vc12/lib/opencv_objdetect249d.lib
 LIBS += C:/opencv/build/x86/vc12/lib/opencv_video249d.lib
 LIBS += C:/opencv/build/x86/vc12/lib/opencv_core249d.lib
 }
+
+RESOURCES += \
+    icon.qrc

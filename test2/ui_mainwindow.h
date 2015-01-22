@@ -18,7 +18,9 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSlider>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
@@ -37,6 +39,8 @@ public:
     QWidget *centralWidget;
     QGraphicsView *graphicsView;
     QPushButton *pauseBtn;
+    QProgressBar *progressBar;
+    QSlider *videoSlider;
     QMenuBar *menuBar;
     QMenu *menuFichier;
     QMenu *menuInformation;
@@ -68,7 +72,15 @@ public:
         graphicsView->setGeometry(QRect(0, 30, 511, 330));
         pauseBtn = new QPushButton(centralWidget);
         pauseBtn->setObjectName(QStringLiteral("pauseBtn"));
-        pauseBtn->setGeometry(QRect(430, 380, 75, 23));
+        pauseBtn->setGeometry(QRect(450, 390, 61, 31));
+        progressBar = new QProgressBar(centralWidget);
+        progressBar->setObjectName(QStringLiteral("progressBar"));
+        progressBar->setGeometry(QRect(0, 350, 551, 21));
+        progressBar->setValue(24);
+        videoSlider = new QSlider(centralWidget);
+        videoSlider->setObjectName(QStringLiteral("videoSlider"));
+        videoSlider->setGeometry(QRect(10, 380, 511, 19));
+        videoSlider->setOrientation(Qt::Horizontal);
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));

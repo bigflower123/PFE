@@ -16,6 +16,7 @@ public:
 
 public slots:
     void chooseVideo();
+    void pauseVideo();
 
 private:
     Ui::MainWindow ui;
