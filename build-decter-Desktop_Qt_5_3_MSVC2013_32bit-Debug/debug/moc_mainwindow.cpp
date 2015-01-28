@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[12];
-    char stringdata[188];
+    QByteArrayData data[11];
+    char stringdata[183];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -35,19 +35,18 @@ QT_MOC_LITERAL(2, 26, 0),
 QT_MOC_LITERAL(3, 27, 3),
 QT_MOC_LITERAL(4, 31, 11),
 QT_MOC_LITERAL(5, 43, 18),
-QT_MOC_LITERAL(6, 62, 16),
-QT_MOC_LITERAL(7, 79, 13),
-QT_MOC_LITERAL(8, 93, 28),
-QT_MOC_LITERAL(9, 122, 29),
-QT_MOC_LITERAL(10, 152, 26),
-QT_MOC_LITERAL(11, 179, 8)
+QT_MOC_LITERAL(6, 62, 28),
+QT_MOC_LITERAL(7, 91, 29),
+QT_MOC_LITERAL(8, 121, 26),
+QT_MOC_LITERAL(9, 148, 8),
+QT_MOC_LITERAL(10, 157, 25)
     },
     "MainWindow\0updatePlayerUI\0\0img\0"
     "chooseVideo\0on_playBtn_clicked\0"
-    "getFormattedTime\0timeInSeconds\0"
     "on_videoSlider_sliderPressed\0"
     "on_videoSlider_sliderReleased\0"
-    "on_videoSlider_sliderMoved\0position"
+    "on_videoSlider_sliderMoved\0position\0"
+    "on_backwardButton_clicked"
 };
 #undef QT_MOC_LITERAL
 
@@ -68,19 +67,19 @@ static const uint qt_meta_data_MainWindow[] = {
        1,    1,   49,    2, 0x08 /* Private */,
        4,    0,   52,    2, 0x08 /* Private */,
        5,    0,   53,    2, 0x08 /* Private */,
-       6,    1,   54,    2, 0x08 /* Private */,
-       8,    0,   57,    2, 0x08 /* Private */,
-       9,    0,   58,    2, 0x08 /* Private */,
-      10,    1,   59,    2, 0x08 /* Private */,
+       6,    0,   54,    2, 0x08 /* Private */,
+       7,    0,   55,    2, 0x08 /* Private */,
+       8,    1,   56,    2, 0x08 /* Private */,
+      10,    0,   59,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void, QMetaType::QImage,    3,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::QString, QMetaType::Int,    7,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,   11,
+    QMetaType::Void, QMetaType::Int,    9,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -93,11 +92,10 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 0: _t->updatePlayerUI((*reinterpret_cast< QImage(*)>(_a[1]))); break;
         case 1: _t->chooseVideo(); break;
         case 2: _t->on_playBtn_clicked(); break;
-        case 3: { QString _r = _t->getFormattedTime((*reinterpret_cast< int(*)>(_a[1])));
-            if (_a[0]) *reinterpret_cast< QString*>(_a[0]) = _r; }  break;
-        case 4: _t->on_videoSlider_sliderPressed(); break;
-        case 5: _t->on_videoSlider_sliderReleased(); break;
-        case 6: _t->on_videoSlider_sliderMoved((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 3: _t->on_videoSlider_sliderPressed(); break;
+        case 4: _t->on_videoSlider_sliderReleased(); break;
+        case 5: _t->on_videoSlider_sliderMoved((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 6: _t->on_backwardButton_clicked(); break;
         default: ;
         }
     }

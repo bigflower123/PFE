@@ -81,7 +81,6 @@ double player::getCurrentFrame(){
 }
 
 double player::getNumberOfFrames(){
-
     return capture->get(CV_CAP_PROP_FRAME_COUNT);
 }
 

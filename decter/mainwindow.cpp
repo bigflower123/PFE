@@ -8,10 +8,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     myPlayer = new player();
     QObject::connect(ui->actionOuvrirVideo, SIGNAL(triggered()), this, SLOT(chooseVideo()));
-    QObject::connect(myPlayer, SIGNAL(processedImage(QImage)),
-                     this, SLOT(updatePlayerUI(QImage)));
+    QObject::connect(myPlayer, SIGNAL(processedImage(QImage)), this, SLOT(updatePlayerUI(QImage)));
+    /***Set Button et Slider disabled****/
     ui->playBtn->setEnabled(false);
+    ui->backwardButton->setEnabled(false);
+    ui->forwardButton->setEnabled(false);
     ui->videoSlider->setEnabled(false);
+    /***********************************/
 }
 
 MainWindow::~MainWindow()
@@ -54,12 +57,16 @@ void MainWindow::chooseVideo()
             this->setWindowTitle(name.fileName());
             ui->playBtn->setEnabled(true);
             ui->videoSlider->setEnabled(true);
+            ui->backwardButton->setEnabled(true);
+            ui->forwardButton->setEnabled(true);
             ui->videoSlider->setMaximum(myPlayer->getNumberOfFrames());
             //ui->totalLable->setText( getFormattedTime( (int)myPlayer->getNumberOfFrames()/(int)myPlayer->getFrameRate()) );
             ui->totalLable->setText(QString::number(myPlayer->getNumberOfFrames()));
         }
     }
 }
+
+
 void MainWindow::on_playBtn_clicked()
 {
     if (myPlayer->isStopped())
@@ -71,19 +78,6 @@ void MainWindow::on_playBtn_clicked()
         myPlayer->Stop();
         ui->playBtn->setText(tr("Play"));
     }
-}
-
-QString MainWindow::getFormattedTime(int timeInSeconds){
-
-    int seconds = (int) (timeInSeconds) % 60 ;
-    int minutes = (int) ((timeInSeconds / 60) % 60);
-    int hours   = (int) ((timeInSeconds / (60*60)) % 24);
-
-    QTime t(hours, minutes, seconds);
-    if (hours == 0 )
-        return t.toString("mm:ss");
-    else
-        return t.toString("h:mm:ss");
 }
 
 void MainWindow::on_videoSlider_sliderPressed()
@@ -103,3 +97,22 @@ void MainWindow::on_videoSlider_sliderMoved(int position)
     ui->currentLable->setText(QString::number(myPlayer->getFrameRate()));
 }
 
+/*QString MainWindow::getFormattedTime(int timeInSeconds){
+
+    int seconds = (int) (timeInSeconds) % 60 ;
+    int minutes = (int) ((timeInSeconds / 60) % 60);
+    int hours   = (int) ((timeInSeconds / (60*60)) % 24);
+
+    QTime t(hours, minutes, seconds);
+    if (hours == 0 )
+        return t.toString("mm:ss");
+    else
+        return t.toString("h:mm:ss");
+}*/
+
+void MainWindow::on_backwardButton_clicked()
+{
+    myPlayer->Stop();
+    double framecourant = myPlayer->getCurrentFrame();
+    myPlayer->setCurrentFrame(framecourant--);
+}

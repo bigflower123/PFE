@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>640</width>
+    <width>742</width>
     <height>465</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Vidéo</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QLabel" name="VideoLbl">
@@ -19,7 +19,7 @@
      <rect>
       <x>20</x>
       <y>20</y>
-      <width>461</width>
+      <width>501</width>
       <height>321</height>
      </rect>
     </property>
@@ -33,10 +33,10 @@
    <widget class="QPushButton" name="playBtn">
     <property name="geometry">
      <rect>
-      <x>510</x>
-      <y>130</y>
-      <width>75</width>
-      <height>23</height>
+      <x>500</x>
+      <y>360</y>
+      <width>51</width>
+      <height>21</height>
      </rect>
     </property>
     <property name="text">
@@ -46,9 +46,9 @@
    <widget class="QSlider" name="videoSlider">
     <property name="geometry">
      <rect>
-      <x>60</x>
+      <x>40</x>
       <y>360</y>
-      <width>401</width>
+      <width>321</width>
       <height>20</height>
      </rect>
     </property>
@@ -61,8 +61,8 @@
      <rect>
       <x>10</x>
       <y>360</y>
-      <width>46</width>
-      <height>13</height>
+      <width>31</width>
+      <height>16</height>
      </rect>
     </property>
     <property name="text">
@@ -72,14 +72,40 @@
    <widget class="QLabel" name="totalLable">
     <property name="geometry">
      <rect>
-      <x>470</x>
+      <x>370</x>
       <y>360</y>
-      <width>46</width>
-      <height>13</height>
+      <width>41</width>
+      <height>16</height>
      </rect>
     </property>
     <property name="text">
      <string>0</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="forwardButton">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>360</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Forward</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="backwardButton">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>360</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Backward</string>
     </property>
    </widget>
   </widget>
@@ -88,17 +114,34 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>640</width>
+     <width>742</width>
      <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFichier">
     <property name="title">
-     <string>Fichier</string>
+     <string>Ficher</string>
     </property>
     <addaction name="actionOuvrirVideo"/>
+    <addaction name="actionSauvegarderVideo"/>
+    <addaction name="actionSauvegarderDonnees"/>
+    <addaction name="actionQuitter"/>
+   </widget>
+   <widget class="QMenu" name="menuInformation">
+    <property name="title">
+     <string>Information</string>
+    </property>
+    <addaction name="actionInformationObjet"/>
+   </widget>
+   <widget class="QMenu" name="menuReglage">
+    <property name="title">
+     <string>Réglage</string>
+    </property>
+    <addaction name="actionDeplacement"/>
    </widget>
    <addaction name="menuFichier"/>
+   <addaction name="menuInformation"/>
+   <addaction name="menuReglage"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -111,11 +154,53 @@
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionOuvrirVideo">
    <property name="text">
-    <string>Ouvrir video</string>
+    <string>Ouvrir vidéo</string>
+   </property>
+  </action>
+  <action name="actionSauvegarderVideo">
+   <property name="text">
+    <string>Sauvegarder vidéo</string>
+   </property>
+  </action>
+  <action name="actionSauvegarderDonnees">
+   <property name="text">
+    <string>Sauvegarder données</string>
+   </property>
+  </action>
+  <action name="actionQuitter">
+   <property name="text">
+    <string>Quitter</string>
+   </property>
+  </action>
+  <action name="actionInformationObjet">
+   <property name="text">
+    <string>Information objet</string>
+   </property>
+  </action>
+  <action name="actionDeplacement">
+   <property name="text">
+    <string>Déplacement max</string>
    </property>
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>actionQuitter</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>319</x>
+     <y>232</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

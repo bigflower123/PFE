@@ -22,8 +22,8 @@ class player: public QThread
     Mat RGBframe;
     QImage img;
  signals:
-      //Signal to output frame to be displayed
-      void processedImage(const QImage &image);
+     //Signal to output frame to be displayed
+     void processedImage(const QImage &image);
  protected:
      void run();
      void msleep(int ms);

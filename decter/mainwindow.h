@@ -22,14 +22,17 @@ public:
 private slots:
     //Display video frame in player UI
     void updatePlayerUI(QImage img);
-    //Slot for the load video push button.
+    //Slot for the load video
     void chooseVideo();
-    // Slot for the play push button.
+    //Slot for the play push button.
     void on_playBtn_clicked();
-    QString getFormattedTime(int timeInSeconds);
+    //QString getFormattedTime(int timeInSeconds);
+    //Slot for Slider
     void on_videoSlider_sliderPressed();
     void on_videoSlider_sliderReleased();
     void on_videoSlider_sliderMoved(int position);
+    //Slot for the backward push button
+    void on_backwardButton_clicked();
 
 private:
     Ui::MainWindow *ui;
