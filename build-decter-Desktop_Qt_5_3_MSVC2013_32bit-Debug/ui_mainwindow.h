@@ -19,6 +19,7 @@
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSlider>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
@@ -32,6 +33,9 @@ public:
     QWidget *centralWidget;
     QLabel *VideoLbl;
     QPushButton *playBtn;
+    QSlider *videoSlider;
+    QLabel *currentLable;
+    QLabel *totalLable;
     QMenuBar *menuBar;
     QMenu *menuFichier;
     QToolBar *mainToolBar;
@@ -41,7 +45,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(631, 455);
+        MainWindow->resize(640, 465);
         actionOuvrirVideo = new QAction(MainWindow);
         actionOuvrirVideo->setObjectName(QStringLiteral("actionOuvrirVideo"));
         centralWidget = new QWidget(MainWindow);
@@ -53,10 +57,20 @@ public:
         playBtn = new QPushButton(centralWidget);
         playBtn->setObjectName(QStringLiteral("playBtn"));
         playBtn->setGeometry(QRect(510, 130, 75, 23));
+        videoSlider = new QSlider(centralWidget);
+        videoSlider->setObjectName(QStringLiteral("videoSlider"));
+        videoSlider->setGeometry(QRect(60, 360, 401, 20));
+        videoSlider->setOrientation(Qt::Horizontal);
+        currentLable = new QLabel(centralWidget);
+        currentLable->setObjectName(QStringLiteral("currentLable"));
+        currentLable->setGeometry(QRect(10, 360, 46, 13));
+        totalLable = new QLabel(centralWidget);
+        totalLable->setObjectName(QStringLiteral("totalLable"));
+        totalLable->setGeometry(QRect(470, 360, 46, 13));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 631, 21));
+        menuBar->setGeometry(QRect(0, 0, 640, 21));
         menuFichier = new QMenu(menuBar);
         menuFichier->setObjectName(QStringLiteral("menuFichier"));
         MainWindow->setMenuBar(menuBar);
@@ -81,6 +95,8 @@ public:
         actionOuvrirVideo->setText(QApplication::translate("MainWindow", "Ouvrir video", 0));
         VideoLbl->setText(QString());
         playBtn->setText(QApplication::translate("MainWindow", "Play", 0));
+        currentLable->setText(QApplication::translate("MainWindow", "0", 0));
+        totalLable->setText(QApplication::translate("MainWindow", "0", 0));
         menuFichier->setTitle(QApplication::translate("MainWindow", "Fichier", 0));
     } // retranslateUi
 

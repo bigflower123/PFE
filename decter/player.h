@@ -18,7 +18,7 @@ class player: public QThread
     QWaitCondition condition;
     Mat frame;
     int frameRate;
-    VideoCapture capture;
+    VideoCapture *capture;
     Mat RGBframe;
     QImage img;
  signals:
@@ -41,6 +41,14 @@ class player: public QThread
     void Stop();
     //check if the player has been stopped
     bool isStopped() const;
+
+    //set video properties
+    void setCurrentFrame( int frameNumber);
+
+    //Get video properties
+    double getFrameRate();
+    double getCurrentFrame();
+    double getNumberOfFrames();
 };
 
 #endif // PLAYER_H

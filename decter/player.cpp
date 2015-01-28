@@ -13,10 +13,10 @@ void player::msleep(int ms){
 }
 
 bool player::loadVideo(string filename) {
-    capture.open(filename);
-    if (capture.isOpened())
+    capture  =  new cv::VideoCapture(filename);
+    if (capture->isOpened())
     {
-        frameRate = (int) capture.get(CV_CAP_PROP_FPS);
+        frameRate = (int) capture->get(CV_CAP_PROP_FPS);
         return true;
     }
     else
@@ -37,7 +37,7 @@ void player::run()
 {
     int delay = (1000/frameRate);
     while(!stop){
-        if (!capture.read(frame))
+        if (!capture->read(frame))
         {
             stop = true;
         }
@@ -60,7 +60,8 @@ player::~player()
 {
     mutex.lock();
     stop = true;
-    capture.release();
+    capture->release();
+    delete capture;
     condition.wakeOne();
     mutex.unlock();
     wait();
@@ -73,4 +74,22 @@ void player::Stop()
 
 bool player::isStopped() const{
     return this->stop;
+}
+
+double player::getCurrentFrame(){
+    return capture->get(CV_CAP_PROP_POS_FRAMES);
+}
+
+double player::getNumberOfFrames(){
+
+    return capture->get(CV_CAP_PROP_FRAME_COUNT);
+}
+
+double player::getFrameRate(){
+    return frameRate;
+}
+
+void player::setCurrentFrame( int frameNumber )
+{
+    capture->set(CV_CAP_PROP_POS_FRAMES, frameNumber);
 }

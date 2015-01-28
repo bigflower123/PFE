@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QTime>
 #include "player.h"
 
 namespace Ui {
@@ -25,6 +26,10 @@ private slots:
     void chooseVideo();
     // Slot for the play push button.
     void on_playBtn_clicked();
+    QString getFormattedTime(int timeInSeconds);
+    void on_videoSlider_sliderPressed();
+    void on_videoSlider_sliderReleased();
+    void on_videoSlider_sliderMoved(int position);
 
 private:
     Ui::MainWindow *ui;
