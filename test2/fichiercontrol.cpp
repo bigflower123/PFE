@@ -59,7 +59,7 @@ void fichierControl::openVideo(QString &fileName, QGraphicsView *videoGraphicsvi
     /*if(totalFrameNumber != 0){
          createTrackbar("Position", "MyVideo", &currentFrame, totalFrameNumber, tbCallback, &frame);
     }*/
-    while(!stop && !isPause)
+    while(!stop)
     {
          bool bSuccess = cap.read(frame); // read a new frame from video
          if (!bSuccess) //if not success, break loop
@@ -96,11 +96,22 @@ void fichierControl::openVideo(QString &fileName, QGraphicsView *videoGraphicsvi
          //setTrackbarPos("Position", "MyVideo",currentFrame);
      }
     //Close video file
-    isPause = false;
     cap.release();
     waitKey(0);
 }
 
-void fichierControl::pauseVideo(){
-    isPause = true;
+void fichierControl::pauseVideo(QGraphicsView *videoGraphicsview){
+    double position= 100.0;
+    cap.set(CV_CAP_PROP_POS_FRAMES, position);
+    bool bSuccess = cap.read(frame); // read a new frame from video
+    if (!bSuccess) //if not success, break loop
+    {
+           cout << "Cannot read the frame from video file" << endl;
+    }
+    QImage image = QImage((uchar*)(frame.data), frame.cols, frame.rows, frame.step, QImage::Format_RGB888);
+    QImage result = image.scaled(800,600).scaled(495,325, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    QGraphicsScene *scene = new QGraphicsScene;
+    scene->addPixmap(QPixmap::fromImage(result));
+    videoGraphicsview->setScene(scene);
+    videoGraphicsview->show();
 }

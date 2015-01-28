@@ -1,8 +1,8 @@
 #include <QtWidgets/QMainWindow>
 #include <QFileDialog>
+#include <QMessageBox>
 #include <opencv2\opencv.hpp>
 #include "ui_mainwindow.h"
-#include "fichiercontrol.h"
 
 using namespace cv;
 class MainWindow : public QMainWindow
@@ -12,7 +12,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    fichierControl *fichierManage = new fichierControl();
+    //fichierControl *fichierManage = new fichierControl();
 
 public slots:
     void chooseVideo();

@@ -28,7 +28,7 @@ void MainWindow::chooseVideo(){
 }
 
 void MainWindow::pauseVideo(){
-    fichierManage->pauseVideo();
+    fichierManage->pauseVideo(ui.graphicsView);
 }
 
 /*void MainWindow::openVideo()

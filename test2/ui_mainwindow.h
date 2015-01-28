@@ -15,6 +15,7 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
@@ -41,6 +42,8 @@ public:
     QPushButton *pauseBtn;
     QProgressBar *progressBar;
     QSlider *videoSlider;
+    QLabel *currentLbl;
+    QLabel *TotalLbl;
     QMenuBar *menuBar;
     QMenu *menuFichier;
     QMenu *menuInformation;
@@ -69,18 +72,24 @@ public:
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         graphicsView = new QGraphicsView(centralWidget);
         graphicsView->setObjectName(QStringLiteral("graphicsView"));
-        graphicsView->setGeometry(QRect(0, 30, 511, 330));
+        graphicsView->setGeometry(QRect(20, 10, 511, 330));
         pauseBtn = new QPushButton(centralWidget);
         pauseBtn->setObjectName(QStringLiteral("pauseBtn"));
-        pauseBtn->setGeometry(QRect(450, 390, 61, 31));
+        pauseBtn->setGeometry(QRect(580, 130, 61, 31));
         progressBar = new QProgressBar(centralWidget);
         progressBar->setObjectName(QStringLiteral("progressBar"));
         progressBar->setGeometry(QRect(0, 350, 551, 21));
         progressBar->setValue(24);
         videoSlider = new QSlider(centralWidget);
         videoSlider->setObjectName(QStringLiteral("videoSlider"));
-        videoSlider->setGeometry(QRect(10, 380, 511, 19));
+        videoSlider->setGeometry(QRect(70, 380, 451, 19));
         videoSlider->setOrientation(Qt::Horizontal);
+        currentLbl = new QLabel(centralWidget);
+        currentLbl->setObjectName(QStringLiteral("currentLbl"));
+        currentLbl->setGeometry(QRect(10, 380, 46, 13));
+        TotalLbl = new QLabel(centralWidget);
+        TotalLbl->setObjectName(QStringLiteral("TotalLbl"));
+        TotalLbl->setGeometry(QRect(530, 380, 46, 13));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -125,6 +134,8 @@ public:
         actionInformationObjet->setText(QApplication::translate("MainWindow", "Information objet", 0));
         actionDeplacement->setText(QApplication::translate("MainWindow", "D\303\251placement max", 0));
         pauseBtn->setText(QApplication::translate("MainWindow", "Pause", 0));
+        currentLbl->setText(QApplication::translate("MainWindow", "TextLabel", 0));
+        TotalLbl->setText(QApplication::translate("MainWindow", "TextLabel", 0));
         menuFichier->setTitle(QApplication::translate("MainWindow", "Fichier", 0));
         menuInformation->setTitle(QApplication::translate("MainWindow", "Information", 0));
         menuR_glage->setTitle(QApplication::translate("MainWindow", "R\303\251glage", 0));

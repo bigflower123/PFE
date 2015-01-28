@@ -14,10 +14,11 @@ class fichierControl
 public:
     fichierControl();
     void openVideo(QString &, QGraphicsView *videoGraphicsview, QProgressBar *);
-    void pauseVideo();
+    void pauseVideo(QGraphicsView *videoGraphicsview);
 
 private slots:
     void DisplayVideo(QGraphicsView *videoGraphicsview);
+
 private:
     Mat frame;
     bool isPause = false;
