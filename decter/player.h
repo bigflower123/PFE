@@ -49,6 +49,9 @@ class player: public QThread
     double getFrameRate();
     double getCurrentFrame();
     double getNumberOfFrames();
+
+    //Show image
+    QImage showImage( int frameNumber );
 };
 
 #endif // PLAYER_H

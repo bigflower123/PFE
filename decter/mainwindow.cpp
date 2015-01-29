@@ -112,7 +112,26 @@ void MainWindow::on_videoSlider_sliderMoved(int position)
 
 void MainWindow::on_backwardButton_clicked()
 {
+    QImage img;
     myPlayer->Stop();
     double framecourant = myPlayer->getCurrentFrame();
-    myPlayer->setCurrentFrame(framecourant--);
+    img = myPlayer->showImage(--framecourant);
+    ui->VideoLbl->setAlignment(Qt::AlignCenter);
+    ui->VideoLbl->setPixmap(QPixmap::fromImage(img).scaled(ui->VideoLbl->size(),
+                                                           Qt::KeepAspectRatio, Qt::FastTransformation));
+    ui->videoSlider->setValue(framecourant);
+    ui->currentLable->setText(QString::number(framecourant));
+}
+
+void MainWindow::on_forwardButton_clicked()
+{
+    QImage img;
+    myPlayer->Stop();
+    double framecourant = myPlayer->getCurrentFrame();
+    img = myPlayer->showImage(++framecourant);
+    ui->VideoLbl->setAlignment(Qt::AlignCenter);
+    ui->VideoLbl->setPixmap(QPixmap::fromImage(img).scaled(ui->VideoLbl->size(),
+                                                           Qt::KeepAspectRatio, Qt::FastTransformation));
+    ui->videoSlider->setValue(framecourant);
+    ui->currentLable->setText(QString::number(framecourant));
 }

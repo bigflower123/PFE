@@ -34,6 +34,8 @@ private slots:
     //Slot for the backward push button
     void on_backwardButton_clicked();
 
+    void on_forwardButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     player *myPlayer;

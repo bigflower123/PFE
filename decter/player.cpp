@@ -92,3 +92,16 @@ void player::setCurrentFrame( int frameNumber )
 {
     capture->set(CV_CAP_PROP_POS_FRAMES, frameNumber);
 }
+
+QImage player::showImage(int frameNumber){
+    capture->set(CV_CAP_PROP_POS_FRAMES, --frameNumber);
+    if(frameNumber > 0){
+        if(capture->read(frame)){
+            cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
+            img = QImage((const unsigned char*)(RGBframe.data),
+                          RGBframe.cols,RGBframe.rows,QImage::Format_RGB888);
+            return img;
+        }
+    }
+    return img;
+}
