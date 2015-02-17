@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
     myPlayer = new player();
     QObject::connect(ui->actionOuvrirVideo, SIGNAL(triggered()), this, SLOT(chooseVideo()));
     QObject::connect(myPlayer, SIGNAL(processedImage(QImage)), this, SLOT(updatePlayerUI(QImage)));
+    //QObject::connect(ui->VideoLbl, SIGNAL(Mouse_Pos()), this, SLOT(Mouse_current_pos()));
     /***Set Button et Slider disabled****/
     ui->playBtn->setEnabled(false);
     ui->backwardButton->setEnabled(false);
@@ -23,19 +24,36 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+/**
+ * @brief MainWindow::displayImage
+ * @param img: the image to display dans la window
+ * @param framecourant
+ */
+void MainWindow::displayImage(QImage img, double framecourant)
+{
+    ui->VideoLbl->setAlignment(Qt::AlignCenter);
+    ui->VideoLbl->setPixmap(QPixmap::fromImage(img).scaled(ui->VideoLbl->size(),
+                                                           Qt::KeepAspectRatio, Qt::FastTransformation));
+    ui->videoSlider->setValue(framecourant);
+    ui->currentLable->setText(QString::number(framecourant));
+}
+
+/**
+ * @brief MainWindow::updatePlayerUI: update the image dans la window
+ * @param img
+ */
 void MainWindow::updatePlayerUI(QImage img)
 {
     if (!img.isNull())
     {
-        ui->VideoLbl->setAlignment(Qt::AlignCenter);
-        ui->VideoLbl->setPixmap(QPixmap::fromImage(img).scaled(ui->VideoLbl->size(),
-                                                               Qt::KeepAspectRatio, Qt::FastTransformation));
-        ui->videoSlider->setValue(myPlayer->getCurrentFrame());
-        //ui->currentLable->setText( getFormattedTime( (int)myPlayer->getCurrentFrame()/(int)myPlayer->getFrameRate()) );
-        ui->currentLable->setText(QString::number(myPlayer->getCurrentFrame()));
+        displayImage(img, myPlayer->getCurrentFrame());
     }
 }
 
+/**
+ * Choose a video
+ * @brief MainWindow::chooseVideo
+ */
 void MainWindow::chooseVideo()
 {
     //Open filedialog to choose video file
@@ -66,7 +84,10 @@ void MainWindow::chooseVideo()
     }
 }
 
-
+/**
+ * stop and start the video
+ * @brief MainWindow::on_playBtn_clicked
+ */
 void MainWindow::on_playBtn_clicked()
 {
     if (myPlayer->isStopped())
@@ -80,6 +101,8 @@ void MainWindow::on_playBtn_clicked()
     }
 }
 
+//************************************************
+//------------Slider-----------------------------
 void MainWindow::on_videoSlider_sliderPressed()
 {
     myPlayer->Stop();
@@ -96,7 +119,7 @@ void MainWindow::on_videoSlider_sliderMoved(int position)
     //ui->currentLable->setText( getFormattedTime( position/(int)myPlayer->getFrameRate()) );
     ui->currentLable->setText(QString::number(myPlayer->getFrameRate()));
 }
-
+//************************************************
 /*QString MainWindow::getFormattedTime(int timeInSeconds){
 
     int seconds = (int) (timeInSeconds) % 60 ;
@@ -110,17 +133,14 @@ void MainWindow::on_videoSlider_sliderMoved(int position)
         return t.toString("h:mm:ss");
 }*/
 
+
 void MainWindow::on_backwardButton_clicked()
 {
     QImage img;
     myPlayer->Stop();
     double framecourant = myPlayer->getCurrentFrame();
     img = myPlayer->showImage(--framecourant);
-    ui->VideoLbl->setAlignment(Qt::AlignCenter);
-    ui->VideoLbl->setPixmap(QPixmap::fromImage(img).scaled(ui->VideoLbl->size(),
-                                                           Qt::KeepAspectRatio, Qt::FastTransformation));
-    ui->videoSlider->setValue(framecourant);
-    ui->currentLable->setText(QString::number(framecourant));
+    displayImage(img, framecourant);
 }
 
 void MainWindow::on_forwardButton_clicked()
@@ -129,9 +149,59 @@ void MainWindow::on_forwardButton_clicked()
     myPlayer->Stop();
     double framecourant = myPlayer->getCurrentFrame();
     img = myPlayer->showImage(++framecourant);
-    ui->VideoLbl->setAlignment(Qt::AlignCenter);
-    ui->VideoLbl->setPixmap(QPixmap::fromImage(img).scaled(ui->VideoLbl->size(),
-                                                           Qt::KeepAspectRatio, Qt::FastTransformation));
-    ui->videoSlider->setValue(framecourant);
-    ui->currentLable->setText(QString::number(framecourant));
+    displayImage(img, framecourant);
 }
+
+void MainWindow::mousePressEvent(QMouseEvent *evt){
+    Mat org, tmp;
+    Point pre_pt = (-1,-1);
+    char coord[16];
+    myPlayer->Stop();
+    double framecourant = myPlayer->getCurrentFrame();
+    org = myPlayer->getcurrentImage(framecourant);
+    org.copyTo(tmp);
+    QPoint point = ui->VideoLbl->mapFrom(this, evt->pos());
+    int x = point.x();
+    int y = point.y();
+    sprintf_s(coord,"(%d,%d)",x,y);
+    pre_pt = Point(x,y);
+    putText(tmp,coord,pre_pt,FONT_HERSHEY_SIMPLEX,1,Scalar(255,0,0,0),2,8);//Display coordinates in the window
+    circle(tmp,pre_pt,2,Scalar(255,0,0,0),CV_FILLED,CV_AA,0);
+    QImage img = QImage((const unsigned char*)(tmp.data),
+                  tmp.cols,tmp.rows,QImage::Format_RGB888);
+    displayImage(img, framecourant);
+    ui->statusBar->showMessage(QString("Mouse move (%1,%2)").arg(x).arg(y));
+}
+/*
+void MainWindow::mouseMoveEvent(QMouseEvent *evt){
+    QPoint point = ui->VideoLbl->mapFrom(this, evt->pos());
+
+}*/
+
+/*void MainWindow::Mouse_current_pos(){
+     ui->statusBar->showMessage(QString("Mouse move (%1,%2)").arg(ui->VideoLbl->x).arg(ui->VideoLbl->y));
+}*/
+
+bool MainWindow::eventFilter(QObject * object, QEvent * event){
+    Mat org, tmp;
+    Point pre_pt = (-1,-1);
+    char coord[16];
+    double framecourant = myPlayer->getCurrentFrame();
+    org = myPlayer->getcurrentImage(framecourant);
+    if(object == ui->VideoLbl){
+        if(event->type() == QEvent::MouseButtonPress){
+            QMouseEvent *mouseEvent = (QMouseEvent *)event;
+            org.copyTo(tmp);
+            QPoint point = ui->VideoLbl->mapFrom(this,mouseEvent->pos());
+            int x = point.x();
+            int y = point.y();
+            sprintf_s(coord,"(%d,%d)",x,y);
+            pre_pt = Point(x,y);
+            putText(tmp,coord,pre_pt,FONT_HERSHEY_SIMPLEX,0.5,Scalar(255,0,0,0),2,8);//Display coordinates in the window
+            namedWindow("img",WINDOW_NORMAL);
+            imshow("img",tmp);
+        }
+    }
+    return QMainWindow::eventFilter(object, event);
+}
+

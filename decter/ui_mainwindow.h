@@ -23,6 +23,7 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
+#include <video_qlabel.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -36,7 +37,7 @@ public:
     QAction *actionInformationObjet;
     QAction *actionDeplacement;
     QWidget *centralWidget;
-    QLabel *VideoLbl;
+    video_qlabel *VideoLbl;
     QPushButton *playBtn;
     QSlider *videoSlider;
     QLabel *currentLable;
@@ -69,7 +70,7 @@ public:
         actionDeplacement->setObjectName(QStringLiteral("actionDeplacement"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        VideoLbl = new QLabel(centralWidget);
+        VideoLbl = new video_qlabel(centralWidget);
         VideoLbl->setObjectName(QStringLiteral("VideoLbl"));
         VideoLbl->setGeometry(QRect(20, 20, 521, 321));
         VideoLbl->setStyleSheet(QStringLiteral("Background-color: #000;"));
@@ -89,11 +90,11 @@ public:
         totalLable->setGeometry(QRect(470, 350, 41, 20));
         forwardButton = new QPushButton(centralWidget);
         forwardButton->setObjectName(QStringLiteral("forwardButton"));
-        forwardButton->setGeometry(QRect(490, 350, 75, 23));
+        forwardButton->setGeometry(QRect(500, 350, 41, 23));
         forwardButton->setStyleSheet(QStringLiteral("border-radius:7.5px;border:2px groove gray;"));
         backwardButton = new QPushButton(centralWidget);
         backwardButton->setObjectName(QStringLiteral("backwardButton"));
-        backwardButton->setGeometry(QRect(20, 350, 75, 23));
+        backwardButton->setGeometry(QRect(20, 350, 41, 23));
         backwardButton->setStyleSheet(QStringLiteral("border-radius:7.5px;border:2px groove gray;"));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);

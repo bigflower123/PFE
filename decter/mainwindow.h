@@ -5,7 +5,9 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QTime>
+#include <QMouseEvent>
 #include "player.h"
+#include "video_qlabel.h"
 
 namespace Ui {
 class MainWindow;
@@ -33,12 +35,17 @@ private slots:
     void on_videoSlider_sliderMoved(int position);
     //Slot for the backward push button
     void on_backwardButton_clicked();
-
+    //Slot for the forward push button
     void on_forwardButton_clicked();
+    //void Mouse_current_pos();
+    void mousePressEvent(QMouseEvent *);
+    bool eventFilter(QObject *, QEvent *);
 
 private:
     Ui::MainWindow *ui;
     player *myPlayer;
+    void displayImage(QImage, double);
+
 };
 
 #endif // MAINWINDOW_H

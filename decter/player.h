@@ -21,6 +21,7 @@ class player: public QThread
     VideoCapture *capture;
     Mat RGBframe;
     QImage img;
+
  signals:
      //Signal to output frame to be displayed
      void processedImage(const QImage &image);
@@ -52,6 +53,9 @@ class player: public QThread
 
     //Show image
     QImage showImage( int frameNumber );
+
+    //Get current image
+    Mat getcurrentImage( int frameNumber );
 };
 
 #endif // PLAYER_H

@@ -105,3 +105,14 @@ QImage player::showImage(int frameNumber){
     }
     return img;
 }
+
+Mat player::getcurrentImage(int frameNumber){
+    capture->set(CV_CAP_PROP_POS_FRAMES, --frameNumber);
+    if(frameNumber > 0){
+        if(capture->read(frame)){
+            cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
+            return RGBframe;
+        }
+    }
+    return RGBframe;
+}

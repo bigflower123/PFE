@@ -14,10 +14,14 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    player.cpp
+    player.cpp \
+    traiter.cpp \
+    video_qlabel.cpp
 
 HEADERS  += mainwindow.h \
-    player.h
+    player.h \
+    traiter.h \
+    video_qlabel.h
 
 FORMS    += mainwindow.ui
 

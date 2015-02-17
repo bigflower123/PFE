@@ -14,7 +14,7 @@
    <string>Vidéo</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QLabel" name="VideoLbl">
+   <widget class="video_qlabel" name="VideoLbl">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -193,6 +193,13 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>video_qlabel</class>
+   <extends>QLabel</extends>
+   <header location="global">video_qlabel.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>
