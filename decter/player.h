@@ -7,6 +7,7 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
+#include "save.h"
 
 using namespace cv;
 class player: public QThread
@@ -21,6 +22,9 @@ class player: public QThread
     VideoCapture *capture;
     Mat RGBframe;
     QImage img;
+    Mat objectchoose;
+    QString videoPath;
+    Save *mySaver;
 
  signals:
      //Signal to output frame to be displayed
@@ -50,12 +54,16 @@ class player: public QThread
     double getFrameRate();
     double getCurrentFrame();
     double getNumberOfFrames();
+    Size getFrameSize();
 
     //Show image
     QImage showImage( int frameNumber );
 
     //Get current image
     Mat getcurrentImage( int frameNumber );
+
+    void setObjectChoose(Mat);
+    void setFileName(QString);
 };
 
 #endif // PLAYER_H

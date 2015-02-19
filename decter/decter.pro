@@ -16,12 +16,14 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     player.cpp \
     traiter.cpp \
-    video_qlabel.cpp
+    video_qlabel.cpp \
+    save.cpp
 
 HEADERS  += mainwindow.h \
     player.h \
     traiter.h \
-    video_qlabel.h
+    video_qlabel.h \
+    save.h
 
 FORMS    += mainwindow.ui
 

@@ -26,6 +26,8 @@ private slots:
     void updatePlayerUI(QImage img);
     //Slot for the load video
     void chooseVideo();
+    //Slot for choose save path
+    void choosePath();
     //Slot for the play push button.
     void on_playBtn_clicked();
     //QString getFormattedTime(int timeInSeconds);
@@ -38,12 +40,20 @@ private slots:
     //Slot for the forward push button
     void on_forwardButton_clicked();
     //void Mouse_current_pos();
-    void mousePressEvent(QMouseEvent *);
-    bool eventFilter(QObject *, QEvent *);
+     void mousePressEvent(QMouseEvent *);
+     void mouseMoveEvent(QMouseEvent *);
+     void mouseReleaseEvent(QMouseEvent *);
+protected:
+    //bool eventFilter(QObject *, QEvent *);
 
 private:
     Ui::MainWindow *ui;
     player *myPlayer;
+    Mat org, tmp, img;
+    Point pre_pt = (-1,-1);
+    Point cur_pt = (-1,-1);
+    int taille = 0;
+    double valueScale = 1.0;
     void displayImage(QImage, double);
 
 };

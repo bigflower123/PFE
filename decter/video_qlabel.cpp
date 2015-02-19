@@ -5,7 +5,7 @@ video_qlabel::video_qlabel(QWidget *parent) :
 {
 }
 
-/*void video_qlabel::eventFilter(QObject *obj, QEvent *event){
+/*bool video_qlabel::eventFilter(QObject *obj, QEvent *event){
     if(event->type() == QEvent::MouseButtonPress && event->type() == QEvent::MouseMove){
 
     }

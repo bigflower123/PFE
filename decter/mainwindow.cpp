@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     myPlayer = new player();
     QObject::connect(ui->actionOuvrirVideo, SIGNAL(triggered()), this, SLOT(chooseVideo()));
+    QObject::connect(ui->actionSauvegarderVideo, SIGNAL(triggered()), this, SLOT(choosePath()));
     QObject::connect(myPlayer, SIGNAL(processedImage(QImage)), this, SLOT(updatePlayerUI(QImage)));
     //QObject::connect(ui->VideoLbl, SIGNAL(Mouse_Pos()), this, SLOT(Mouse_current_pos()));
     /***Set Button et Slider disabled****/
@@ -16,6 +17,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->forwardButton->setEnabled(false);
     ui->videoSlider->setEnabled(false);
     /***********************************/
+    this->setMouseTracking(true);
+    ui->VideoLbl->installEventFilter(this);
 }
 
 MainWindow::~MainWindow()
@@ -33,7 +36,7 @@ void MainWindow::displayImage(QImage img, double framecourant)
 {
     ui->VideoLbl->setAlignment(Qt::AlignCenter);
     ui->VideoLbl->setPixmap(QPixmap::fromImage(img).scaled(ui->VideoLbl->size(),
-                                                           Qt::KeepAspectRatio, Qt::FastTransformation));
+                            Qt::KeepAspectRatio, Qt::FastTransformation));
     ui->videoSlider->setValue(framecourant);
     ui->currentLable->setText(QString::number(framecourant));
 }
@@ -82,6 +85,13 @@ void MainWindow::chooseVideo()
             ui->totalLable->setText(QString::number(myPlayer->getNumberOfFrames()));
         }
     }
+}
+
+void MainWindow::choosePath()
+{
+    QString fileName = QFileDialog::getSaveFileName(this, "Save video", "",
+                                                    "Vidéo fichiers (*.avi *.mp4 *.asf);;All files (*.*)");
+    myPlayer->setFileName(fileName);
 }
 
 /**
@@ -133,7 +143,7 @@ void MainWindow::on_videoSlider_sliderMoved(int position)
         return t.toString("h:mm:ss");
 }*/
 
-
+/************Backward and Forward*****************/
 void MainWindow::on_backwardButton_clicked()
 {
     QImage img;
@@ -151,57 +161,134 @@ void MainWindow::on_forwardButton_clicked()
     img = myPlayer->showImage(++framecourant);
     displayImage(img, framecourant);
 }
-
+/*************Backward and Forward*****************/
+/************Choose object*************************/
 void MainWindow::mousePressEvent(QMouseEvent *evt){
-    Mat org, tmp;
-    Point pre_pt = (-1,-1);
     char coord[16];
     myPlayer->Stop();
     double framecourant = myPlayer->getCurrentFrame();
     org = myPlayer->getcurrentImage(framecourant);
-    org.copyTo(tmp);
+    org.copyTo(img);
     QPoint point = ui->VideoLbl->mapFrom(this, evt->pos());
     int x = point.x();
     int y = point.y();
     sprintf_s(coord,"(%d,%d)",x,y);
-    pre_pt = Point(x,y);
-    putText(tmp,coord,pre_pt,FONT_HERSHEY_SIMPLEX,1,Scalar(255,0,0,0),2,8);//Display coordinates in the window
-    circle(tmp,pre_pt,2,Scalar(255,0,0,0),CV_FILLED,CV_AA,0);
-    QImage img = QImage((const unsigned char*)(tmp.data),
-                  tmp.cols,tmp.rows,QImage::Format_RGB888);
-    displayImage(img, framecourant);
-    ui->statusBar->showMessage(QString("Mouse move (%1,%2)").arg(x).arg(y));
+    QImage qimg = QImage((const unsigned char*)(img.data),
+                  img.cols,img.rows,QImage::Format_RGB888);
+    //double labelsize = ui->VideoLbl->size();
+    int imgheight = qimg.size().height();
+    int imgwidth = qimg.size().width();
+    int labelheight = ui->VideoLbl->size().height();
+    int labelwidth = ui->VideoLbl->size().width();
+    valueScale = (imgheight * imgwidth)/(labelheight * labelwidth);
+    printf("%d",valueScale);
+    pre_pt = Point(x*valueScale,y*valueScale);
+    putText(img,coord,pre_pt,FONT_HERSHEY_SIMPLEX,1,Scalar(255,0,0,0),2,8);//Display coordinates in the window
+    circle(img,pre_pt,2,Scalar(255,0,0,0),CV_FILLED,CV_AA,0);
+    displayImage(qimg, framecourant);
+    ui->statusBar->showMessage(QString("Mouse press (%1,%2)").arg(x).arg(y));
 }
-/*
+
 void MainWindow::mouseMoveEvent(QMouseEvent *evt){
+    char coord[16];
+    myPlayer->Stop();
+    double framecourant = myPlayer->getCurrentFrame();
+    img.copyTo(tmp);
     QPoint point = ui->VideoLbl->mapFrom(this, evt->pos());
+    int x = point.x();
+    int y = point.y();
+    sprintf_s(coord,"(%d,%d)",x,y);
+    cur_pt = Point(x,y);
+    putText(tmp,coord,cur_pt,FONT_HERSHEY_SIMPLEX,1,Scalar(0,0,255,0),2,8);
+    rectangle(tmp,pre_pt,cur_pt,Scalar(0,255,0,0),2,8,0);//Drag the mouse, display the rectangle on the temporary image
+    QImage qimg = QImage((const unsigned char*)(tmp.data),
+                  tmp.cols,tmp.rows,QImage::Format_RGB888);
+    displayImage(qimg, framecourant);
+    ui->statusBar->showMessage(QString("Mouse move(%1,%2)").arg(x).arg(y));
 
-}*/
+}
 
+void MainWindow::mouseReleaseEvent(QMouseEvent * evt){
+    char coord[16];
+    myPlayer->Stop();
+    double framecourant = myPlayer->getCurrentFrame();
+    tmp.copyTo(img);
+    QPoint point = ui->VideoLbl->mapFrom(this, evt->pos());
+    int x = point.x();
+    int y = point.y();
+    sprintf_s(coord,"(%d,%d)",x,y);
+    cur_pt = Point(x,y);
+    int width = abs(pre_pt.x - cur_pt.x);
+    int height = abs(pre_pt.y - cur_pt.y);
+    if(width<height)
+    {taille = width;}
+    else
+    {taille = height;}
+    if (width == 0 || height == 0)
+    {
+       ui->statusBar->showMessage(QString("Choose a object"));
+    }
+    if(width != 0 && height != 0){
+        putText(img,coord,cur_pt,FONT_HERSHEY_SIMPLEX,1,Scalar(255,0,0,0),2,8);
+        circle(img,pre_pt,2,Scalar(255,0,0,0),CV_FILLED,CV_AA,0);
+        QImage qimg = QImage((const unsigned char*)(tmp.data),
+                      tmp.cols,tmp.rows,QImage::Format_RGB888);
+        displayImage(qimg, framecourant);
+        img.copyTo(tmp);
+        ui->statusBar->showMessage(QString("Mouse release"));
+    }
+    /********************************************************/
+    Mat dst = org(Rect(min(cur_pt.x,pre_pt.x),min(cur_pt.y,pre_pt.y),width,height));
+    myPlayer->setObjectChoose(dst);
+    /********************************************************/
+}
+/*****************************Choose object********************/
 /*void MainWindow::Mouse_current_pos(){
      ui->statusBar->showMessage(QString("Mouse move (%1,%2)").arg(ui->VideoLbl->x).arg(ui->VideoLbl->y));
 }*/
 
-bool MainWindow::eventFilter(QObject * object, QEvent * event){
-    Mat org, tmp;
+/*bool MainWindow::eventFilter(QObject * obj, QEvent * evt){
+    Mat org, tmp, img;
     Point pre_pt = (-1,-1);
+    Point cur_pt = (-1,-1);
     char coord[16];
-    double framecourant = myPlayer->getCurrentFrame();
-    org = myPlayer->getcurrentImage(framecourant);
-    if(object == ui->VideoLbl){
-        if(event->type() == QEvent::MouseButtonPress){
-            QMouseEvent *mouseEvent = (QMouseEvent *)event;
-            org.copyTo(tmp);
-            QPoint point = ui->VideoLbl->mapFrom(this,mouseEvent->pos());
-            int x = point.x();
-            int y = point.y();
-            sprintf_s(coord,"(%d,%d)",x,y);
-            pre_pt = Point(x,y);
-            putText(tmp,coord,pre_pt,FONT_HERSHEY_SIMPLEX,0.5,Scalar(255,0,0,0),2,8);//Display coordinates in the window
-            namedWindow("img",WINDOW_NORMAL);
-            imshow("img",tmp);
+    QMouseEvent *mouseEvent = (QMouseEvent *)evt;
+    QPoint point = ui->VideoLbl->mapFrom(this, mouseEvent->pos());
+    int x = point.x();
+    int y = point.y();
+    if(obj == ui->VideoLbl){
+        double framecourant = myPlayer->getCurrentFrame();
+        org = myPlayer->getcurrentImage(framecourant);
+        if(evt->type() == QEvent::MouseButtonPress){
+            if(mouseEvent->buttons()&Qt::LeftButton){
+
+                org.copyTo(img);
+                sprintf_s(coord,"(%d,%d)",x,y);
+                pre_pt = Point(x,y);
+                putText(img,coord,pre_pt,FONT_HERSHEY_SIMPLEX,1,Scalar(255,0,0,0),2,8);//Display coordinates in the window
+                circle(img,pre_pt,2,Scalar(255,0,0,0),CV_FILLED,CV_AA,0);
+                QImage qimg = QImage((const unsigned char*)(img.data),
+                              img.cols,img.rows,QImage::Format_RGB888);
+                displayImage(qimg, framecourant);
+                ui->statusBar->showMessage(QString("Mouse press (%1,%2)").arg(x).arg(y));
+            }
+        }else if(evt->type() == QEvent::MouseMove){
+           img.copyTo(tmp);
+           sprintf_s(coord,"(%d,%d)",x,y);
+           cur_pt = Point(x,y);
+           putText(tmp,coord,cur_pt,FONT_HERSHEY_SIMPLEX,0.5,Scalar(0,0,255,0),2,8);
+           rectangle(tmp,pre_pt,cur_pt,Scalar(0,255,0,0),2,8,0);//Drag the mouse, display the rectangle on the temporary image
+           QImage qimg = QImage((const unsigned char*)(tmp.data),
+                         tmp.cols,tmp.rows,QImage::Format_RGB888);
+           displayImage(qimg, framecourant);
+           ui->statusBar->showMessage(QString("Mouse move"));
+        }else if(evt->type() == QEvent::MouseButtonRelease){
+           ui->statusBar->showMessage(QString("Mouse release"));
+        }
+        else{
+          return false;
         }
     }
-    return QMainWindow::eventFilter(object, event);
-}
+    return QMainWindow::eventFilter(obj, evt);
+}*/
 
