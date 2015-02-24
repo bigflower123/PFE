@@ -1,17 +1,26 @@
 #include "save.h"
 
-Save::Save(string tmpPath, Size tmpSize, double tmpRate)
+Save::Save(string tmpPath, Size tmpSize, double tmpRate, int tmpMyCodec)
 {
     videoPath = tmpPath;
     frameSize = tmpSize;
     frameRate = tmpRate;
+    myCodec = tmpMyCodec;
+    outputVideo.open(videoPath, myCodec,frameRate,frameSize,true);
+    if(!outputVideo.isOpened()){
+        printf("output video could not be opened");
+    }
+}
+
+Save::~Save()
+{
+
 }
 
 void Save::SaveVideo(Mat currentframe)
 {
-    outputVideo.open(videoPath, CV_FOURCC('M','P','4','2'), frameRate,frameSize,true);
-    if(outputVideo.isOpened())
-        outputVideo << currentframe;
+    resize(currentframe, currentframe,frameSize);
+    outputVideo.write(currentframe);
 }
 
 void Save::SaveCoordinate(Point &)

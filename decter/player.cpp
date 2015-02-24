@@ -36,7 +36,7 @@ void player::Play(){
 void player::run()
 {
     int delay = (1000/frameRate);
-    mySaver = new Save(videoPath.toStdString(), this->getFrameSize(), frameRate);
+    Save mySaver(videoPath.toStdString(), this->getFrameSize(), frameRate, this->getCodec());
     while(!stop){
         if (!capture->read(frame))
         {
@@ -46,13 +46,13 @@ void player::run()
             cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
             img = QImage((const unsigned char*)(RGBframe.data),
                           RGBframe.cols,RGBframe.rows,QImage::Format_RGB888);
-            mySaver->SaveVideo(RGBframe);
+            mySaver.SaveVideo(frame);
         }
         else
         {
             img = QImage((const unsigned char*)(frame.data),
                          frame.cols,frame.rows,QImage::Format_Indexed8);
-            mySaver->SaveVideo(frame);
+            mySaver.SaveVideo(frame);
         }
         emit processedImage(img);
         this->msleep(delay);
@@ -132,4 +132,8 @@ void player::setObjectChoose(Mat object){
 Size player::getFrameSize(){
     Size size = Size((int)capture->get(CV_CAP_PROP_FRAME_WIDTH), (int)capture->get(CV_CAP_PROP_FRAME_HEIGHT));
     return size;
+}
+
+int player::getCodec(){
+    return static_cast<int>(capture->get(CV_CAP_PROP_FOURCC));
 }

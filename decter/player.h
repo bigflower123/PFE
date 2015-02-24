@@ -24,7 +24,7 @@ class player: public QThread
     QImage img;
     Mat objectchoose;
     QString videoPath;
-    Save *mySaver;
+    //Save *mySaver;
 
  signals:
      //Signal to output frame to be displayed
@@ -55,6 +55,7 @@ class player: public QThread
     double getCurrentFrame();
     double getNumberOfFrames();
     Size getFrameSize();
+    int getCodec();
 
     //Show image
     QImage showImage( int frameNumber );

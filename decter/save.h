@@ -3,6 +3,7 @@
 
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
 #include <QString>
 
 using namespace cv;
@@ -10,7 +11,8 @@ using namespace cv;
 class Save
 {
 public:
-    Save(string fileName, Size ImgSize, double Rate);
+    Save(string fileName, Size ImgSize, double Rate, int MyCodec);
+    ~Save();
     void SaveVideo(Mat);  //Save video
     void SaveCoordinate(Point &); //Save nombre frame, coordinate(x,y) et le temps courant
 private:
@@ -20,6 +22,7 @@ private:
     string videoPath;  //Répertoire pour enregistrer les vidéos
     string coordinatePath;   //Répertoire pour enregistrer les données des coordonnées
     string commentPath;    //Répertoire pour enregistrer les commentaires
+    int myCodec;
 };
 
 #endif // SAVE_H
