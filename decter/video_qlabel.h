@@ -12,18 +12,24 @@ class video_qlabel : public QLabel
 public:
     explicit video_qlabel(QWidget *parent = 0);
     //void eventFilter(QObject *, QEvent *);
-    int x, y;
 
 signals:
-    void Mouse_Pressed();
-    void Mouse_Pos();
-    void Mouse_Left();
+    void Mouse_Pressed(int, int);
+    void Mouse_Move(int, int);
+    void Mouse_Left(int , int);
+    void Mouse_Move_Pressed(int, int);
 
-public slots:
+protected:
+     void mouseMoveEvent(QMouseEvent *evt);
+     void mousePressEvent(QMouseEvent *evt);
+     void mouseReleaseEvent(QMouseEvent *evt);
 
 private:
     player *myPlayer;
-    QImage org, img, tmpImg;
+    Mat org, img, tmp;
+    char coord[16];
+    Point pre_pt = (-1,-1);
+    Point cur_pt = (-1,-1);
 };
 
 #endif // VIDEO_QLABEL_H

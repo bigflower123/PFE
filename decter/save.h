@@ -22,7 +22,7 @@ private:
     string videoPath;  //Répertoire pour enregistrer les vidéos
     string coordinatePath;   //Répertoire pour enregistrer les données des coordonnées
     string commentPath;    //Répertoire pour enregistrer les commentaires
-    int myCodec;
+    int myCodec;    //Codec de video
 };
 
 #endif // SAVE_H

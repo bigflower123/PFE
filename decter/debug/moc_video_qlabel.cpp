@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_video_qlabel_t {
-    QByteArrayData data[5];
-    char stringdata[49];
+    QByteArrayData data[6];
+    char stringdata[69];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,11 +32,12 @@ static const qt_meta_stringdata_video_qlabel_t qt_meta_stringdata_video_qlabel =
 QT_MOC_LITERAL(0, 0, 12),
 QT_MOC_LITERAL(1, 13, 13),
 QT_MOC_LITERAL(2, 27, 0),
-QT_MOC_LITERAL(3, 28, 9),
-QT_MOC_LITERAL(4, 38, 10)
+QT_MOC_LITERAL(3, 28, 10),
+QT_MOC_LITERAL(4, 39, 10),
+QT_MOC_LITERAL(5, 50, 18)
     },
-    "video_qlabel\0Mouse_Pressed\0\0Mouse_Pos\0"
-    "Mouse_Left"
+    "video_qlabel\0Mouse_Pressed\0\0Mouse_Move\0"
+    "Mouse_Left\0Mouse_Move_Pressed"
 };
 #undef QT_MOC_LITERAL
 
@@ -46,22 +47,24 @@ static const uint qt_meta_data_video_qlabel[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       3,   14, // methods
+       4,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       3,       // signalCount
+       4,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   29,    2, 0x06 /* Public */,
-       3,    0,   30,    2, 0x06 /* Public */,
-       4,    0,   31,    2, 0x06 /* Public */,
+       1,    3,   34,    2, 0x06 /* Public */,
+       3,    2,   41,    2, 0x06 /* Public */,
+       4,    2,   46,    2, 0x06 /* Public */,
+       5,    2,   51,    2, 0x06 /* Public */,
 
  // signals: parameters
-    QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::QImage,    2,    2,    2,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int,    2,    2,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int,    2,    2,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int,    2,    2,
 
        0        // eod
 };
@@ -71,34 +74,40 @@ void video_qlabel::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
     if (_c == QMetaObject::InvokeMetaMethod) {
         video_qlabel *_t = static_cast<video_qlabel *>(_o);
         switch (_id) {
-        case 0: _t->Mouse_Pressed(); break;
-        case 1: _t->Mouse_Pos(); break;
-        case 2: _t->Mouse_Left(); break;
+        case 0: _t->Mouse_Pressed((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< QImage(*)>(_a[3]))); break;
+        case 1: _t->Mouse_Move((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 2: _t->Mouse_Left((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 3: _t->Mouse_Move_Pressed((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
         void **func = reinterpret_cast<void **>(_a[1]);
         {
-            typedef void (video_qlabel::*_t)();
+            typedef void (video_qlabel::*_t)(int , int , QImage );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&video_qlabel::Mouse_Pressed)) {
                 *result = 0;
             }
         }
         {
-            typedef void (video_qlabel::*_t)();
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&video_qlabel::Mouse_Pos)) {
+            typedef void (video_qlabel::*_t)(int , int );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&video_qlabel::Mouse_Move)) {
                 *result = 1;
             }
         }
         {
-            typedef void (video_qlabel::*_t)();
+            typedef void (video_qlabel::*_t)(int , int );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&video_qlabel::Mouse_Left)) {
                 *result = 2;
             }
         }
+        {
+            typedef void (video_qlabel::*_t)(int , int );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&video_qlabel::Mouse_Move_Pressed)) {
+                *result = 3;
+            }
+        }
     }
-    Q_UNUSED(_a);
 }
 
 const QMetaObject video_qlabel::staticMetaObject = {
@@ -126,32 +135,42 @@ int video_qlabel::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 3)
+        if (_id < 4)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 3;
+        _id -= 4;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 3)
+        if (_id < 4)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 3;
+        _id -= 4;
     }
     return _id;
 }
 
 // SIGNAL 0
-void video_qlabel::Mouse_Pressed()
+void video_qlabel::Mouse_Pressed(int _t1, int _t2, QImage _t3)
 {
-    QMetaObject::activate(this, &staticMetaObject, 0, 0);
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)) };
+    QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 
 // SIGNAL 1
-void video_qlabel::Mouse_Pos()
+void video_qlabel::Mouse_Move(int _t1, int _t2)
 {
-    QMetaObject::activate(this, &staticMetaObject, 1, 0);
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)) };
+    QMetaObject::activate(this, &staticMetaObject, 1, _a);
 }
 
 // SIGNAL 2
-void video_qlabel::Mouse_Left()
+void video_qlabel::Mouse_Left(int _t1, int _t2)
 {
-    QMetaObject::activate(this, &staticMetaObject, 2, 0);
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)) };
+    QMetaObject::activate(this, &staticMetaObject, 2, _a);
+}
+
+// SIGNAL 3
+void video_qlabel::Mouse_Move_Pressed(int _t1, int _t2)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)) };
+    QMetaObject::activate(this, &staticMetaObject, 3, _a);
 }
 QT_END_MOC_NAMESPACE

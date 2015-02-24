@@ -40,9 +40,14 @@ private slots:
     //Slot for the forward push button
     void on_forwardButton_clicked();
     //void Mouse_current_pos();
-     void mousePressEvent(QMouseEvent *);
+     /*void mousePressEvent(QMouseEvent *);
      void mouseMoveEvent(QMouseEvent *);
-     void mouseReleaseEvent(QMouseEvent *);
+     void mouseReleaseEvent(QMouseEvent *);*/
+     void myMouseMove(int, int);
+     void myMousePressed(int, int);
+     void myMouseLeft(int, int);
+     void myMouseMovePressed(int, int);
+
 protected:
     //bool eventFilter(QObject *, QEvent *);
 
