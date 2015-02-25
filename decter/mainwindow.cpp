@@ -10,23 +10,27 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(ui->actionOuvrirVideo, SIGNAL(triggered()), this, SLOT(chooseVideo()));
     QObject::connect(ui->actionSauvegarderVideo, SIGNAL(triggered()), this, SLOT(choosePath()));
     QObject::connect(myPlayer, SIGNAL(processedImage(QImage)), this, SLOT(updatePlayerUI(QImage)));
-    //QObject::connect(ui->VideoLbl, SIGNAL(Mouse_Pos()), this, SLOT(Mouse_current_pos()));
+    /*****For choose object**************/
+    ui->VideoLbl->setMouseTracking(true);
     QObject::connect(ui->VideoLbl, SIGNAL(Mouse_Move(int, int)), this, SLOT(myMouseMove(int, int)));
     QObject::connect(ui->VideoLbl, SIGNAL(Mouse_Pressed(int,int)), this, SLOT(myMousePressed(int, int)));
     QObject::connect(ui->VideoLbl, SIGNAL(Mouse_Left(int, int)), this, SLOT(myMouseLeft(int, int)));
     QObject::connect(ui->VideoLbl, SIGNAL(Mouse_Move_Pressed(int,int)), this, SLOT(myMouseMovePressed(int, int)));
+    /************************************/
+
     /***Set Button et Slider disabled****/
     ui->playBtn->setEnabled(false);
     ui->backwardButton->setEnabled(false);
     ui->forwardButton->setEnabled(false);
     ui->videoSlider->setEnabled(false);
     /***********************************/
-    ui->VideoLbl->setMouseTracking(true);
+    QObject::connect(ui->actionInformationObjet, SIGNAL(triggered()),this, SLOT(openInformationDialog()));
 }
 
 MainWindow::~MainWindow()
 {
     delete myPlayer;
+    delete infoDialog;
     delete ui;
 }
 
@@ -120,8 +124,7 @@ void MainWindow::on_playBtn_clicked()
     }
 }
 
-//************************************************
-//------------Slider-----------------------------
+/***************Slider*********************/
 void MainWindow::on_videoSlider_sliderPressed()
 {
     myPlayer->Stop();
@@ -138,19 +141,8 @@ void MainWindow::on_videoSlider_sliderMoved(int position)
     //ui->currentLable->setText( getFormattedTime( position/(int)myPlayer->getFrameRate()) );
     ui->currentLable->setText(QString::number(myPlayer->getFrameRate()));
 }
-//************************************************
-/*QString MainWindow::getFormattedTime(int timeInSeconds){
+/*******************************************/
 
-    int seconds = (int) (timeInSeconds) % 60 ;
-    int minutes = (int) ((timeInSeconds / 60) % 60);
-    int hours   = (int) ((timeInSeconds / (60*60)) % 24);
-
-    QTime t(hours, minutes, seconds);
-    if (hours == 0 )
-        return t.toString("mm:ss");
-    else
-        return t.toString("h:mm:ss");
-}*/
 
 /************Backward and Forward*****************/
 /**
@@ -178,14 +170,26 @@ void MainWindow::on_forwardButton_clicked()
     img = myPlayer->showImage(++framecourant);
     displayImage(img, framecourant);
 }
+/*************Backward and Forward*****************/
 
-
+/************Choose object*************************/
+/**
+ * Mouse move in the zone of VideoLbl, show the coordinate
+ * @brief MainWindow::myMouseMove
+ * @param x
+ * @param y
+ */
 void MainWindow::myMouseMove(int x, int y)
 {
     ui->statusBar->showMessage(QString("Mouse move (%1,%2)").arg(x).arg(y));
 }
 
-
+/**
+ * Mouse pressed, show the coordiantes and draw a point at that position
+ * @brief MainWindow::myMousePressed
+ * @param x
+ * @param y
+ */
 void MainWindow::myMousePressed(int x, int y)
 {
     myPlayer->Stop();
@@ -193,11 +197,19 @@ void MainWindow::myMousePressed(int x, int y)
     org = myPlayer->getcurrentImage(framecourant);
     org.copyTo(img);//Copy the original images to 'img'
     sprintf_s(temp,"(%d,%d)",x,y);
+
+    //Get width and height of the original video
     imgheight = myPlayer->getFrameHeight();
     imgwidth = myPlayer->getFrameWidth();
+    //Get width and height of the VideoLabel
     labelheight = ui->VideoLbl->size().height();
     labelwidth = ui->VideoLbl->size().width();
-    pre_pt = Point(x*(imgwidth/labelwidth),y*(imgheight/labelheight));
+    //Get width and height scale
+    heightscale = imgheight/labelheight;
+    widthscale = imgwidth/labelwidth;
+    //Le coordiante of point in the original image
+    pre_pt = Point(x*widthscale,y*heightscale);
+
     putText(img,temp,pre_pt,FONT_HERSHEY_SIMPLEX,0.8,Scalar(255,0,0,0),2,8);//Display coordinates in the window
     circle(img,pre_pt,2,Scalar(255,0,0,0),CV_FILLED,CV_AA,0);//draw circle
     QImage qimg = QImage((const unsigned char*)(img.data),
@@ -212,11 +224,7 @@ void MainWindow::myMouseMovePressed(int x, int y)
     double framecourant = myPlayer->getCurrentFrame();
     img.copyTo(tmp);
     sprintf_s(temp,"(%d,%d)",x,y);
-    imgheight = myPlayer->getFrameHeight();
-    imgwidth = myPlayer->getFrameWidth();
-    labelheight = ui->VideoLbl->size().height();
-    labelwidth = ui->VideoLbl->size().width();
-    cur_pt = Point(x*(imgwidth/labelwidth),y*(imgheight/labelheight));
+    cur_pt = Point(x*widthscale,y*heightscale);
     putText(tmp,temp,cur_pt,FONT_HERSHEY_SIMPLEX,0.8,Scalar(0,0,255,0),2,8);
     rectangle(tmp,pre_pt,cur_pt,Scalar(0,255,0,0),2,8,0);//Drag the mouse, display the rectangle on the temporary image
     QImage qimg = QImage((const unsigned char*)(tmp.data),
@@ -225,14 +233,44 @@ void MainWindow::myMouseMovePressed(int x, int y)
     ui->statusBar->showMessage(QString("Mouse move and press (%1,%2)").arg(x).arg(y));
 }
 
+
 void MainWindow::myMouseLeft(int x, int y)
 {
+    myPlayer->Stop();
+    double framecourant = myPlayer->getCurrentFrame();
+    tmp.copyTo(img);
+    sprintf_s(temp,"(%d,%d)",x,y);
+    cur_pt = Point(x*widthscale,y*heightscale);
+    putText(img,temp,cur_pt,FONT_HERSHEY_SIMPLEX,0.8,Scalar(255,0,0,0),2,8);
+    circle(img,pre_pt,2,Scalar(255,0,0,0),CV_FILLED,CV_AA,0);
+    QImage qimg = QImage((const unsigned char*)(img.data),
+                  img.cols,img.rows,QImage::Format_RGB888);
+    displayImage(qimg,framecourant);
+    img.copyTo(tmp);
     ui->statusBar->showMessage(QString("Mouse left (%1,%2)").arg(x).arg(y));
+
+    //Intercept the image surrounded by rectangle, and saved it to dst
+    int zonewidth = abs(pre_pt.x - cur_pt.x);
+    int zoneheight = abs(pre_pt.y - cur_pt.y);
+    if(zonewidth < zoneheight)
+    {taille = zonewidth;}
+    else
+    {taille = zoneheight;}
+    if (zonewidth == 0 || zoneheight == 0)
+    {
+        printf("width == 0 || height == 0");
+    }
+    dst = org(Rect(min(cur_pt.x,pre_pt.x),min(cur_pt.y,pre_pt.y),zonewidth, zoneheight));
 }
 
+/******************Choose object*******************/
 
-/*************Backward and Forward*****************/
 
+void MainWindow::openInformationDialog()
+{
+    infoDialog = new InformationDialog(this);
+    infoDialog->show();
+}
 
 
 /************Choose object*************************/
@@ -372,3 +410,15 @@ void MainWindow::mouseReleaseEvent(QMouseEvent * evt){
     return QMainWindow::eventFilter(obj, evt);
 }*/
 
+/*QString MainWindow::getFormattedTime(int timeInSeconds){
+
+    int seconds = (int) (timeInSeconds) % 60 ;
+    int minutes = (int) ((timeInSeconds / 60) % 60);
+    int hours   = (int) ((timeInSeconds / (60*60)) % 24);
+
+    QTime t(hours, minutes, seconds);
+    if (hours == 0 )
+        return t.toString("mm:ss");
+    else
+        return t.toString("h:mm:ss");
+}*/

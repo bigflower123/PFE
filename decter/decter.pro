@@ -17,15 +17,18 @@ SOURCES += main.cpp\
     player.cpp \
     traiter.cpp \
     video_qlabel.cpp \
-    save.cpp
+    save.cpp \
+    informationdialog.cpp
 
 HEADERS  += mainwindow.h \
     player.h \
     traiter.h \
     video_qlabel.h \
-    save.h
+    save.h \
+    informationdialog.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    informationdialog.ui
 
 INCLUDEPATH += C:/opencv/build/include
 LIBPATH += C:/opencv/build/x86/vc12/lib\

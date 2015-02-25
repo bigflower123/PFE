@@ -8,6 +8,7 @@
 #include <QMouseEvent>
 #include "player.h"
 #include "video_qlabel.h"
+#include "informationdialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -48,23 +49,24 @@ private slots:
      void myMouseLeft(int, int);
      void myMouseMovePressed(int, int);
 
+     void openInformationDialog();
+
 protected:
     //bool eventFilter(QObject *, QEvent *);
 
 private:
     Ui::MainWindow *ui;
     player *myPlayer;
-    Mat org, tmp, img;
+    Mat org, tmp, img, dst;
     Point pre_pt = (-1,-1);
     Point cur_pt = (-1,-1);
     int taille = 0;
     double valueScale = 1.0;
     void displayImage(QImage, double);
     char temp[16];
-    double imgheight;
-    double imgwidth;
-    double labelheight;
-    double labelwidth;
+    double imgheight,imgwidth,labelheight,labelwidth ;
+    double  heightscale, widthscale;
+    InformationDialog *infoDialog;
 
 };
 

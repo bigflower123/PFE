@@ -44,7 +44,6 @@ public:
     QLabel *totalLable;
     QPushButton *forwardButton;
     QPushButton *backwardButton;
-    QPushButton *chooseButton;
     QMenuBar *menuBar;
     QMenu *menuFichier;
     QMenu *menuInformation;
@@ -56,7 +55,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(779, 646);
+        MainWindow->resize(779, 600);
         actionOuvrirVideo = new QAction(MainWindow);
         actionOuvrirVideo->setObjectName(QStringLiteral("actionOuvrirVideo"));
         actionSauvegarderVideo = new QAction(MainWindow);
@@ -73,33 +72,30 @@ public:
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         VideoLbl = new video_qlabel(centralWidget);
         VideoLbl->setObjectName(QStringLiteral("VideoLbl"));
-        VideoLbl->setGeometry(QRect(20, 10, 671, 461));
+        VideoLbl->setGeometry(QRect(20, 10, 671, 411));
         VideoLbl->setStyleSheet(QStringLiteral("Background-color: #000;"));
         playBtn = new QPushButton(centralWidget);
         playBtn->setObjectName(QStringLiteral("playBtn"));
-        playBtn->setGeometry(QRect(250, 530, 61, 31));
+        playBtn->setGeometry(QRect(300, 470, 61, 31));
         playBtn->setStyleSheet(QStringLiteral("width:15px;height:15px;border-radius:7.5px;border:2px groove gray;"));
         videoSlider = new QSlider(centralWidget);
         videoSlider->setObjectName(QStringLiteral("videoSlider"));
-        videoSlider->setGeometry(QRect(130, 490, 321, 20));
+        videoSlider->setGeometry(QRect(150, 440, 391, 20));
         videoSlider->setOrientation(Qt::Horizontal);
         currentLable = new QLabel(centralWidget);
         currentLable->setObjectName(QStringLiteral("currentLable"));
-        currentLable->setGeometry(QRect(80, 490, 31, 16));
+        currentLable->setGeometry(QRect(90, 440, 31, 16));
         totalLable = new QLabel(centralWidget);
         totalLable->setObjectName(QStringLiteral("totalLable"));
-        totalLable->setGeometry(QRect(470, 490, 41, 20));
+        totalLable->setGeometry(QRect(580, 440, 41, 20));
         forwardButton = new QPushButton(centralWidget);
         forwardButton->setObjectName(QStringLiteral("forwardButton"));
-        forwardButton->setGeometry(QRect(520, 490, 41, 23));
+        forwardButton->setGeometry(QRect(650, 440, 41, 23));
         forwardButton->setStyleSheet(QStringLiteral("border-radius:7.5px;border:2px groove gray;"));
         backwardButton = new QPushButton(centralWidget);
         backwardButton->setObjectName(QStringLiteral("backwardButton"));
-        backwardButton->setGeometry(QRect(20, 490, 41, 23));
+        backwardButton->setGeometry(QRect(20, 440, 41, 23));
         backwardButton->setStyleSheet(QStringLiteral("border-radius:7.5px;border:2px groove gray;"));
-        chooseButton = new QPushButton(centralWidget);
-        chooseButton->setObjectName(QStringLiteral("chooseButton"));
-        chooseButton->setGeometry(QRect(90, 550, 75, 23));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -149,7 +145,6 @@ public:
         totalLable->setText(QApplication::translate("MainWindow", "0", 0));
         forwardButton->setText(QApplication::translate("MainWindow", ">>", 0));
         backwardButton->setText(QApplication::translate("MainWindow", "<<", 0));
-        chooseButton->setText(QApplication::translate("MainWindow", "Choisir", 0));
         menuFichier->setTitle(QApplication::translate("MainWindow", "Ficher", 0));
         menuInformation->setTitle(QApplication::translate("MainWindow", "Information", 0));
         menuReglage->setTitle(QApplication::translate("MainWindow", "R\303\251glage", 0));
