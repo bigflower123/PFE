@@ -44,6 +44,7 @@ public:
     QLabel *totalLable;
     QPushButton *forwardButton;
     QPushButton *backwardButton;
+    QPushButton *chooseButton;
     QMenuBar *menuBar;
     QMenu *menuFichier;
     QMenu *menuInformation;
@@ -96,6 +97,9 @@ public:
         backwardButton->setObjectName(QStringLiteral("backwardButton"));
         backwardButton->setGeometry(QRect(20, 490, 41, 23));
         backwardButton->setStyleSheet(QStringLiteral("border-radius:7.5px;border:2px groove gray;"));
+        chooseButton = new QPushButton(centralWidget);
+        chooseButton->setObjectName(QStringLiteral("chooseButton"));
+        chooseButton->setGeometry(QRect(90, 550, 75, 23));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -145,6 +149,7 @@ public:
         totalLable->setText(QApplication::translate("MainWindow", "0", 0));
         forwardButton->setText(QApplication::translate("MainWindow", ">>", 0));
         backwardButton->setText(QApplication::translate("MainWindow", "<<", 0));
+        chooseButton->setText(QApplication::translate("MainWindow", "Choisir", 0));
         menuFichier->setTitle(QApplication::translate("MainWindow", "Ficher", 0));
         menuInformation->setTitle(QApplication::translate("MainWindow", "Information", 0));
         menuReglage->setTitle(QApplication::translate("MainWindow", "R\303\251glage", 0));

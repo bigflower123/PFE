@@ -40,6 +40,7 @@ void MainWindow::displayImage(QImage img, double framecourant)
     ui->VideoLbl->setAlignment(Qt::AlignCenter);
     ui->VideoLbl->setPixmap(QPixmap::fromImage(img).scaled(ui->VideoLbl->size(),
                             Qt::KeepAspectRatio, Qt::FastTransformation));
+    ui->VideoLbl->adjustSize(); //Adjust size of the video
     ui->videoSlider->setValue(framecourant);
     ui->currentLable->setText(QString::number(framecourant));
 }
@@ -178,20 +179,50 @@ void MainWindow::on_forwardButton_clicked()
     displayImage(img, framecourant);
 }
 
+
 void MainWindow::myMouseMove(int x, int y)
 {
     ui->statusBar->showMessage(QString("Mouse move (%1,%2)").arg(x).arg(y));
 }
 
-void MainWindow::myMouseMovePressed(int x, int y)
-{
-    ui->statusBar->showMessage(QString("Mouse move and press (%1,%2)").arg(x).arg(y));
-}
 
 void MainWindow::myMousePressed(int x, int y)
 {
-
+    myPlayer->Stop();
+    double framecourant = myPlayer->getCurrentFrame();
+    org = myPlayer->getcurrentImage(framecourant);
+    org.copyTo(img);//Copy the original images to 'img'
+    sprintf_s(temp,"(%d,%d)",x,y);
+    imgheight = myPlayer->getFrameHeight();
+    imgwidth = myPlayer->getFrameWidth();
+    labelheight = ui->VideoLbl->size().height();
+    labelwidth = ui->VideoLbl->size().width();
+    pre_pt = Point(x*(imgwidth/labelwidth),y*(imgheight/labelheight));
+    putText(img,temp,pre_pt,FONT_HERSHEY_SIMPLEX,0.8,Scalar(255,0,0,0),2,8);//Display coordinates in the window
+    circle(img,pre_pt,2,Scalar(255,0,0,0),CV_FILLED,CV_AA,0);//draw circle
+    QImage qimg = QImage((const unsigned char*)(img.data),
+                  img.cols,img.rows,QImage::Format_RGB888);
+    displayImage(qimg,framecourant);
     ui->statusBar->showMessage(QString("Mouse press (%1,%2)").arg(x).arg(y));
+}
+
+void MainWindow::myMouseMovePressed(int x, int y)
+{
+    myPlayer->Stop();
+    double framecourant = myPlayer->getCurrentFrame();
+    img.copyTo(tmp);
+    sprintf_s(temp,"(%d,%d)",x,y);
+    imgheight = myPlayer->getFrameHeight();
+    imgwidth = myPlayer->getFrameWidth();
+    labelheight = ui->VideoLbl->size().height();
+    labelwidth = ui->VideoLbl->size().width();
+    cur_pt = Point(x*(imgwidth/labelwidth),y*(imgheight/labelheight));
+    putText(tmp,temp,cur_pt,FONT_HERSHEY_SIMPLEX,0.8,Scalar(0,0,255,0),2,8);
+    rectangle(tmp,pre_pt,cur_pt,Scalar(0,255,0,0),2,8,0);//Drag the mouse, display the rectangle on the temporary image
+    QImage qimg = QImage((const unsigned char*)(tmp.data),
+                  tmp.cols,tmp.rows,QImage::Format_RGB888);
+    displayImage(qimg,framecourant);
+    ui->statusBar->showMessage(QString("Mouse move and press (%1,%2)").arg(x).arg(y));
 }
 
 void MainWindow::myMouseLeft(int x, int y)

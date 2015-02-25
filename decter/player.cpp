@@ -137,3 +137,11 @@ Size player::getFrameSize(){
 int player::getCodec(){
     return static_cast<int>(capture->get(CV_CAP_PROP_FOURCC));
 }
+
+int player::getFrameHeight(){
+    return (int)capture->get(CV_CAP_PROP_FRAME_HEIGHT);
+}
+
+int player::getFrameWidth(){
+    return (int)capture->get(CV_CAP_PROP_FRAME_WIDTH);
+}

@@ -55,13 +55,13 @@ static const uint qt_meta_data_video_qlabel[] = {
        4,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    3,   34,    2, 0x06 /* Public */,
-       3,    2,   41,    2, 0x06 /* Public */,
-       4,    2,   46,    2, 0x06 /* Public */,
-       5,    2,   51,    2, 0x06 /* Public */,
+       1,    2,   34,    2, 0x06 /* Public */,
+       3,    2,   39,    2, 0x06 /* Public */,
+       4,    2,   44,    2, 0x06 /* Public */,
+       5,    2,   49,    2, 0x06 /* Public */,
 
  // signals: parameters
-    QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::QImage,    2,    2,    2,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int,    2,    2,
     QMetaType::Void, QMetaType::Int, QMetaType::Int,    2,    2,
     QMetaType::Void, QMetaType::Int, QMetaType::Int,    2,    2,
     QMetaType::Void, QMetaType::Int, QMetaType::Int,    2,    2,
@@ -74,7 +74,7 @@ void video_qlabel::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
     if (_c == QMetaObject::InvokeMetaMethod) {
         video_qlabel *_t = static_cast<video_qlabel *>(_o);
         switch (_id) {
-        case 0: _t->Mouse_Pressed((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< QImage(*)>(_a[3]))); break;
+        case 0: _t->Mouse_Pressed((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
         case 1: _t->Mouse_Move((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
         case 2: _t->Mouse_Left((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
         case 3: _t->Mouse_Move_Pressed((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
@@ -84,7 +84,7 @@ void video_qlabel::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         int *result = reinterpret_cast<int *>(_a[0]);
         void **func = reinterpret_cast<void **>(_a[1]);
         {
-            typedef void (video_qlabel::*_t)(int , int , QImage );
+            typedef void (video_qlabel::*_t)(int , int );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&video_qlabel::Mouse_Pressed)) {
                 *result = 0;
             }
@@ -147,9 +147,9 @@ int video_qlabel::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void video_qlabel::Mouse_Pressed(int _t1, int _t2, QImage _t3)
+void video_qlabel::Mouse_Pressed(int _t1, int _t2)
 {
-    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)) };
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 

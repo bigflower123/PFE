@@ -56,6 +56,8 @@ class player: public QThread
     double getNumberOfFrames();
     Size getFrameSize();
     int getCodec();
+    int getFrameHeight();
+    int getFrameWidth();
 
     //Show image
     QImage showImage( int frameNumber );

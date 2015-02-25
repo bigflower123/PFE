@@ -83,9 +83,9 @@ static const uint qt_meta_data_MainWindow[] = {
       11,    0,   90,    2, 0x08 /* Private */,
       12,    0,   91,    2, 0x08 /* Private */,
       13,    2,   92,    2, 0x08 /* Private */,
-      14,    3,   97,    2, 0x08 /* Private */,
-      15,    2,  104,    2, 0x08 /* Private */,
-      16,    2,  109,    2, 0x08 /* Private */,
+      14,    2,   97,    2, 0x08 /* Private */,
+      15,    2,  102,    2, 0x08 /* Private */,
+      16,    2,  107,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void, QMetaType::QImage,    3,
@@ -98,7 +98,7 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int, QMetaType::Int,    2,    2,
-    QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::QImage,    2,    2,    2,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int,    2,    2,
     QMetaType::Void, QMetaType::Int, QMetaType::Int,    2,    2,
     QMetaType::Void, QMetaType::Int, QMetaType::Int,    2,    2,
 
@@ -120,7 +120,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 7: _t->on_backwardButton_clicked(); break;
         case 8: _t->on_forwardButton_clicked(); break;
         case 9: _t->myMouseMove((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 10: _t->myMousePressed((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< QImage(*)>(_a[3]))); break;
+        case 10: _t->myMousePressed((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
         case 11: _t->myMouseLeft((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
         case 12: _t->myMouseMovePressed((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
         default: ;
