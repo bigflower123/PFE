@@ -9,6 +9,7 @@
 #include "player.h"
 #include "video_qlabel.h"
 #include "informationdialog.h"
+#include "deplacementmaxdialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -50,6 +51,7 @@ private slots:
      void myMouseMovePressed(int, int);
 
      void openInformationDialog();
+     void openDeplacementDialog();
 
 protected:
     //bool eventFilter(QObject *, QEvent *);
@@ -67,6 +69,7 @@ private:
     double imgheight,imgwidth,labelheight,labelwidth ;
     double  heightscale, widthscale;
     InformationDialog *infoDialog;
+    DeplacementMaxDialog *deplacementDialog;
 
 };
 

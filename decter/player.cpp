@@ -36,6 +36,7 @@ void player::Play(){
 void player::run()
 {
     int delay = (1000/frameRate);
+    //long nbframe = 1;
     Save mySaver(videoPath.toStdString(), this->getFrameSize(), frameRate, this->getCodec());
     while(!stop){
         if (!capture->read(frame))
@@ -54,6 +55,7 @@ void player::run()
                          frame.cols,frame.rows,QImage::Format_Indexed8);
             mySaver.SaveVideo(frame);
         }
+       // nbframe++;
         emit processedImage(img);
         this->msleep(delay);
     }
@@ -124,6 +126,22 @@ void player::setFileName(QString tmpFileName)
 {
     videoPath = tmpFileName;
 }
+
+void player::setDeplacementMax(int tmpDeplacement)
+{
+    deplacement = tmpDeplacement;
+}
+
+/*void player::setStartVideo(long tmpstart)
+{
+    beginFrame = tmpstart;
+    capture->set(CV_CAP_PROP_POS_MSEC, beginFrame);
+}
+
+void player::setFinVideo(long tmpfin)
+{
+    finFrame = tmpfin;
+}*/
 
 void player::setObjectChoose(Mat object){
     objectchoose = object;

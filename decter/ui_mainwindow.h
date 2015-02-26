@@ -44,6 +44,8 @@ public:
     QLabel *totalLable;
     QPushButton *forwardButton;
     QPushButton *backwardButton;
+    QPushButton *debutButton;
+    QPushButton *finButton;
     QMenuBar *menuBar;
     QMenu *menuFichier;
     QMenu *menuInformation;
@@ -55,7 +57,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(779, 600);
+        MainWindow->resize(906, 611);
         actionOuvrirVideo = new QAction(MainWindow);
         actionOuvrirVideo->setObjectName(QStringLiteral("actionOuvrirVideo"));
         actionSauvegarderVideo = new QAction(MainWindow);
@@ -96,10 +98,16 @@ public:
         backwardButton->setObjectName(QStringLiteral("backwardButton"));
         backwardButton->setGeometry(QRect(20, 440, 41, 23));
         backwardButton->setStyleSheet(QStringLiteral("border-radius:7.5px;border:2px groove gray;"));
+        debutButton = new QPushButton(centralWidget);
+        debutButton->setObjectName(QStringLiteral("debutButton"));
+        debutButton->setGeometry(QRect(120, 470, 75, 23));
+        finButton = new QPushButton(centralWidget);
+        finButton->setObjectName(QStringLiteral("finButton"));
+        finButton->setGeometry(QRect(510, 470, 75, 23));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 779, 21));
+        menuBar->setGeometry(QRect(0, 0, 906, 21));
         menuFichier = new QMenu(menuBar);
         menuFichier->setObjectName(QStringLiteral("menuFichier"));
         menuInformation = new QMenu(menuBar);
@@ -115,8 +123,8 @@ public:
         MainWindow->setStatusBar(statusBar);
 
         menuBar->addAction(menuFichier->menuAction());
-        menuBar->addAction(menuInformation->menuAction());
         menuBar->addAction(menuReglage->menuAction());
+        menuBar->addAction(menuInformation->menuAction());
         menuFichier->addAction(actionOuvrirVideo);
         menuFichier->addAction(actionSauvegarderVideo);
         menuFichier->addAction(actionSauvegarderDonnees);
@@ -145,6 +153,8 @@ public:
         totalLable->setText(QApplication::translate("MainWindow", "0", 0));
         forwardButton->setText(QApplication::translate("MainWindow", ">>", 0));
         backwardButton->setText(QApplication::translate("MainWindow", "<<", 0));
+        debutButton->setText(QApplication::translate("MainWindow", "D\303\251but", 0));
+        finButton->setText(QApplication::translate("MainWindow", "Fin", 0));
         menuFichier->setTitle(QApplication::translate("MainWindow", "Ficher", 0));
         menuInformation->setTitle(QApplication::translate("MainWindow", "Information", 0));
         menuReglage->setTitle(QApplication::translate("MainWindow", "R\303\251glage", 0));

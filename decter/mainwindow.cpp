@@ -25,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->videoSlider->setEnabled(false);
     /***********************************/
     QObject::connect(ui->actionInformationObjet, SIGNAL(triggered()),this, SLOT(openInformationDialog()));
+    QObject::connect(ui->actionDeplacement, SIGNAL(triggered()),this, SLOT(openDeplacementDialog()));
 }
 
 MainWindow::~MainWindow()
@@ -269,7 +270,15 @@ void MainWindow::myMouseLeft(int x, int y)
 void MainWindow::openInformationDialog()
 {
     infoDialog = new InformationDialog(this);
-    infoDialog->show();
+    infoDialog->setModal(false);
+    infoDialog->exec();
+}
+
+void MainWindow::openDeplacementDialog()
+{
+    deplacementDialog = new DeplacementMaxDialog(myPlayer);
+    deplacementDialog->setModal(false);
+    deplacementDialog->exec();
 }
 
 

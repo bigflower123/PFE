@@ -35,7 +35,7 @@ public:
 
     void retranslateUi(QDialog *InformationDialog)
     {
-        InformationDialog->setWindowTitle(QApplication::translate("InformationDialog", "Dialog", 0));
+        InformationDialog->setWindowTitle(QApplication::translate("InformationDialog", "Information object", 0));
     } // retranslateUi
 
 };

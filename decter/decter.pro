@@ -18,17 +18,20 @@ SOURCES += main.cpp\
     traiter.cpp \
     video_qlabel.cpp \
     save.cpp \
-    informationdialog.cpp
+    informationdialog.cpp \
+    deplacementmaxdialog.cpp
 
 HEADERS  += mainwindow.h \
     player.h \
     traiter.h \
     video_qlabel.h \
     save.h \
-    informationdialog.h
+    informationdialog.h \
+    deplacementmaxdialog.h
 
 FORMS    += mainwindow.ui \
-    informationdialog.ui
+    informationdialog.ui \
+    deplacementmaxdialog.ui
 
 INCLUDEPATH += C:/opencv/build/include
 LIBPATH += C:/opencv/build/x86/vc12/lib\

@@ -24,6 +24,9 @@ class player: public QThread
     QImage img;
     Mat objectchoose;
     QString videoPath;
+    int deplacement;
+   // long beginFrame = 1;
+   // long finFrame = getNumberOfFrames();
     //Save *mySaver;
 
  signals:
@@ -67,6 +70,9 @@ class player: public QThread
 
     void setObjectChoose(Mat);
     void setFileName(QString);
+    void setDeplacementMax(int);
+    /*void setStartVideo(long start);
+    void setFinVideo(long fin);*/
 };
 
 #endif // PLAYER_H

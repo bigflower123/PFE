@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>779</width>
-    <height>600</height>
+    <width>906</width>
+    <height>611</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -117,13 +117,39 @@
      <string>&lt;&lt;</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="debutButton">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>470</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Début</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="finButton">
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>470</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Fin</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>779</width>
+     <width>906</width>
      <height>21</height>
     </rect>
    </property>
@@ -149,8 +175,8 @@
     <addaction name="actionDeplacement"/>
    </widget>
    <addaction name="menuFichier"/>
-   <addaction name="menuInformation"/>
    <addaction name="menuReglage"/>
+   <addaction name="menuInformation"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
