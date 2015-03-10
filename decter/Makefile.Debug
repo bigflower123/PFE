@@ -632,6 +632,25 @@ debug\moc_informationdialog.cpp: C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QD
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qfiledevice.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qvector2d.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qtouchdevice.h \
+		player.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QMutex \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QThread \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qthread.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\QImage \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QWaitCondition \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qwaitcondition.h \
+		C:\opencv\build\include\opencv2\core\core.hpp \
+		C:\opencv\build\include\opencv2\core\types_c.h \
+		C:\opencv\build\include\opencv2\core\version.hpp \
+		C:\opencv\build\include\opencv2\core\operations.hpp \
+		C:\opencv\build\include\opencv2\core\mat.hpp \
+		C:\opencv\build\include\opencv2\imgproc\imgproc.hpp \
+		C:\opencv\build\include\opencv2\imgproc\types_c.h \
+		C:\opencv\build\include\opencv2\core\core_c.h \
+		C:\opencv\build\include\opencv2\highgui\highgui.hpp \
+		C:\opencv\build\include\opencv2\highgui\highgui_c.h \
+		save.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QString \
 		informationdialog.h
 	C:\Qt\Qt5.3.2\5.3\msvc2013\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -IC:/Qt/Qt5.3.2/5.3/msvc2013/mkspecs/win32-msvc2013 -ID:/PFE/decter -IC:/opencv/build/include -IC:/Qt/Qt5.3.2/5.3/msvc2013/include -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtWidgets -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtGui -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtANGLE -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtCore informationdialog.h -o debug\moc_informationdialog.cpp
 
@@ -736,6 +755,25 @@ debug\moc_deplacementmaxdialog.cpp: C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qfiledevice.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qvector2d.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qtouchdevice.h \
+		player.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QMutex \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QThread \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qthread.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\QImage \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QWaitCondition \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qwaitcondition.h \
+		C:\opencv\build\include\opencv2\core\core.hpp \
+		C:\opencv\build\include\opencv2\core\types_c.h \
+		C:\opencv\build\include\opencv2\core\version.hpp \
+		C:\opencv\build\include\opencv2\core\operations.hpp \
+		C:\opencv\build\include\opencv2\core\mat.hpp \
+		C:\opencv\build\include\opencv2\imgproc\imgproc.hpp \
+		C:\opencv\build\include\opencv2\imgproc\types_c.h \
+		C:\opencv\build\include\opencv2\core\core_c.h \
+		C:\opencv\build\include\opencv2\highgui\highgui.hpp \
+		C:\opencv\build\include\opencv2\highgui\highgui_c.h \
+		save.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QString \
 		deplacementmaxdialog.h
 	C:\Qt\Qt5.3.2\5.3\msvc2013\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -IC:/Qt/Qt5.3.2/5.3/msvc2013/mkspecs/win32-msvc2013 -ID:/PFE/decter -IC:/opencv/build/include -IC:/Qt/Qt5.3.2/5.3/msvc2013/include -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtWidgets -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtGui -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtANGLE -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtCore deplacementmaxdialog.h -o debug\moc_deplacementmaxdialog.cpp
 
@@ -1590,6 +1628,25 @@ debug\informationdialog.obj: informationdialog.cpp informationdialog.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qfiledevice.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qvector2d.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qtouchdevice.h \
+		player.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QMutex \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QThread \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qthread.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\QImage \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QWaitCondition \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qwaitcondition.h \
+		C:\opencv\build\include\opencv2\core\core.hpp \
+		C:\opencv\build\include\opencv2\core\types_c.h \
+		C:\opencv\build\include\opencv2\core\version.hpp \
+		C:\opencv\build\include\opencv2\core\operations.hpp \
+		C:\opencv\build\include\opencv2\core\mat.hpp \
+		C:\opencv\build\include\opencv2\imgproc\imgproc.hpp \
+		C:\opencv\build\include\opencv2\imgproc\types_c.h \
+		C:\opencv\build\include\opencv2\core\core_c.h \
+		C:\opencv\build\include\opencv2\highgui\highgui.hpp \
+		C:\opencv\build\include\opencv2\highgui\highgui_c.h \
+		save.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QString \
 		ui_informationdialog.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QVariant \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QAction \
@@ -1605,6 +1662,11 @@ debug\informationdialog.obj: informationdialog.cpp informationdialog.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qinputmethod.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QButtonGroup \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qbuttongroup.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QHBoxLayout \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qboxlayout.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qlayout.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qlayoutitem.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qgridlayout.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QHeaderView \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qheaderview.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qabstractitemview.h \
@@ -1622,7 +1684,13 @@ debug\informationdialog.obj: informationdialog.cpp informationdialog.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qstyle.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qtabbar.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qtabwidget.h \
-		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qrubberband.h
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qrubberband.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QLabel \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qlabel.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QPushButton \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qpushbutton.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qabstractbutton.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QWidget
 
 debug\deplacementmaxdialog.obj: deplacementmaxdialog.cpp deplacementmaxdialog.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QDialog \
@@ -1726,6 +1794,25 @@ debug\deplacementmaxdialog.obj: deplacementmaxdialog.cpp deplacementmaxdialog.h 
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qfiledevice.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qvector2d.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qtouchdevice.h \
+		player.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QMutex \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QThread \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qthread.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\QImage \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QWaitCondition \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qwaitcondition.h \
+		C:\opencv\build\include\opencv2\core\core.hpp \
+		C:\opencv\build\include\opencv2\core\types_c.h \
+		C:\opencv\build\include\opencv2\core\version.hpp \
+		C:\opencv\build\include\opencv2\core\operations.hpp \
+		C:\opencv\build\include\opencv2\core\mat.hpp \
+		C:\opencv\build\include\opencv2\imgproc\imgproc.hpp \
+		C:\opencv\build\include\opencv2\imgproc\types_c.h \
+		C:\opencv\build\include\opencv2\core\core_c.h \
+		C:\opencv\build\include\opencv2\highgui\highgui.hpp \
+		C:\opencv\build\include\opencv2\highgui\highgui_c.h \
+		save.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QString \
 		ui_deplacementmaxdialog.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QVariant \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QAction \
@@ -1769,7 +1856,9 @@ debug\deplacementmaxdialog.obj: deplacementmaxdialog.cpp deplacementmaxdialog.h 
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qtextoption.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QPushButton \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qpushbutton.h \
-		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qabstractbutton.h
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qabstractbutton.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QMessageBox \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qmessagebox.h
 
 debug\moc_mainwindow.obj: debug\moc_mainwindow.cpp 
 

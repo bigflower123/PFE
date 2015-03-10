@@ -72,6 +72,7 @@ class player: public QThread
     Mat getObjectChoose();
     void setFileName(QString);
     void setDeplacementMax(int);
+
     /*void setStartVideo(long start);
     void setFinVideo(long fin);*/
 };

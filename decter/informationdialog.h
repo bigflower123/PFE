@@ -18,17 +18,15 @@ class InformationDialog : public QDialog
 public:
     explicit InformationDialog(player *, QWidget *parent = 0);
     ~InformationDialog();
-    //showHistogram();
+    void showHistogram(Mat &img);
+
+private slots:
+    //void on_showButton_clicked();
 
 private:
     Ui::InformationDialog *ui;
     player *myPlayer;
     Mat img;
-    int bins = 256;             // number of bins
-    //int nc = img.channels();    // number of channels
-    //vector<Mat> hist(nc);       // array for storing the histograms
-    //vector<Mat> canvas(nc);     // images for displaying the histogram
-    //int hmax[3] = {0,0,0};      // peak value for each histogram
 };
 
 #endif // INFORMATIONDIALOG_H
