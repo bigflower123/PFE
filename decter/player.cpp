@@ -143,8 +143,13 @@ void player::setFinVideo(long tmpfin)
     finFrame = tmpfin;
 }*/
 
-void player::setObjectChoose(Mat object){
+void player::setObjectChoose(Mat &object){
     objectchoose = object;
+}
+
+Mat player::getObjectChoose()
+{
+    return objectchoose;
 }
 
 Size player::getFrameSize(){

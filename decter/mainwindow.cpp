@@ -262,6 +262,7 @@ void MainWindow::myMouseLeft(int x, int y)
         printf("width == 0 || height == 0");
     }
     dst = org(Rect(min(cur_pt.x,pre_pt.x),min(cur_pt.y,pre_pt.y),zonewidth, zoneheight));
+    myPlayer->setObjectChoose(dst);
 }
 
 /******************Choose object*******************/
@@ -269,7 +270,7 @@ void MainWindow::myMouseLeft(int x, int y)
 
 void MainWindow::openInformationDialog()
 {
-    infoDialog = new InformationDialog(this);
+    infoDialog = new InformationDialog(myPlayer);
     infoDialog->setModal(false);
     infoDialog->exec();
 }

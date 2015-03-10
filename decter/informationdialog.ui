@@ -6,13 +6,154 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>733</width>
+    <height>206</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Information object</string>
   </property>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>30</y>
+     <width>691</width>
+     <height>121</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_4">
+    <item>
+     <widget class="QLabel" name="bluehistLabel">
+      <property name="styleSheet">
+       <string notr="true">Background-color: #000;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="greenhistLabel">
+      <property name="styleSheet">
+       <string notr="true">Background-color: #000;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="redhistLabel">
+      <property name="styleSheet">
+       <string notr="true">Background-color: #000;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>500</x>
+     <y>160</y>
+     <width>201</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_3">
+    <item>
+     <widget class="QLabel" name="redlabel">
+      <property name="text">
+       <string>Red:</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="redminLabel">
+      <property name="text">
+       <string>R1</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="redmaxLabel">
+      <property name="text">
+       <string>R2</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>160</y>
+     <width>211</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <item>
+     <widget class="QLabel" name="greenlabel">
+      <property name="text">
+       <string>Green:</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="greenminLabel">
+      <property name="text">
+       <string>G1</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="greenmaxLabel">
+      <property name="text">
+       <string>G2</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>160</y>
+     <width>221</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QLabel" name="bluelabel">
+      <property name="text">
+       <string>Blue:</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="blueminLabel">
+      <property name="text">
+       <string>B1</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="bluemaxLabel">
+      <property name="text">
+       <string>B2</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
  </widget>
  <resources/>
  <connections/>

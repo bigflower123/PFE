@@ -68,7 +68,8 @@ class player: public QThread
     //Get current image
     Mat getcurrentImage( int frameNumber );
 
-    void setObjectChoose(Mat);
+    void setObjectChoose(Mat &);
+    Mat getObjectChoose();
     void setFileName(QString);
     void setDeplacementMax(int);
     /*void setStartVideo(long start);
