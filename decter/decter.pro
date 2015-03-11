@@ -15,19 +15,27 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     player.cpp \
-    traiter.cpp \
     video_qlabel.cpp \
     save.cpp \
     informationdialog.cpp \
-    deplacementmaxdialog.cpp
+    deplacementmaxdialog.cpp \
+    informationobject.cpp \
+    algogeneral.cpp \
+    algosoustraction.cpp \
+    trajectoire.cpp \
+    node.cpp
 
 HEADERS  += mainwindow.h \
     player.h \
-    traiter.h \
     video_qlabel.h \
     save.h \
     informationdialog.h \
-    deplacementmaxdialog.h
+    deplacementmaxdialog.h \
+    informationobject.h \
+    algogeneral.h \
+    algosoustraction.h \
+    trajectoire.h \
+    node.h
 
 FORMS    += mainwindow.ui \
     informationdialog.ui \
