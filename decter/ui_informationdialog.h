@@ -17,7 +17,6 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QPushButton>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -45,13 +44,12 @@ public:
     QLabel *bluelabel;
     QLabel *blueminLabel;
     QLabel *bluemaxLabel;
-    QPushButton *showButton;
 
     void setupUi(QDialog *InformationDialog)
     {
         if (InformationDialog->objectName().isEmpty())
             InformationDialog->setObjectName(QStringLiteral("InformationDialog"));
-        InformationDialog->resize(733, 240);
+        InformationDialog->resize(733, 211);
         layoutWidget = new QWidget(InformationDialog);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
         layoutWidget->setGeometry(QRect(20, 30, 691, 121));
@@ -139,9 +137,6 @@ public:
 
         horizontalLayout->addWidget(bluemaxLabel);
 
-        showButton = new QPushButton(InformationDialog);
-        showButton->setObjectName(QStringLiteral("showButton"));
-        showButton->setGeometry(QRect(30, 200, 75, 23));
 
         retranslateUi(InformationDialog);
 
@@ -163,7 +158,6 @@ public:
         bluelabel->setText(QApplication::translate("InformationDialog", "Blue:", 0));
         blueminLabel->setText(QApplication::translate("InformationDialog", "B1", 0));
         bluemaxLabel->setText(QApplication::translate("InformationDialog", "B2", 0));
-        showButton->setText(QApplication::translate("InformationDialog", "Show", 0));
     } // retranslateUi
 
 };
