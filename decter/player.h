@@ -8,6 +8,7 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include "save.h"
+#include "algosoustraction.h"
 
 using namespace cv;
 class player: public QThread
@@ -76,7 +77,8 @@ class player: public QThread
     void setDeplacementMax(int);
     void setVideoStart(int);
     void setVideoFin(int);
-
+    bool trajectoreChecked = false;
+    vector<Mat> hist;
     /*void setStartVideo(long start);
     void setFinVideo(long fin);*/
 };

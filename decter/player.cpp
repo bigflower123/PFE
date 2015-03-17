@@ -38,6 +38,10 @@ void player::run()
     int delay = (1000/frameRate);
     //long nbframe = 1;
     Save mySaver(videoPath.toStdString(), this->getFrameSize(), frameRate, this->getCodec());
+    AlgoSoustraction *myAlgo;
+    if(trajectoreChecked == true){
+        myAlgo = new AlgoSoustraction(deplacement, getcurrentImage(framestart), &objectchoose);
+    }
     while(!stop){
         if (!capture->read(frame))
         {
@@ -48,6 +52,12 @@ void player::run()
             img = QImage((const unsigned char*)(RGBframe.data),
                           RGBframe.cols,RGBframe.rows,QImage::Format_RGB888);
             mySaver.SaveVideo(frame);
+            if(trajectoreChecked == true){
+                myAlgo->decter(frame);
+                myAlgo->getTrajectoire().drawTrajectoire(frame);
+            }
+           /* myAlgo.decter(frame);
+            myAlgo.getTrajectoire().drawTrajectoire(frame);*/
         }
         else
         {
@@ -59,6 +69,7 @@ void player::run()
         emit processedImage(img);
         this->msleep(delay);
     }
+    if(trajectoreChecked == true){delete myAlgo;}
 }
 
 player::~player()

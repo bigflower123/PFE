@@ -7,10 +7,8 @@ InformationDialog::InformationDialog(player * tmpPlayer, QWidget *parent) :
 {
     ui->setupUi(this);
     myPlayer = tmpPlayer;
-    Mat tmp;
     img = myPlayer->getObjectChoose();
-    img.copyTo(tmp);
-    showHistogram(tmp);
+    showHistogram(img);
 }
 
 InformationDialog::~InformationDialog()
@@ -112,6 +110,19 @@ void InformationDialog::showHistogram(Mat &img)
         ui->bluemaxLabel->setText(QString::number(binsmax[2]));
     }
 }
+
+/*void InformationDialog::displayHistogram()
+{
+    QImage qimgRed = QImage((const unsigned char*)(hist[0].data),
+                  hist[0].cols,hist[0].rows,QImage::Format_RGB888);
+    QImage qimgGreen = QImage((const unsigned char*)(hist[1].data),
+                  hist[1].cols,hist[1].rows,QImage::Format_RGB888);
+    QImage qimgBlue = QImage((const unsigned char*)(hist[2].data),
+                  hist[2].cols,hist[2].rows,QImage::Format_RGB888);
+    ui->greenhistLabel->setPixmap(QPixmap::fromImage(qimgGreen));
+    ui->redhistLabel->setPixmap(QPixmap::fromImage(qimgRed));
+    ui->bluehistLabel->setPixmap(QPixmap::fromImage(qimgBlue));
+}*/
 
 /*void InformationDialog::on_showButton_clicked()
 {

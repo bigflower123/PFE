@@ -133,7 +133,7 @@
    <widget class="QPushButton" name="finButton">
     <property name="geometry">
      <rect>
-      <x>510</x>
+      <x>450</x>
       <y>470</y>
       <width>75</width>
       <height>23</height>
@@ -141,6 +141,19 @@
     </property>
     <property name="text">
      <string>Fin</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="trajectoirecheckBox">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>470</y>
+      <width>70</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Trajectoire</string>
     </property>
    </widget>
   </widget>

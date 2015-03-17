@@ -19,7 +19,6 @@ public:
     explicit InformationDialog(player *, QWidget *parent = 0);
     ~InformationDialog();
     void showHistogram(Mat &img);
-
 private slots:
     //void on_showButton_clicked();
 

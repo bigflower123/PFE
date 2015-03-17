@@ -1,19 +1,29 @@
 #include "algosoustraction.h"
 #include <QImage>
 
-AlgoSoustraction::AlgoSoustraction(int tmpdpmax, Mat tmpstart, Mat tmpobj)
+AlgoSoustraction::AlgoSoustraction(int tmpdpmax, Mat& tmpstart, Mat* tmpobj)
 {
     deplacementmax = tmpdpmax;
     start_frame = tmpstart;
     obj_choose = tmpobj;
+    //current_obj = tmpobj;
 }
 
+
+/**
+ * Main algo of detecter
+ * @brief AlgoSoustraction::decter
+ * @param currentFrame
+ */
 void AlgoSoustraction::decter(Mat & currentFrame)
 {
     Mat binary_frame;   //the current frame on binary
     Mat img_act;        //the binary image which contains only the moving object
     Mat clean_act;      //img_act do erosion = clean_act
-    calculeHistograme(obj_choose);
+    Point2f center;     //the center of the circle
+    float radius;       //the radius of the circle
+    Mat drawing = Mat::zeros( currentFrame.size(), CV_8UC3 );
+    //calculeHistograme();
     binary_fond = generateBinaryImage(start_frame);
     binary_frame = generateBinaryImage(currentFrame);
 
@@ -21,20 +31,46 @@ void AlgoSoustraction::decter(Mat & currentFrame)
      * the binary image which contains only the moving object*************/
     absdiff(binary_frame+binary_fond,binary_fond,img_act);
     /*********************************************************************/
-
     /********Erosion********************************/
     morphologyEx(img_act,clean_act,MORPH_OPEN,element);
     /*************************************************/
 
     /**************************findContours***********************************/
-    vector<vector<Point> > contours;
+    vector<vector<Point>> contours;
     vector<Vec4i> hierarchy;
     findContours( clean_act, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE );
+    MyObject.setContours(contours);
     /****************************************************************************************/
+    for( unsigned int i = 0; i < contours.size(); i++ )//find the biggest Connected domain
+    {
+        if(contourArea(contours[i])>max_domaine_cc)
+        {
+            max_domaine_cc = contourArea(contours[i]);
+            max_domaine_i = i;
+        }
+    }
+    Scalar color( rand()&255, rand()&255, rand()&255 );//define a color
+    //computes the minimal enclosing circle for the biggest Connected domain
+    minEnclosingCircle( (Mat)contours[max_domaine_i], center, radius);
+    Mat obj_courant = currentFrame(Rect((int)(center.x-radius*2/3),(int)(center.y-radius*2/3),
+                             (int)radius*4/3,(int)radius*4/3));
+    MyObject.setCenter(center);
+    MyObject.setRadius(radius);
+    MyTrajectoire.addPoint(center);
 
+    // (*objectchoose) = newMat;
+    (*obj_choose) = obj_courant;
 }
 
-Mat AlgoSoustraction::generateBinaryImage(Mat currentFtame)
+
+
+/**
+ * Get the binary image
+ * @brief AlgoSoustraction::generateBinaryImage
+ * @param currentFtame
+ * @return
+ */
+Mat AlgoSoustraction::generateBinaryImage(Mat& currentFtame)
 {
     Mat binary;
     Mat mv_fond[3];
@@ -62,8 +98,17 @@ Mat AlgoSoustraction::generateBinaryImage(Mat currentFtame)
     return binary;
 }
 
-void AlgoSoustraction::calculeHistograme(Mat img)
+
+
+/**
+ * calcule histograme of three channels
+ * @brief AlgoSoustraction::calculeHistograme
+ * @param img
+ */
+/*void AlgoSoustraction::calculeHistograme()
 {
+    Mat img;
+    current_obj.copyTo(img);
     int bins = 256;                 // number of bins
     int nc = img.channels();        // number of channels
     vector<Mat> hist(nc);           // array for storing the histograms
@@ -142,5 +187,6 @@ void AlgoSoustraction::calculeHistograme(Mat img)
     thresh_green_2 = binsmax[1];
     thresh_blue_1 = binsmin[2];
     thresh_blue_2 = binsmax[2];
-}
+}*/
+
 

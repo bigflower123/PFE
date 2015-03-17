@@ -304,6 +304,12 @@ void MainWindow::on_finButton_clicked()
     myPlayer->setVideoFin(fin);
 }
 
+
+void MainWindow::on_trajectoirecheckBox_clicked()
+{
+    myPlayer->trajectoreChecked = true;
+}
+
 /*void MainWindow::mousePressEvent(QMouseEvent *evt){
     char coord[16];
     myPlayer->Stop();
@@ -452,5 +458,6 @@ void MainWindow::mouseReleaseEvent(QMouseEvent * evt){
     else
         return t.toString("h:mm:ss");
 }*/
+
 
 

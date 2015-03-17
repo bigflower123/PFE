@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
@@ -46,6 +47,7 @@ public:
     QPushButton *backwardButton;
     QPushButton *debutButton;
     QPushButton *finButton;
+    QCheckBox *trajectoirecheckBox;
     QMenuBar *menuBar;
     QMenu *menuFichier;
     QMenu *menuInformation;
@@ -103,7 +105,10 @@ public:
         debutButton->setGeometry(QRect(120, 470, 75, 23));
         finButton = new QPushButton(centralWidget);
         finButton->setObjectName(QStringLiteral("finButton"));
-        finButton->setGeometry(QRect(510, 470, 75, 23));
+        finButton->setGeometry(QRect(450, 470, 75, 23));
+        trajectoirecheckBox = new QCheckBox(centralWidget);
+        trajectoirecheckBox->setObjectName(QStringLiteral("trajectoirecheckBox"));
+        trajectoirecheckBox->setGeometry(QRect(580, 470, 70, 17));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -155,6 +160,7 @@ public:
         backwardButton->setText(QApplication::translate("MainWindow", "<<", 0));
         debutButton->setText(QApplication::translate("MainWindow", "D\303\251but", 0));
         finButton->setText(QApplication::translate("MainWindow", "Fin", 0));
+        trajectoirecheckBox->setText(QApplication::translate("MainWindow", "Trajectoire", 0));
         menuFichier->setTitle(QApplication::translate("MainWindow", "Ficher", 0));
         menuInformation->setTitle(QApplication::translate("MainWindow", "Information", 0));
         menuReglage->setTitle(QApplication::translate("MainWindow", "R\303\251glage", 0));

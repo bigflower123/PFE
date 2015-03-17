@@ -12,7 +12,7 @@ public:
     InformationObject& getInformationobject();
     Trajectoire& getTrajectoire();
 
-private:
+protected:
     InformationObject MyObject;
     Trajectoire MyTrajectoire;
 };
