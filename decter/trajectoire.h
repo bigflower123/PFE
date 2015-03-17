@@ -8,7 +8,7 @@ class Trajectoire
 public:
     Trajectoire();
 private:
-    vector<Point2f> center_list;
+    vector<Node> center_list;
 };
 
 #endif // TRAJECTOIRE_H

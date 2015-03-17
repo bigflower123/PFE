@@ -284,6 +284,26 @@ void MainWindow::openDeplacementDialog()
 
 
 /************Choose object*************************/
+/**
+ * set the begin of the video
+ * @brief MainWindow::on_debutButton_clicked
+ */
+void MainWindow::on_debutButton_clicked()
+{
+    int start = ui->currentLable->text().toInt();
+    myPlayer->setVideoStart(start);
+}
+
+/**
+ * set fin of the video
+ * @brief MainWindow::on_finButton_clicked
+ */
+void MainWindow::on_finButton_clicked()
+{
+    int fin = ui->currentLable->text().toInt();
+    myPlayer->setVideoFin(fin);
+}
+
 /*void MainWindow::mousePressEvent(QMouseEvent *evt){
     char coord[16];
     myPlayer->Stop();
@@ -432,3 +452,5 @@ void MainWindow::mouseReleaseEvent(QMouseEvent * evt){
     else
         return t.toString("h:mm:ss");
 }*/
+
+

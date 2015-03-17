@@ -9,10 +9,12 @@ class AlgoGeneral
 public:
     AlgoGeneral();
     virtual void decter(Mat &);
+    InformationObject& getInformationobject();
+    Trajectoire& getTrajectoire();
 
 private:
-    InformationObject *myObject;
-    Trajectoire *myTrajectoire;
+    InformationObject MyObject;
+    Trajectoire MyTrajectoire;
 };
 
 #endif // ALGOGENERAL_H

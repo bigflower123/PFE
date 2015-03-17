@@ -132,6 +132,16 @@ void player::setDeplacementMax(int tmpDeplacement)
     deplacement = tmpDeplacement;
 }
 
+void player::setVideoStart(int tmpstart)
+{
+    framestart = tmpstart;
+}
+
+void player::setVideoFin(int tmpfin)
+{
+    framefin = tmpfin;
+}
+
 /*void player::setStartVideo(long tmpstart)
 {
     beginFrame = tmpstart;

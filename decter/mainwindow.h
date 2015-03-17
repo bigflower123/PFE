@@ -53,6 +53,10 @@ private slots:
      void openInformationDialog();
      void openDeplacementDialog();
 
+     void on_debutButton_clicked();
+
+     void on_finButton_clicked();
+
 protected:
     //bool eventFilter(QObject *, QEvent *);
 
