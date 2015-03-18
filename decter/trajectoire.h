@@ -7,12 +7,13 @@ class Trajectoire
 {
 public:
     Trajectoire();
-    void addPoint(Point2f);
-    vector<Point2f> getCenterlist();
+    void addPoint(Node &);
+    vector<Node> &getCenterlist();
     void drawTrajectoire(Mat&);
-    Point2f center_back;  //The last value of the array 'center'
+    void setLastcenter(Node&);
 private:
-    vector<Point2f> center_list;
+    vector<Node> center_list;
+    Node center_back;  //The last value of the array 'center'
 };
 
 #endif // TRAJECTOIRE_H

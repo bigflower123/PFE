@@ -4,12 +4,12 @@ Trajectoire::Trajectoire()
 {
 }
 
-void Trajectoire::addPoint(Point2f tmpPoint)
+void Trajectoire::addPoint(Node &tmpNode)
 {
-    center_list.push_back(tmpPoint);
+    center_list.push_back(tmpNode);
 }
 
-vector<Point2f> Trajectoire::getCenterlist()
+vector<Node>& Trajectoire::getCenterlist()
 {
     return center_list;
 }
@@ -21,7 +21,12 @@ void Trajectoire::drawTrajectoire(Mat &frame)
             Scalar color( 0, 0, 255 );
             for(unsigned int i_tj = 1; i_tj<center_list.size() ; i_tj++)
             {
-                line(frame,center_list[i_tj],center_list[i_tj-1],color,5);
+                //line(frame,center_list[i_tj],center_list[i_tj-1],color,5);
             }
-        }
+    }
+}
+
+void Trajectoire::setLastcenter(Node &tmpNode)
+{
+    center_back = tmpNode;
 }

@@ -59,6 +59,10 @@ private slots:
 
      void on_trajectoirecheckBox_clicked();
 
+     void on_quickforwardButton_clicked();
+
+     void on_quickbackwardButton_clicked();
+
 protected:
     //bool eventFilter(QObject *, QEvent *);
 

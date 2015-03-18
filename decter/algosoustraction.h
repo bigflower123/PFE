@@ -2,17 +2,18 @@
 #define ALGOSOUSTRACTION_H
 
 #include "algogeneral.h"
+#include "node.h"
 
 class AlgoSoustraction : public AlgoGeneral
 {
 public:
     AlgoSoustraction(int, Mat &, Mat *);
-    void decter(Mat &);
+    void decter(Mat &, double);
     Mat generateBinaryImage(Mat &);
    // void calculeHistograme();
    // vector<Mat>& getHist();
 private:
-    Mat current_obj;
+    //Mat current_obj;
     int deplacementmax;     //Parameters of deplacementmax
     Mat start_frame;        //image of start frame
     Mat *obj_choose;         //object choose

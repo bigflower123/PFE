@@ -11,12 +11,12 @@ void AlgoGeneral::decter(Mat &)
 
 InformationObject &AlgoGeneral::getInformationobject()
 {
-    return MyObject;
+    return myObject;
 }
 
 Trajectoire &AlgoGeneral::getTrajectoire()
 {
-    return MyTrajectoire;
+    return myTrajectoire;
 }
 
 

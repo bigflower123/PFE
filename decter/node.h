@@ -4,17 +4,20 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
+#include <QDateTime>
 
 using namespace cv;
 
 class Node
 {
 public:
-    Node(Point2f, int);
+    Node();
+    Node(Point2f, QDateTime, int);
+    Point2f &getCenter();
 
 private:
     Point2f center;
-    time_t timenow;
+    QDateTime timenow;
     int currentFrame;
 
 };

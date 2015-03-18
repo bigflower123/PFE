@@ -23,6 +23,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->backwardButton->setEnabled(false);
     ui->forwardButton->setEnabled(false);
     ui->videoSlider->setEnabled(false);
+    ui->quickbackwardButton->setEnabled(false);
+    ui->quickforwardButton->setEnabled(false);
     /***********************************/
     QObject::connect(ui->actionInformationObjet, SIGNAL(triggered()),this, SLOT(openInformationDialog()));
     QObject::connect(ui->actionDeplacement, SIGNAL(triggered()),this, SLOT(openDeplacementDialog()));
@@ -89,6 +91,8 @@ void MainWindow::chooseVideo()
             ui->videoSlider->setEnabled(true);
             ui->backwardButton->setEnabled(true);
             ui->forwardButton->setEnabled(true);
+            ui->quickbackwardButton->setEnabled(true);
+            ui->quickforwardButton->setEnabled(true);
             ui->videoSlider->setMaximum(myPlayer->getNumberOfFrames());
             //ui->totalLable->setText( getFormattedTime( (int)myPlayer->getNumberOfFrames()/(int)myPlayer->getFrameRate()) );
             ui->totalLable->setText(QString::number(myPlayer->getNumberOfFrames()));
@@ -133,21 +137,23 @@ void MainWindow::on_videoSlider_sliderPressed()
 
 void MainWindow::on_videoSlider_sliderReleased()
 {
-    myPlayer->Play();
+    //myPlayer->Play();
+    ui->currentLable->setText(QString::number(myPlayer->getCurrentFrame()));
 }
 
 void MainWindow::on_videoSlider_sliderMoved(int position)
 {
     myPlayer->setCurrentFrame(position);
     //ui->currentLable->setText( getFormattedTime( position/(int)myPlayer->getFrameRate()) );
-    ui->currentLable->setText(QString::number(myPlayer->getFrameRate()));
+    //ui->currentLable->setText(QString::number(myPlayer->getFrameRate()));
+    ui->currentLable->setText(QString::number(position));
 }
 /*******************************************/
 
 
 /************Backward and Forward*****************/
 /**
- * Reculer le vidéo
+ * Reculer le vidéo lentement
  * @brief MainWindow::on_backwardButton_clicked
  */
 void MainWindow::on_backwardButton_clicked()
@@ -160,7 +166,7 @@ void MainWindow::on_backwardButton_clicked()
 }
 
 /**
- * avancer le vidéo
+ * avancer le vidéo lentement
  * @brief MainWindow::on_forwardButton_clicked
  */
 void MainWindow::on_forwardButton_clicked()
@@ -171,6 +177,34 @@ void MainWindow::on_forwardButton_clicked()
     img = myPlayer->showImage(++framecourant);
     displayImage(img, framecourant);
 }
+
+/**
+ * Reculer le vidéo rapidement
+ * @brief MainWindow::on_quickbackwardButton_clicked
+ */
+void MainWindow::on_quickbackwardButton_clicked()
+{
+    QImage img;
+    myPlayer->Stop();
+    double framecourant = myPlayer->getCurrentFrame();
+    img = myPlayer->showImage(framecourant-10);
+    displayImage(img, framecourant);
+}
+
+/**
+ * avancer le vidéo rapidement
+ * @brief MainWindow::on_quickforwardButton_clicked
+ */
+void MainWindow::on_quickforwardButton_clicked()
+{
+    QImage img;
+   // myPlayer->Stop();
+    double framecourant = myPlayer->getCurrentFrame();
+    img = myPlayer->showImage(framecourant+10);
+    displayImage(img, framecourant);
+}
+
+
 /*************Backward and Forward*****************/
 
 /************Choose object*************************/
@@ -458,6 +492,8 @@ void MainWindow::mouseReleaseEvent(QMouseEvent * evt){
     else
         return t.toString("h:mm:ss");
 }*/
+
+
 
 
 

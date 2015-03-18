@@ -13,8 +13,8 @@ public:
     Trajectoire& getTrajectoire();
 
 protected:
-    InformationObject MyObject;
-    Trajectoire MyTrajectoire;
+    InformationObject myObject;
+    Trajectoire myTrajectoire;
 };
 
 #endif // ALGOGENERAL_H

@@ -49,13 +49,14 @@ void player::run()
         }
         if (frame.channels()== 3){
             cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
+
+            if(trajectoreChecked == true){
+                   myAlgo->decter(RGBframe, getCurrentFrame());
+                   /*myAlgo->getTrajectoire().drawTrajectoire(RGBframe);*/
+            }
             img = QImage((const unsigned char*)(RGBframe.data),
                           RGBframe.cols,RGBframe.rows,QImage::Format_RGB888);
             mySaver.SaveVideo(frame);
-            if(trajectoreChecked == true){
-                myAlgo->decter(frame);
-                myAlgo->getTrajectoire().drawTrajectoire(frame);
-            }
            /* myAlgo.decter(frame);
             myAlgo.getTrajectoire().drawTrajectoire(frame);*/
         }

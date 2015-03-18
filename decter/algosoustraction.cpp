@@ -15,7 +15,7 @@ AlgoSoustraction::AlgoSoustraction(int tmpdpmax, Mat& tmpstart, Mat* tmpobj)
  * @brief AlgoSoustraction::decter
  * @param currentFrame
  */
-void AlgoSoustraction::decter(Mat & currentFrame)
+void AlgoSoustraction::decter(Mat & currentFrame, double nbFrame)
 {
     Mat binary_frame;   //the current frame on binary
     Mat img_act;        //the binary image which contains only the moving object
@@ -34,32 +34,54 @@ void AlgoSoustraction::decter(Mat & currentFrame)
     /********Erosion********************************/
     morphologyEx(img_act,clean_act,MORPH_OPEN,element);
     /*************************************************/
-
     /**************************findContours***********************************/
     vector<vector<Point>> contours;
     vector<Vec4i> hierarchy;
     findContours( clean_act, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE );
-    MyObject.setContours(contours);
+    myObject.setContours(contours);
     /****************************************************************************************/
-    for( unsigned int i = 0; i < contours.size(); i++ )//find the biggest Connected domain
-    {
-        if(contourArea(contours[i])>max_domaine_cc)
+    /***************Determine whether the object moves out of range of video****************/
+    if(contours.size() == 0){
+        if(!myTrajectoire.getCenterlist().empty()){
+            myTrajectoire.setLastcenter(myTrajectoire.getCenterlist().back());
+        }
+        myTrajectoire.getCenterlist().clear();
+    /***********************************************************************************/
+    }else if(contours.size() >= 1){
+        for( unsigned int i = 0; i < contours.size(); i++ )//find the biggest Connected domain
         {
-            max_domaine_cc = contourArea(contours[i]);
-            max_domaine_i = i;
+            if(contourArea(contours[i])>max_domaine_cc)
+            {
+                max_domaine_cc = contourArea(contours[i]);
+                max_domaine_i = i;
+            }
+        }
+        Scalar color( rand()&255, rand()&255, rand()&255 );//define a color
+        //computes the minimal enclosing circle for the biggest Connected domain
+        minEnclosingCircle( (Mat)contours[max_domaine_i], center, radius);
+        max_domaine_cc = 0;
+        max_domaine_i = 0;
+
+        if(!myTrajectoire.getCenterlist().empty()){
+            double x = myTrajectoire.getCenterlist().back().getCenter().x;
+            double y = myTrajectoire.getCenterlist().back().getCenter().y;
+            if(sqrt((x-center.x)*(x-center.x) + (y-center.y)*(y-center.y))<deplacementmax){
+                Node nodecenter(center, QDateTime::currentDateTime(), nbFrame);
+                myTrajectoire.addPoint(nodecenter);
+            }
         }
     }
-    Scalar color( rand()&255, rand()&255, rand()&255 );//define a color
-    //computes the minimal enclosing circle for the biggest Connected domain
-    minEnclosingCircle( (Mat)contours[max_domaine_i], center, radius);
-    Mat obj_courant = currentFrame(Rect((int)(center.x-radius*2/3),(int)(center.y-radius*2/3),
+
+   /* Mat obj_courant = currentFrame(Rect((int)(center.x-radius*2/3),(int)(center.y-radius*2/3),
                              (int)radius*4/3,(int)radius*4/3));
     MyObject.setCenter(center);
     MyObject.setRadius(radius);
-    MyTrajectoire.addPoint(center);
+    QDateTime currenttime = QDateTime::currentDateTime();
+    Node nodecenter(center,currenttime,nbFrame);
+    MyTrajectoire.addPoint(nodecenter);
 
     // (*objectchoose) = newMat;
-    (*obj_choose) = obj_courant;
+    (*obj_choose) = obj_courant;*/
 }
 
 
