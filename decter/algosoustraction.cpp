@@ -61,15 +61,21 @@ void AlgoSoustraction::decter(Mat & currentFrame, double nbFrame)
         minEnclosingCircle( (Mat)contours[max_domaine_i], center, radius);
         max_domaine_cc = 0;
         max_domaine_i = 0;
-
+        Mat obj_courant;
         if(!myTrajectoire.getCenterlist().empty()){
             double x = myTrajectoire.getCenterlist().back().getCenter().x;
             double y = myTrajectoire.getCenterlist().back().getCenter().y;
             if(sqrt((x-center.x)*(x-center.x) + (y-center.y)*(y-center.y))<deplacementmax){
                 Node nodecenter(center, QDateTime::currentDateTime(), nbFrame);
                 myTrajectoire.addPoint(nodecenter);
+
+                obj_courant = currentFrame(Rect((int)(center.x-radius*2/3),(int)(center.y-radius*2/3),
+                                             (int)radius*4/3,(int)radius*4/3));
+                circle( currentFrame, center, (int)radius, color, 2, 8, 0 );//draw circle
+                circle( currentFrame, center, 2, color, -1, 8, 0 );//draw the center of circle
             }
         }
+        (*obj_choose) = obj_courant;
     }
 
    /* Mat obj_courant = currentFrame(Rect((int)(center.x-radius*2/3),(int)(center.y-radius*2/3),

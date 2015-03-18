@@ -52,7 +52,7 @@ void player::run()
 
             if(trajectoreChecked == true){
                    myAlgo->decter(RGBframe, getCurrentFrame());
-                   /*myAlgo->getTrajectoire().drawTrajectoire(RGBframe);*/
+                   myAlgo->getTrajectoire().drawTrajectoire(RGBframe);
             }
             img = QImage((const unsigned char*)(RGBframe.data),
                           RGBframe.cols,RGBframe.rows,QImage::Format_RGB888);
@@ -110,17 +110,19 @@ void player::setCurrentFrame( int frameNumber )
     capture->set(CV_CAP_PROP_POS_FRAMES, frameNumber);
 }
 
-QImage player::showImage(int frameNumber){
+Mat& player::showImage(int frameNumber){
     capture->set(CV_CAP_PROP_POS_FRAMES, --frameNumber);
     if(frameNumber > 0){
         if(capture->read(frame)){
             cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
-            img = QImage((const unsigned char*)(RGBframe.data),
+            /*img = QImage((const unsigned char*)(RGBframe.data),
                           RGBframe.cols,RGBframe.rows,QImage::Format_RGB888);
-            return img;
+            return img;*/
+            return RGBframe;
         }
     }
-    return img;
+    //return img;
+    return RGBframe;
 }
 
 Mat player::getcurrentImage(int frameNumber){

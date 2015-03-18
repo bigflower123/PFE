@@ -66,7 +66,7 @@ class player: public QThread
     int getFrameWidth();
 
     //Show image
-    QImage showImage( int frameNumber );
+    Mat &showImage( int frameNumber );
 
     //Get current image
     Mat getcurrentImage( int frameNumber );

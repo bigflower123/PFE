@@ -16,14 +16,17 @@ vector<Node>& Trajectoire::getCenterlist()
 
 void Trajectoire::drawTrajectoire(Mat &frame)
 {
+    Scalar color( 0, 0, 255 );
     if(center_list.size()>1)
+    {
+        for(unsigned int i = 1; i<center_list.size() ; i++)
         {
-            Scalar color( 0, 0, 255 );
-            for(unsigned int i_tj = 1; i_tj<center_list.size() ; i_tj++)
-            {
-                //line(frame,center_list[i_tj],center_list[i_tj-1],color,5);
-            }
-    }
+            //line(frame,center_list[i_tj],center_list[i_tj-1],color,5);
+            line(frame, center_list[i].getCenter(), center_list[i-1].getCenter(),color,5);
+        }
+     }
+     Point p1(100,100);
+     circle( frame, p1, (int)2, color, 2, 8, 0 );//draw circle
 }
 
 void Trajectoire::setLastcenter(Node &tmpNode)

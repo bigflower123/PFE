@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <QDebug>
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -26,6 +28,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->quickbackwardButton->setEnabled(false);
     ui->quickforwardButton->setEnabled(false);
     /***********************************/
+    ui->actionInformationObjet->setEnabled(false);
     QObject::connect(ui->actionInformationObjet, SIGNAL(triggered()),this, SLOT(openInformationDialog()));
     QObject::connect(ui->actionDeplacement, SIGNAL(triggered()),this, SLOT(openDeplacementDialog()));
 }
@@ -44,12 +47,15 @@ MainWindow::~MainWindow()
  */
 void MainWindow::displayImage(QImage img, double framecourant)
 {
+    qDebug() << "Début d'affichage de l'image";
     ui->VideoLbl->setAlignment(Qt::AlignCenter);
     ui->VideoLbl->setPixmap(QPixmap::fromImage(img).scaled(ui->VideoLbl->size(),
                             Qt::KeepAspectRatio, Qt::FastTransformation));
     ui->VideoLbl->adjustSize(); //Adjust size of the video
     ui->videoSlider->setValue(framecourant);
     ui->currentLable->setText(QString::number(framecourant));
+    qDebug() << "Fin d'affichage de l'image";
+
 }
 
 /**
@@ -158,11 +164,18 @@ void MainWindow::on_videoSlider_sliderMoved(int position)
  */
 void MainWindow::on_backwardButton_clicked()
 {
-    QImage img;
+    //QImage img;
     myPlayer->Stop();
     double framecourant = myPlayer->getCurrentFrame();
-    img = myPlayer->showImage(--framecourant);
-    displayImage(img, framecourant);
+    Mat img = myPlayer->showImage(--framecourant);
+    //displayImage(img, framecourant);
+    ui->VideoLbl->setAlignment(Qt::AlignCenter);
+    ui->VideoLbl->setPixmap(QPixmap::fromImage(QImage((unsigned char*) img.data, img.cols, img.rows,
+                           QImage::Format_RGB888)).scaled(ui->VideoLbl->size(),Qt::KeepAspectRatio,
+                           Qt::FastTransformation));
+    ui->VideoLbl->adjustSize(); //Adjust size of the video
+    ui->videoSlider->setValue(framecourant);
+    ui->currentLable->setText(QString::number(framecourant));
 }
 
 /**
@@ -171,11 +184,16 @@ void MainWindow::on_backwardButton_clicked()
  */
 void MainWindow::on_forwardButton_clicked()
 {
-    QImage img;
-   // myPlayer->Stop();
+   //QImage img;
+    myPlayer->Stop();
     double framecourant = myPlayer->getCurrentFrame();
-    img = myPlayer->showImage(++framecourant);
-    displayImage(img, framecourant);
+    Mat img = myPlayer->showImage(++framecourant);
+    ui->VideoLbl->setAlignment(Qt::AlignCenter);
+    ui->VideoLbl->setPixmap(QPixmap::fromImage(QImage((unsigned char*) img.data, img.cols, img.rows, QImage::Format_RGB888)).scaled(
+                           ui->VideoLbl->size(),Qt::KeepAspectRatio, Qt::FastTransformation));
+    ui->VideoLbl->adjustSize(); //Adjust size of the video
+    ui->videoSlider->setValue(framecourant);
+    ui->currentLable->setText(QString::number(framecourant));
 }
 
 /**
@@ -184,11 +202,17 @@ void MainWindow::on_forwardButton_clicked()
  */
 void MainWindow::on_quickbackwardButton_clicked()
 {
-    QImage img;
+    //QImage img;
     myPlayer->Stop();
     double framecourant = myPlayer->getCurrentFrame();
-    img = myPlayer->showImage(framecourant-10);
-    displayImage(img, framecourant);
+    Mat img = myPlayer->showImage(framecourant-10);
+    //displayImage(img, framecourant);
+    ui->VideoLbl->setAlignment(Qt::AlignCenter);
+    ui->VideoLbl->setPixmap(QPixmap::fromImage(QImage((unsigned char*) img.data, img.cols, img.rows,
+                            QImage::Format_RGB888)).scaled(ui->VideoLbl->size(),Qt::KeepAspectRatio, Qt::FastTransformation));
+    ui->VideoLbl->adjustSize(); //Adjust size of the video
+    ui->videoSlider->setValue(framecourant);
+    ui->currentLable->setText(QString::number(framecourant));
 }
 
 /**
@@ -197,11 +221,17 @@ void MainWindow::on_quickbackwardButton_clicked()
  */
 void MainWindow::on_quickforwardButton_clicked()
 {
-    QImage img;
-   // myPlayer->Stop();
+   //QImage img;
+    myPlayer->Stop();
     double framecourant = myPlayer->getCurrentFrame();
-    img = myPlayer->showImage(framecourant+10);
-    displayImage(img, framecourant);
+    Mat img = myPlayer->showImage(framecourant+10);
+    //displayImage(img, framecourant);
+    ui->VideoLbl->setAlignment(Qt::AlignCenter);
+    ui->VideoLbl->setPixmap(QPixmap::fromImage(QImage((unsigned char*) img.data, img.cols, img.rows, QImage::Format_RGB888)).scaled(
+                           ui->VideoLbl->size(),Qt::KeepAspectRatio, Qt::FastTransformation));
+    ui->VideoLbl->adjustSize(); //Adjust size of the video
+    ui->videoSlider->setValue(framecourant);
+    ui->currentLable->setText(QString::number(framecourant));
 }
 
 
@@ -297,6 +327,7 @@ void MainWindow::myMouseLeft(int x, int y)
     }
     dst = org(Rect(min(cur_pt.x,pre_pt.x),min(cur_pt.y,pre_pt.y),zonewidth, zoneheight));
     myPlayer->setObjectChoose(dst);
+    ui->actionInformationObjet->setEnabled(true);
 }
 
 /******************Choose object*******************/
@@ -311,9 +342,9 @@ void MainWindow::openInformationDialog()
 
 void MainWindow::openDeplacementDialog()
 {
-    deplacementDialog = new DeplacementMaxDialog(myPlayer);
-    deplacementDialog->setModal(false);
-    deplacementDialog->exec();
+        deplacementDialog = new DeplacementMaxDialog(myPlayer);
+        deplacementDialog->setModal(false);
+        deplacementDialog->exec();
 }
 
 

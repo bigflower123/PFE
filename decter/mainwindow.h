@@ -40,7 +40,7 @@ private slots:
     //Slot for the backward push button
     void on_backwardButton_clicked();
     //Slot for the forward push button
-    void on_forwardButton_clicked();
+     void on_forwardButton_clicked();
     //void Mouse_current_pos();
      /*void mousePressEvent(QMouseEvent *);
      void mouseMoveEvent(QMouseEvent *);
