@@ -45,7 +45,7 @@ MainWindow::~MainWindow()
  * @param img: the image to display dans la window
  * @param framecourant
  */
-void MainWindow::displayImage(QImage img, double framecourant)
+void MainWindow::displayImage(QImage& img, double framecourant)
 {
     qDebug() << "Début d'affichage de l'image";
     ui->VideoLbl->setAlignment(Qt::AlignCenter);
@@ -144,7 +144,14 @@ void MainWindow::on_videoSlider_sliderPressed()
 void MainWindow::on_videoSlider_sliderReleased()
 {
     //myPlayer->Play();
-    ui->currentLable->setText(QString::number(myPlayer->getCurrentFrame()));
+    double postion = myPlayer->getCurrentFrame();
+    ui->currentLable->setText(QString::number(postion));
+    Mat img = myPlayer->showImage(postion);
+    ui->VideoLbl->setAlignment(Qt::AlignCenter);
+    ui->VideoLbl->setPixmap(QPixmap::fromImage(QImage((unsigned char*) img.data, img.cols, img.rows,
+                           QImage::Format_RGB888)).scaled(ui->VideoLbl->size(),Qt::KeepAspectRatio,
+                           Qt::FastTransformation));
+    ui->VideoLbl->adjustSize(); //Adjust size of the video
 }
 
 void MainWindow::on_videoSlider_sliderMoved(int position)

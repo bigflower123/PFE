@@ -74,7 +74,7 @@ private:
     Point cur_pt = (-1,-1);
     int taille = 0;
     double valueScale = 1.0;
-    void displayImage(QImage, double);
+    void displayImage(QImage &, double);
     char temp[16];
     double imgheight,imgwidth,labelheight,labelwidth ;
     double  heightscale, widthscale;

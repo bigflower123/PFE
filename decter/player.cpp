@@ -9,7 +9,7 @@ player::player(QObject *parent)
 void player::msleep(int ms){
     /*struct timespec ts = { ms / 1000, (ms % 1000) * 1000 * 1000 };
     nanosleep(&ts, NULL);*/
-    sleep(ms/1000);
+    sleep(ms/1500);
 }
 
 bool player::loadVideo(string filename) {
@@ -35,40 +35,47 @@ void player::Play(){
 
 void player::run()
 {
-    int delay = (1000/frameRate);
-    //long nbframe = 1;
+    double delay = (1000/frameRate);
+    /******************************Save le vidéo******************************************/
     Save mySaver(videoPath.toStdString(), this->getFrameSize(), frameRate, this->getCodec());
+    /*************************************************************************************/
+    /******************************Algo de détection**************************************/
     AlgoSoustraction *myAlgo;
     if(trajectoreChecked == true){
         myAlgo = new AlgoSoustraction(deplacement, getcurrentImage(framestart), &objectchoose);
     }
+    /*************************************************************************************/
     while(!stop){
         if (!capture->read(frame))
         {
             stop = true;
-        }
-        if (frame.channels()== 3){
-            cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
-
-            if(trajectoreChecked == true){
-                   myAlgo->decter(RGBframe, getCurrentFrame());
-                   myAlgo->getTrajectoire().drawTrajectoire(RGBframe);
+        }else{
+            if (frame.channels()== 3){
+                cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
+                /****************Algo de détection*************************/
+                if(trajectoreChecked == true){
+                       myAlgo->decter(RGBframe, getCurrentFrame());
+                       myAlgo->getTrajectoire().drawTrajectoire(RGBframe);
+                }
+                /**********************************************************/
+                img = QImage((const unsigned char*)(RGBframe.data),
+                              RGBframe.cols,RGBframe.rows,QImage::Format_RGB888);
+                /***********Save le vidéo*********************************/
+                mySaver.SaveVideo(frame);
+                /*********************************************************/
             }
-            img = QImage((const unsigned char*)(RGBframe.data),
-                          RGBframe.cols,RGBframe.rows,QImage::Format_RGB888);
-            mySaver.SaveVideo(frame);
-           /* myAlgo.decter(frame);
-            myAlgo.getTrajectoire().drawTrajectoire(frame);*/
+            else
+            {
+                img = QImage((const unsigned char*)(frame.data),
+                             frame.cols,frame.rows,QImage::Format_Indexed8);
+                /***********Save le vidéo*********************************/
+                mySaver.SaveVideo(frame);
+                /*********************************************************/
+            }
+            //nbframe++;
+            emit processedImage(img);
+            this->msleep(delay);
         }
-        else
-        {
-            img = QImage((const unsigned char*)(frame.data),
-                         frame.cols,frame.rows,QImage::Format_Indexed8);
-            mySaver.SaveVideo(frame);
-        }
-       // nbframe++;
-        emit processedImage(img);
-        this->msleep(delay);
     }
     if(trajectoreChecked == true){delete myAlgo;}
 }
