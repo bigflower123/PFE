@@ -9,6 +9,7 @@
 #include <opencv2/highgui/highgui.hpp>
 #include "save.h"
 #include "algosoustraction.h"
+#include <QDebug>
 
 using namespace cv;
 class player: public QThread
@@ -28,6 +29,8 @@ class player: public QThread
     int deplacement;
     int framestart;
     int framefin;
+    long nbframe = 0;
+    double framecount = 0;
    // long beginFrame = 1;
    // long finFrame = getNumberOfFrames();
     //Save *mySaver;
@@ -79,6 +82,9 @@ class player: public QThread
     void setVideoFin(int);
     bool trajectoreChecked = false;
     vector<Mat> hist;
+    void setFramenb(long);
+    long getFramenb();
+    Mat getNextframe();
     /*void setStartVideo(long start);
     void setFinVideo(long fin);*/
 };

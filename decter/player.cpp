@@ -45,10 +45,12 @@ void player::run()
         myAlgo = new AlgoSoustraction(deplacement, getcurrentImage(framestart), &objectchoose);
     }
     /*************************************************************************************/
+    qDebug() << framecount;
     while(!stop){
         if (!capture->read(frame))
         {
             stop = true;
+            qDebug()<<"frame read fin";
         }else{
             if (frame.channels()== 3){
                 cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
@@ -61,7 +63,7 @@ void player::run()
                 img = QImage((const unsigned char*)(RGBframe.data),
                               RGBframe.cols,RGBframe.rows,QImage::Format_RGB888);
                 /***********Save le vidéo*********************************/
-                mySaver.SaveVideo(frame);
+                 mySaver.SaveVideo(frame);
                 /*********************************************************/
             }
             else
@@ -72,11 +74,12 @@ void player::run()
                 mySaver.SaveVideo(frame);
                 /*********************************************************/
             }
-            //nbframe++;
+            nbframe++;
             emit processedImage(img);
             this->msleep(delay);
         }
     }
+    qDebug()<<nbframe;
     if(trajectoreChecked == true){delete myAlgo;}
 }
 
@@ -105,7 +108,8 @@ double player::getCurrentFrame(){
 }
 
 double player::getNumberOfFrames(){
-    return capture->get(CV_CAP_PROP_FRAME_COUNT);
+    framecount = capture->get(CV_CAP_PROP_FRAME_COUNT);
+    return framecount;
 }
 
 double player::getFrameRate(){
@@ -122,13 +126,9 @@ Mat& player::showImage(int frameNumber){
     if(frameNumber > 0){
         if(capture->read(frame)){
             cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
-            /*img = QImage((const unsigned char*)(RGBframe.data),
-                          RGBframe.cols,RGBframe.rows,QImage::Format_RGB888);
-            return img;*/
             return RGBframe;
         }
     }
-    //return img;
     return RGBframe;
 }
 
@@ -161,6 +161,27 @@ void player::setVideoStart(int tmpstart)
 void player::setVideoFin(int tmpfin)
 {
     framefin = tmpfin;
+}
+
+void player::setFramenb(long tmpnb)
+{
+    nbframe = tmpnb;
+}
+
+long player::getFramenb()
+{
+    return nbframe;
+}
+
+Mat player::getNextframe()
+{
+    if(capture->read(frame)){
+        if(frame.channels() == 3){
+            cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
+        }
+    }
+    return RGBframe;
+
 }
 
 /*void player::setStartVideo(long tmpstart)

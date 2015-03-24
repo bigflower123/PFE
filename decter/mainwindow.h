@@ -80,6 +80,7 @@ private:
     double  heightscale, widthscale;
     InformationDialog *infoDialog;
     DeplacementMaxDialog *deplacementDialog;
+    int postionSlider;
 
 };
 
