@@ -299,6 +299,13 @@ release\moc_mainwindow.cpp: C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QMainWi
 		C:\opencv\build\include\opencv2\highgui\highgui_c.h \
 		save.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QString \
+		algosoustraction.h \
+		algogeneral.h \
+		informationobject.h \
+		trajectoire.h \
+		node.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDateTime \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDebug \
 		video_qlabel.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QLabel \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qlabel.h \
@@ -398,6 +405,25 @@ release\moc_player.cpp: C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QMutex \
 		C:\opencv\build\include\opencv2\highgui\highgui_c.h \
 		save.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QString \
+		algosoustraction.h \
+		algogeneral.h \
+		informationobject.h \
+		trajectoire.h \
+		node.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDateTime \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qdatetime.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qsharedpointer.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qshareddata.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qsharedpointer_impl.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qhash.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDebug \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qdebug.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qmap.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qtextstream.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qlocale.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qvariant.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qset.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qcontiguouscache.h \
 		player.h
 	C:\Qt\Qt5.3.2\5.3\msvc2013\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -IC:/Qt/Qt5.3.2/5.3/msvc2013/mkspecs/win32-msvc2013 -ID:/PFE/decter -IC:/opencv/build/include -IC:/Qt/Qt5.3.2/5.3/msvc2013/include -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtWidgets -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtGui -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtANGLE -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtCore player.h -o release\moc_player.cpp
 
@@ -524,6 +550,14 @@ release\moc_video_qlabel.cpp: C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QLabe
 		C:\opencv\build\include\opencv2\highgui\highgui_c.h \
 		save.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QString \
+		algosoustraction.h \
+		algogeneral.h \
+		informationobject.h \
+		trajectoire.h \
+		node.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDateTime \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qdatetime.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDebug \
 		video_qlabel.h
 	C:\Qt\Qt5.3.2\5.3\msvc2013\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -IC:/Qt/Qt5.3.2/5.3/msvc2013/mkspecs/win32-msvc2013 -ID:/PFE/decter -IC:/opencv/build/include -IC:/Qt/Qt5.3.2/5.3/msvc2013/include -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtWidgets -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtGui -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtANGLE -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtCore video_qlabel.h -o release\moc_video_qlabel.cpp
 
@@ -647,6 +681,14 @@ release\moc_informationdialog.cpp: C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\
 		C:\opencv\build\include\opencv2\highgui\highgui_c.h \
 		save.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QString \
+		algosoustraction.h \
+		algogeneral.h \
+		informationobject.h \
+		trajectoire.h \
+		node.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDateTime \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qdatetime.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDebug \
 		informationdialog.h
 	C:\Qt\Qt5.3.2\5.3\msvc2013\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -IC:/Qt/Qt5.3.2/5.3/msvc2013/mkspecs/win32-msvc2013 -ID:/PFE/decter -IC:/opencv/build/include -IC:/Qt/Qt5.3.2/5.3/msvc2013/include -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtWidgets -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtGui -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtANGLE -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtCore informationdialog.h -o release\moc_informationdialog.cpp
 
@@ -770,6 +812,14 @@ release\moc_deplacementmaxdialog.cpp: C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidge
 		C:\opencv\build\include\opencv2\highgui\highgui_c.h \
 		save.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QString \
+		algosoustraction.h \
+		algogeneral.h \
+		informationobject.h \
+		trajectoire.h \
+		node.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDateTime \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qdatetime.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDebug \
 		deplacementmaxdialog.h
 	C:\Qt\Qt5.3.2\5.3\msvc2013\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -IC:/Qt/Qt5.3.2/5.3/msvc2013/mkspecs/win32-msvc2013 -ID:/PFE/decter -IC:/opencv/build/include -IC:/Qt/Qt5.3.2/5.3/msvc2013/include -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtWidgets -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtGui -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtANGLE -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtCore deplacementmaxdialog.h -o release\moc_deplacementmaxdialog.cpp
 
@@ -902,7 +952,15 @@ ui_mainwindow.h: mainwindow.ui \
 		C:\opencv\build\include\opencv2\highgui\highgui.hpp \
 		C:\opencv\build\include\opencv2\highgui\highgui_c.h \
 		save.h \
-		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QString
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QString \
+		algosoustraction.h \
+		algogeneral.h \
+		informationobject.h \
+		trajectoire.h \
+		node.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDateTime \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qdatetime.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDebug
 	C:\Qt\Qt5.3.2\5.3\msvc2013\bin\uic.exe mainwindow.ui -o ui_mainwindow.h
 
 ui_informationdialog.h: informationdialog.ui
@@ -1056,6 +1114,13 @@ release\main.obj: main.cpp mainwindow.h \
 		C:\opencv\build\include\opencv2\highgui\highgui_c.h \
 		save.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QString \
+		algosoustraction.h \
+		algogeneral.h \
+		informationobject.h \
+		trajectoire.h \
+		node.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDateTime \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDebug \
 		video_qlabel.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QLabel \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qlabel.h \
@@ -1205,6 +1270,13 @@ release\mainwindow.obj: mainwindow.cpp mainwindow.h \
 		C:\opencv\build\include\opencv2\highgui\highgui_c.h \
 		save.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QString \
+		algosoustraction.h \
+		algogeneral.h \
+		informationobject.h \
+		trajectoire.h \
+		node.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDateTime \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDebug \
 		video_qlabel.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QLabel \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qlabel.h \
@@ -1227,6 +1299,9 @@ release\mainwindow.obj: mainwindow.cpp mainwindow.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qinputmethod.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QButtonGroup \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qbuttongroup.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QCheckBox \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qcheckbox.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qabstractbutton.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QHeaderView \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qheaderview.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qabstractitemview.h \
@@ -1249,7 +1324,6 @@ release\mainwindow.obj: mainwindow.cpp mainwindow.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qmenubar.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QPushButton \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qpushbutton.h \
-		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qabstractbutton.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QSlider \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QStatusBar \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qstatusbar.h \
@@ -1345,7 +1419,26 @@ release\player.obj: player.cpp player.h \
 		C:\opencv\build\include\opencv2\highgui\highgui.hpp \
 		C:\opencv\build\include\opencv2\highgui\highgui_c.h \
 		save.h \
-		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QString
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QString \
+		algosoustraction.h \
+		algogeneral.h \
+		informationobject.h \
+		trajectoire.h \
+		node.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDateTime \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qdatetime.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qsharedpointer.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qshareddata.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qsharedpointer_impl.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qhash.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDebug \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qdebug.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qmap.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qtextstream.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qlocale.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qvariant.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qset.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qcontiguouscache.h
 
 release\video_qlabel.obj: video_qlabel.cpp video_qlabel.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QLabel \
@@ -1470,7 +1563,15 @@ release\video_qlabel.obj: video_qlabel.cpp video_qlabel.h \
 		C:\opencv\build\include\opencv2\highgui\highgui.hpp \
 		C:\opencv\build\include\opencv2\highgui\highgui_c.h \
 		save.h \
-		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QString
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QString \
+		algosoustraction.h \
+		algogeneral.h \
+		informationobject.h \
+		trajectoire.h \
+		node.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDateTime \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qdatetime.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDebug
 
 release\save.obj: save.cpp save.h \
 		C:\opencv\build\include\opencv2\core\core.hpp \
@@ -1641,6 +1742,14 @@ release\informationdialog.obj: informationdialog.cpp informationdialog.h \
 		C:\opencv\build\include\opencv2\highgui\highgui_c.h \
 		save.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QString \
+		algosoustraction.h \
+		algogeneral.h \
+		informationobject.h \
+		trajectoire.h \
+		node.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDateTime \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qdatetime.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDebug \
 		ui_informationdialog.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QVariant \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QAction \
@@ -1804,6 +1913,14 @@ release\deplacementmaxdialog.obj: deplacementmaxdialog.cpp deplacementmaxdialog.
 		C:\opencv\build\include\opencv2\highgui\highgui_c.h \
 		save.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QString \
+		algosoustraction.h \
+		algogeneral.h \
+		informationobject.h \
+		trajectoire.h \
+		node.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDateTime \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qdatetime.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDebug \
 		ui_deplacementmaxdialog.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QVariant \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QAction \
@@ -1851,38 +1968,180 @@ release\deplacementmaxdialog.obj: deplacementmaxdialog.cpp deplacementmaxdialog.
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QMessageBox \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qmessagebox.h
 
-release\informationobject.obj: informationobject.cpp informationobject.h
-
-release\algogeneral.obj: algogeneral.cpp algogeneral.h \
-		informationobject.h \
-		trajectoire.h \
-		node.h \
+release\informationobject.obj: informationobject.cpp informationobject.h \
 		C:\opencv\build\include\opencv2\core\core.hpp \
 		C:\opencv\build\include\opencv2\core\types_c.h \
 		C:\opencv\build\include\opencv2\core\version.hpp \
 		C:\opencv\build\include\opencv2\core\operations.hpp \
 		C:\opencv\build\include\opencv2\core\mat.hpp \
+		C:\opencv\build\include\opencv2\highgui\highgui.hpp \
+		C:\opencv\build\include\opencv2\highgui\highgui_c.h \
+		C:\opencv\build\include\opencv2\core\core_c.h \
+		C:\opencv\build\include\opencv2\imgproc\imgproc.hpp \
+		C:\opencv\build\include\opencv2\imgproc\types_c.h
+
+release\algogeneral.obj: algogeneral.cpp algogeneral.h \
+		informationobject.h \
+		C:\opencv\build\include\opencv2\core\core.hpp \
+		C:\opencv\build\include\opencv2\core\types_c.h \
+		C:\opencv\build\include\opencv2\core\version.hpp \
+		C:\opencv\build\include\opencv2\core\operations.hpp \
+		C:\opencv\build\include\opencv2\core\mat.hpp \
+		C:\opencv\build\include\opencv2\highgui\highgui.hpp \
+		C:\opencv\build\include\opencv2\highgui\highgui_c.h \
+		C:\opencv\build\include\opencv2\core\core_c.h \
 		C:\opencv\build\include\opencv2\imgproc\imgproc.hpp \
 		C:\opencv\build\include\opencv2\imgproc\types_c.h \
-		C:\opencv\build\include\opencv2\core\core_c.h \
-		C:\opencv\build\include\opencv2\highgui\highgui.hpp \
-		C:\opencv\build\include\opencv2\highgui\highgui_c.h
+		trajectoire.h \
+		node.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDateTime \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qdatetime.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qstring.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qchar.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qglobal.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qconfig.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qfeatures.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qsystemdetection.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qprocessordetection.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qcompilerdetection.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qtypeinfo.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qtypetraits.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qsysinfo.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qlogging.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qflags.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qbasicatomic.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_bootstrap.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qgenericatomic.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_msvc.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_armv7.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_armv6.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_armv5.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_ia64.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_mips.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_x86.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_cxx11.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_gcc.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_unix.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qglobalstatic.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qmutex.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qnumeric.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qbytearray.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qrefcount.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qnamespace.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qarraydata.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qstringbuilder.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qsharedpointer.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qshareddata.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qsharedpointer_impl.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qobject.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qobjectdefs.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qobjectdefs_impl.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qlist.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qalgorithms.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qiterator.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qcoreevent.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qscopedpointer.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qmetatype.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qvarlengtharray.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qcontainerfwd.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qisenum.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qobject_impl.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qhash.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qpair.h
 
 release\algosoustraction.obj: algosoustraction.cpp algosoustraction.h \
 		algogeneral.h \
 		informationobject.h \
-		trajectoire.h \
-		node.h \
 		C:\opencv\build\include\opencv2\core\core.hpp \
 		C:\opencv\build\include\opencv2\core\types_c.h \
 		C:\opencv\build\include\opencv2\core\version.hpp \
 		C:\opencv\build\include\opencv2\core\operations.hpp \
 		C:\opencv\build\include\opencv2\core\mat.hpp \
+		C:\opencv\build\include\opencv2\highgui\highgui.hpp \
+		C:\opencv\build\include\opencv2\highgui\highgui_c.h \
+		C:\opencv\build\include\opencv2\core\core_c.h \
 		C:\opencv\build\include\opencv2\imgproc\imgproc.hpp \
 		C:\opencv\build\include\opencv2\imgproc\types_c.h \
-		C:\opencv\build\include\opencv2\core\core_c.h \
-		C:\opencv\build\include\opencv2\highgui\highgui.hpp \
-		C:\opencv\build\include\opencv2\highgui\highgui_c.h
+		trajectoire.h \
+		node.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDateTime \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qdatetime.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qstring.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qchar.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qglobal.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qconfig.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qfeatures.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qsystemdetection.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qprocessordetection.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qcompilerdetection.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qtypeinfo.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qtypetraits.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qsysinfo.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qlogging.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qflags.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qbasicatomic.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_bootstrap.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qgenericatomic.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_msvc.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_armv7.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_armv6.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_armv5.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_ia64.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_mips.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_x86.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_cxx11.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_gcc.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_unix.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qglobalstatic.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qmutex.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qnumeric.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qbytearray.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qrefcount.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qnamespace.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qarraydata.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qstringbuilder.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qsharedpointer.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qshareddata.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qsharedpointer_impl.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qobject.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qobjectdefs.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qobjectdefs_impl.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qlist.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qalgorithms.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qiterator.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qcoreevent.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qscopedpointer.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qmetatype.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qvarlengtharray.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qcontainerfwd.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qisenum.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qobject_impl.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qhash.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qpair.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\QImage \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qimage.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qtransform.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qmatrix.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qpolygon.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qvector.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qpoint.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qrect.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qmargins.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qsize.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qregion.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qwindowdefs.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qwindowdefs_win.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qdatastream.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qiodevice.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qline.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qpainterpath.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qpaintdevice.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qrgb.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qstringlist.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qregexp.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qstringmatcher.h
 
 release\trajectoire.obj: trajectoire.cpp trajectoire.h \
 		node.h \
@@ -1895,7 +2154,62 @@ release\trajectoire.obj: trajectoire.cpp trajectoire.h \
 		C:\opencv\build\include\opencv2\imgproc\types_c.h \
 		C:\opencv\build\include\opencv2\core\core_c.h \
 		C:\opencv\build\include\opencv2\highgui\highgui.hpp \
-		C:\opencv\build\include\opencv2\highgui\highgui_c.h
+		C:\opencv\build\include\opencv2\highgui\highgui_c.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDateTime \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qdatetime.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qstring.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qchar.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qglobal.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qconfig.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qfeatures.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qsystemdetection.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qprocessordetection.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qcompilerdetection.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qtypeinfo.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qtypetraits.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qsysinfo.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qlogging.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qflags.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qbasicatomic.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_bootstrap.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qgenericatomic.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_msvc.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_armv7.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_armv6.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_armv5.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_ia64.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_mips.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_x86.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_cxx11.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_gcc.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_unix.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qglobalstatic.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qmutex.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qnumeric.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qbytearray.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qrefcount.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qnamespace.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qarraydata.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qstringbuilder.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qsharedpointer.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qshareddata.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qsharedpointer_impl.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qobject.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qobjectdefs.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qobjectdefs_impl.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qlist.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qalgorithms.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qiterator.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qcoreevent.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qscopedpointer.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qmetatype.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qvarlengtharray.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qcontainerfwd.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qisenum.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qobject_impl.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qhash.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qpair.h
 
 release\node.obj: node.cpp node.h \
 		C:\opencv\build\include\opencv2\core\core.hpp \
@@ -1907,7 +2221,62 @@ release\node.obj: node.cpp node.h \
 		C:\opencv\build\include\opencv2\imgproc\types_c.h \
 		C:\opencv\build\include\opencv2\core\core_c.h \
 		C:\opencv\build\include\opencv2\highgui\highgui.hpp \
-		C:\opencv\build\include\opencv2\highgui\highgui_c.h
+		C:\opencv\build\include\opencv2\highgui\highgui_c.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDateTime \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qdatetime.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qstring.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qchar.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qglobal.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qconfig.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qfeatures.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qsystemdetection.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qprocessordetection.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qcompilerdetection.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qtypeinfo.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qtypetraits.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qsysinfo.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qlogging.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qflags.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qbasicatomic.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_bootstrap.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qgenericatomic.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_msvc.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_armv7.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_armv6.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_armv5.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_ia64.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_mips.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_x86.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_cxx11.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_gcc.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_unix.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qglobalstatic.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qmutex.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qnumeric.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qbytearray.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qrefcount.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qnamespace.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qarraydata.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qstringbuilder.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qsharedpointer.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qshareddata.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qsharedpointer_impl.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qobject.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qobjectdefs.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qobjectdefs_impl.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qlist.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qalgorithms.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qiterator.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qcoreevent.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qscopedpointer.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qmetatype.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qvarlengtharray.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qcontainerfwd.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qisenum.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qobject_impl.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qhash.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qpair.h
 
 release\moc_mainwindow.obj: release\moc_mainwindow.cpp 
 

@@ -9,9 +9,11 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     myPlayer = new player();
+    /*********choose and show video******************/
     QObject::connect(ui->actionOuvrirVideo, SIGNAL(triggered()), this, SLOT(chooseVideo()));
     QObject::connect(ui->actionSauvegarderVideo, SIGNAL(triggered()), this, SLOT(choosePath()));
     QObject::connect(myPlayer, SIGNAL(processedImage(QImage)), this, SLOT(updatePlayerUI(QImage)));
+    /***********************************************/
     /*****For choose object**************/
     ui->VideoLbl->setMouseTracking(true);
     QObject::connect(ui->VideoLbl, SIGNAL(Mouse_Move(int, int)), this, SLOT(myMouseMove(int, int)));
@@ -29,8 +31,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->quickforwardButton->setEnabled(false);
     /***********************************/
     ui->actionInformationObjet->setEnabled(false);
+    /*************open dialog**************/
     QObject::connect(ui->actionInformationObjet, SIGNAL(triggered()),this, SLOT(openInformationDialog()));
     QObject::connect(ui->actionDeplacement, SIGNAL(triggered()),this, SLOT(openDeplacementDialog()));
+    /**************************************/
 }
 
 MainWindow::~MainWindow()
@@ -51,7 +55,8 @@ void MainWindow::displayImage(QImage& img, double framecourant)
     ui->VideoLbl->setAlignment(Qt::AlignCenter);
     ui->VideoLbl->setPixmap(QPixmap::fromImage(img).scaled(ui->VideoLbl->size(),
                             Qt::KeepAspectRatio, Qt::FastTransformation));
-    ui->VideoLbl->adjustSize(); //Adjust size of the video
+    //Adjust size of the video
+    ui->VideoLbl->adjustSize();
     ui->videoSlider->setValue(framecourant);
     ui->currentLable->setText(QString::number(framecourant));
     //qDebug() << "Fin d'affichage de l'image";
@@ -327,7 +332,11 @@ void MainWindow::myMouseLeft(int x, int y)
 
 /******************Choose object*******************/
 
-
+/******************Open dialog********************/
+/**
+ * open information dialog
+ * @brief MainWindow::openInformationDialog
+ */
 void MainWindow::openInformationDialog()
 {
     infoDialog = new InformationDialog(myPlayer);
@@ -335,6 +344,10 @@ void MainWindow::openInformationDialog()
     infoDialog->exec();
 }
 
+/**
+ * open déplacement dialog
+ * @brief MainWindow::openDeplacementDialog
+ */
 void MainWindow::openDeplacementDialog()
 {
         deplacementDialog = new DeplacementMaxDialog(myPlayer);
@@ -342,8 +355,8 @@ void MainWindow::openDeplacementDialog()
         deplacementDialog->exec();
 }
 
+/**************************************************/
 
-/************Choose object*************************/
 /**
  * set the begin of the video
  * @brief MainWindow::on_debutButton_clicked

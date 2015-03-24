@@ -42,16 +42,16 @@ QT_MOC_LITERAL(9, 132, 26),
 QT_MOC_LITERAL(10, 159, 8),
 QT_MOC_LITERAL(11, 168, 25),
 QT_MOC_LITERAL(12, 194, 24),
-QT_MOC_LITERAL(13, 219, 11),
-QT_MOC_LITERAL(14, 231, 14),
-QT_MOC_LITERAL(15, 246, 11),
-QT_MOC_LITERAL(16, 258, 18),
-QT_MOC_LITERAL(17, 277, 21),
-QT_MOC_LITERAL(18, 299, 21),
-QT_MOC_LITERAL(19, 321, 22),
-QT_MOC_LITERAL(20, 344, 20),
-QT_MOC_LITERAL(21, 365, 30),
-QT_MOC_LITERAL(22, 396, 29),
+QT_MOC_LITERAL(13, 219, 29),
+QT_MOC_LITERAL(14, 249, 30),
+QT_MOC_LITERAL(15, 280, 11),
+QT_MOC_LITERAL(16, 292, 14),
+QT_MOC_LITERAL(17, 307, 11),
+QT_MOC_LITERAL(18, 319, 18),
+QT_MOC_LITERAL(19, 338, 21),
+QT_MOC_LITERAL(20, 360, 21),
+QT_MOC_LITERAL(21, 382, 22),
+QT_MOC_LITERAL(22, 405, 20),
 QT_MOC_LITERAL(23, 426, 30)
     },
     "MainWindow\0updatePlayerUI\0\0img\0"
@@ -60,14 +60,14 @@ QT_MOC_LITERAL(23, 426, 30)
     "on_videoSlider_sliderReleased\0"
     "on_videoSlider_sliderMoved\0position\0"
     "on_backwardButton_clicked\0"
-    "on_forwardButton_clicked\0myMouseMove\0"
-    "myMousePressed\0myMouseLeft\0"
+    "on_forwardButton_clicked\0"
+    "on_quickforwardButton_clicked\0"
+    "on_quickbackwardButton_clicked\0"
+    "myMouseMove\0myMousePressed\0myMouseLeft\0"
     "myMouseMovePressed\0openInformationDialog\0"
     "openDeplacementDialog\0on_debutButton_clicked\0"
     "on_finButton_clicked\0"
-    "on_trajectoirecheckBox_clicked\0"
-    "on_quickforwardButton_clicked\0"
-    "on_quickbackwardButton_clicked"
+    "on_trajectoirecheckBox_clicked"
 };
 #undef QT_MOC_LITERAL
 
@@ -94,12 +94,12 @@ static const uint qt_meta_data_MainWindow[] = {
        9,    1,  122,    2, 0x08 /* Private */,
       11,    0,  125,    2, 0x08 /* Private */,
       12,    0,  126,    2, 0x08 /* Private */,
-      13,    2,  127,    2, 0x08 /* Private */,
-      14,    2,  132,    2, 0x08 /* Private */,
-      15,    2,  137,    2, 0x08 /* Private */,
-      16,    2,  142,    2, 0x08 /* Private */,
-      17,    0,  147,    2, 0x08 /* Private */,
-      18,    0,  148,    2, 0x08 /* Private */,
+      13,    0,  127,    2, 0x08 /* Private */,
+      14,    0,  128,    2, 0x08 /* Private */,
+      15,    2,  129,    2, 0x08 /* Private */,
+      16,    2,  134,    2, 0x08 /* Private */,
+      17,    2,  139,    2, 0x08 /* Private */,
+      18,    2,  144,    2, 0x08 /* Private */,
       19,    0,  149,    2, 0x08 /* Private */,
       20,    0,  150,    2, 0x08 /* Private */,
       21,    0,  151,    2, 0x08 /* Private */,
@@ -116,12 +116,12 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void, QMetaType::Int,   10,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int, QMetaType::Int,    2,    2,
-    QMetaType::Void, QMetaType::Int, QMetaType::Int,    2,    2,
-    QMetaType::Void, QMetaType::Int, QMetaType::Int,    2,    2,
-    QMetaType::Void, QMetaType::Int, QMetaType::Int,    2,    2,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int,    2,    2,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int,    2,    2,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int,    2,    2,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int,    2,    2,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -145,17 +145,17 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 6: _t->on_videoSlider_sliderMoved((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 7: _t->on_backwardButton_clicked(); break;
         case 8: _t->on_forwardButton_clicked(); break;
-        case 9: _t->myMouseMove((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 10: _t->myMousePressed((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 11: _t->myMouseLeft((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 12: _t->myMouseMovePressed((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 13: _t->openInformationDialog(); break;
-        case 14: _t->openDeplacementDialog(); break;
-        case 15: _t->on_debutButton_clicked(); break;
-        case 16: _t->on_finButton_clicked(); break;
-        case 17: _t->on_trajectoirecheckBox_clicked(); break;
-        case 18: _t->on_quickforwardButton_clicked(); break;
-        case 19: _t->on_quickbackwardButton_clicked(); break;
+        case 9: _t->on_quickforwardButton_clicked(); break;
+        case 10: _t->on_quickbackwardButton_clicked(); break;
+        case 11: _t->myMouseMove((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 12: _t->myMousePressed((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 13: _t->myMouseLeft((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 14: _t->myMouseMovePressed((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 15: _t->openInformationDialog(); break;
+        case 16: _t->openDeplacementDialog(); break;
+        case 17: _t->on_debutButton_clicked(); break;
+        case 18: _t->on_finButton_clicked(); break;
+        case 19: _t->on_trajectoirecheckBox_clicked(); break;
         default: ;
         }
     }

@@ -26,7 +26,6 @@ void AlgoSoustraction::decter(Mat & currentFrame, double nbFrame)
     //calculeHistograme();
     binary_fond = generateBinaryImage(start_frame);
     binary_frame = generateBinaryImage(currentFrame);
-
     /******foreground OU background – background =
      * the binary image which contains only the moving object*************/
     absdiff(binary_frame+binary_fond,binary_fond,img_act);

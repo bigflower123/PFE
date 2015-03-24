@@ -38,6 +38,7 @@ class player: public QThread
  signals:
      //Signal to output frame to be displayed
      void processedImage(const QImage &image);
+
  protected:
      void run();
      void msleep(int ms);
@@ -80,11 +81,11 @@ class player: public QThread
     void setDeplacementMax(int);
     void setVideoStart(int);
     void setVideoFin(int);
-    bool trajectoreChecked = false;
     vector<Mat> hist;
     void setFramenb(long);
     long getFramenb();
     Mat getNextframe();
+    bool trajectoreChecked = false;
     /*void setStartVideo(long start);
     void setFinVideo(long fin);*/
 };

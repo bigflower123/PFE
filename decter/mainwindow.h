@@ -33,53 +33,54 @@ private slots:
     //Slot for the play push button.
     void on_playBtn_clicked();
     //QString getFormattedTime(int timeInSeconds);
+
     //Slot for Slider
     void on_videoSlider_sliderPressed();
     void on_videoSlider_sliderReleased();
     void on_videoSlider_sliderMoved(int position);
-    //Slot for the backward push button
+
+    //Slot for the backward and forward push button
     void on_backwardButton_clicked();
-    //Slot for the forward push button
-     void on_forwardButton_clicked();
-    //void Mouse_current_pos();
-     /*void mousePressEvent(QMouseEvent *);
-     void mouseMoveEvent(QMouseEvent *);
-     void mouseReleaseEvent(QMouseEvent *);*/
+    void on_forwardButton_clicked();
+    void on_quickforwardButton_clicked();
+    void on_quickbackwardButton_clicked();
+
+    //Slot for choose object
      void myMouseMove(int, int);
      void myMousePressed(int, int);
      void myMouseLeft(int, int);
      void myMouseMovePressed(int, int);
 
+     //Slot for open dialog
      void openInformationDialog();
      void openDeplacementDialog();
 
      void on_debutButton_clicked();
-
      void on_finButton_clicked();
-
      void on_trajectoirecheckBox_clicked();
 
-     void on_quickforwardButton_clicked();
-
-     void on_quickbackwardButton_clicked();
-
-protected:
-    //bool eventFilter(QObject *, QEvent *);
 
 private:
     Ui::MainWindow *ui;
     player *myPlayer;
+    //show video
+    void displayImage(QImage &, double);
+
+    //Choose object
     Mat org, tmp, img, dst;
     Point pre_pt = (-1,-1);
     Point cur_pt = (-1,-1);
     int taille = 0;
     double valueScale = 1.0;
-    void displayImage(QImage &, double);
     char temp[16];
     double imgheight,imgwidth,labelheight,labelwidth ;
     double  heightscale, widthscale;
+
+    //Dialog pointeur
     InformationDialog *infoDialog;
     DeplacementMaxDialog *deplacementDialog;
+
+    //Postion of slider
     int postionSlider;
 
 };
