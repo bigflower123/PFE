@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    this->showNormal();
     myPlayer = new player();
     /*********choose and show video******************/
     QObject::connect(ui->actionOuvrirVideo, SIGNAL(triggered()), this, SLOT(chooseVideo()));
@@ -326,7 +327,9 @@ void MainWindow::myMouseLeft(int x, int y)
         printf("width == 0 || height == 0");
     }
     dst = org(Rect(min(cur_pt.x,pre_pt.x),min(cur_pt.y,pre_pt.y),zonewidth, zoneheight));
-    myPlayer->setObjectChoose(dst);
+    Mat RGBdst;
+    cv::cvtColor(dst, RGBdst, CV_BGR2RGB);
+    myPlayer->setObjectChoose(RGBdst);
     ui->actionInformationObjet->setEnabled(true);
 }
 
@@ -380,7 +383,11 @@ void MainWindow::on_finButton_clicked()
 
 void MainWindow::on_trajectoirecheckBox_clicked()
 {
-    myPlayer->trajectoreChecked = true;
+    if(!myPlayer->trajectoreChecked){
+         myPlayer->trajectoreChecked = true;
+    }else{
+         myPlayer->trajectoreChecked = false;
+    }
 }
 
 /*void MainWindow::mousePressEvent(QMouseEvent *evt){

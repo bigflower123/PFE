@@ -1,4 +1,6 @@
 #include "player.h"
+#include <time.h>
+#include <conio.h>
 
 /**
  * Constructeur
@@ -93,6 +95,7 @@ bool player::isStopped() const{
  */
 void player::run()
 {
+    clock_t t_start,t_end, t_start1, t_end1;
     double delay = (1000/frameRate);
     /******************************Save le vidéo******************************************/
     Save mySaver(videoPath.toStdString(), this->getFrameSize(), frameRate, this->getCodec());
@@ -100,7 +103,7 @@ void player::run()
     /******************************Algo de détection**************************************/
     AlgoSoustraction *myAlgo;
     if(trajectoreChecked == true){
-        myAlgo = new AlgoSoustraction(deplacement, getcurrentImage(1), &objectchoose);
+        myAlgo = new AlgoSoustraction(deplacement, this->getFistFrame(), &objectchoose);
     }
 
     /*************************************************************************************/
@@ -115,8 +118,14 @@ void player::run()
                 cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
                 /****************Algo de détection*************************/
                 if(trajectoreChecked == true){
-                       myAlgo->decter(RGBframe, getCurrentFrame());
+                       t_start = clock();
+                       myAlgo->decter(RGBframe, nbframe);
+                       t_end = clock();
+                       qDebug()<< "detecter time" <<(double)(t_end - t_start) / CLOCKS_PER_SEC;;
+                       t_start1 = clock();
                        myAlgo->getTrajectoire().drawTrajectoire(RGBframe);
+                       t_end1 = clock();
+                       qDebug()<< "draw time" <<(double)(t_end1 - t_start1) / CLOCKS_PER_SEC;;
                 }
                 /**********************************************************/
                 img = QImage((const unsigned char*)(RGBframe.data),
@@ -253,6 +262,7 @@ Mat player::getNextframe()
     return RGBframe;
 }
 
+
 Mat player::getcurrentImage(int frameNumber){
     capture->set(CV_CAP_PROP_POS_FRAMES, --frameNumber);
     if(frameNumber > 0){
@@ -337,6 +347,44 @@ Mat player::getObjectChoose()
 {
     return objectchoose;
 }
+
+/**
+ * set threshold()
+ * @brief player::setThresh
+ * @param red1
+ * @param red2
+ * @param blue1
+ * @param blue2
+ * @param green1
+ * @param green2
+ */
+void player::setThresh(int red1, int red2, int blue1, int blue2, int green1, int green2)
+{
+    thresh[0] = red1;
+    thresh[1] = red2;
+    thresh[2] = blue1;
+    thresh[3] = blue2;
+    thresh[4] = green1;
+    thresh[5] = green2;
+}
+
+
+/**
+ * Get first frame of video
+ * @brief player::getFistFrame
+ * @return
+ */
+Mat player::getFistFrame()
+{
+    Mat frame;
+    capture->set(CV_CAP_PROP_POS_FRAMES, 1);
+    if(capture->read(frame)){
+        //cv::cvtColor(frame, frame, CV_BGR2RGB);
+        return frame;
+     }
+}
+
+
 
 /*void player::setStartVideo(long tmpstart)
 {

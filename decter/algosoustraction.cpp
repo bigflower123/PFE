@@ -1,11 +1,21 @@
 #include "algosoustraction.h"
 #include <QImage>
+#include <QDebug>
 
 AlgoSoustraction::AlgoSoustraction(int tmpdpmax, Mat& tmpstart, Mat* tmpobj)
 {
     deplacementmax = tmpdpmax;
     start_frame = tmpstart;
     obj_choose = tmpobj;
+    thresh_red_1 = 0;
+    thresh_red_2 = 255;
+    thresh_blue_1 = 0;
+    thresh_blue_2 = 255;
+    thresh_green_1 = 0;
+    thresh_green_2 = 255;
+    testHistogram(*obj_choose);
+    binary_fond = generateBinaryImage(start_frame);
+    imwrite("fond.jpg", binary_fond);
     //current_obj = tmpobj;
 }
 
@@ -15,28 +25,45 @@ AlgoSoustraction::AlgoSoustraction(int tmpdpmax, Mat& tmpstart, Mat* tmpobj)
  * @brief AlgoSoustraction::decter
  * @param currentFrame
  */
-void AlgoSoustraction::decter(Mat & currentFrame, double nbFrame)
+void AlgoSoustraction::decter(Mat & currentFrame, int nbFrame)
 {
+
     Mat binary_frame;   //the current frame on binary
     Mat img_act;        //the binary image which contains only the moving object
     Mat clean_act;      //img_act do erosion = clean_act
     Point2f center;     //the center of the circle
     float radius;       //the radius of the circle
+
     Mat drawing = Mat::zeros( currentFrame.size(), CV_8UC3 );
-    //calculeHistograme();
-    binary_fond = generateBinaryImage(start_frame);
+    //Mat tmp = *obj_choose;
+    //imwrite("objchoose.jpg", tmp);
+    //calculeHistograme(*obj_choose);
+    //testHistogram(*obj_choose);
+    //imwrite("start_frame.jpg", start_frame);
+    //binary_fond = generateBinaryImage(start_frame);
+    //imwrite("fond.jpg", binary_fond);
     binary_frame = generateBinaryImage(currentFrame);
+    //imwrite("frame.jpg",binary_frame);
     /******foreground OU background – background =
      * the binary image which contains only the moving object*************/
     absdiff(binary_frame+binary_fond,binary_fond,img_act);
+    //imwrite("img_act.jpg",img_act);
     /*********************************************************************/
     /********Erosion********************************/
     morphologyEx(img_act,clean_act,MORPH_OPEN,element);
+    //imwrite("clean_act.jpg",clean_act);
     /*************************************************/
     /**************************findContours***********************************/
     vector<vector<Point>> contours;
     vector<Vec4i> hierarchy;
     findContours( clean_act, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE );
+    /*Mat dst= Mat::zeros(clean_act.size(), CV_8UC3);
+   for (int i = 0; i< contours.size(); i++)
+   {
+       Scalar color = Scalar(0,0,255 );
+       drawContours(dst, contours, i, color, 2, 8, hierarchy, 0, Point());
+   }
+   imwrite("contours.jpg", dst);*/
     myObject.setContours(contours);
     /****************************************************************************************/
     /***************Determine whether the object moves out of range of video****************/
@@ -73,8 +100,16 @@ void AlgoSoustraction::decter(Mat & currentFrame, double nbFrame)
                 circle( currentFrame, center, (int)radius, color, 2, 8, 0 );//draw circle
                 circle( currentFrame, center, 2, color, -1, 8, 0 );//draw the center of circle
             }
+        }else{
+            if(pre_img){
+                pre_img = false;
+                Node nodecenter(center, QDateTime::currentDateTime(), nbFrame);
+                myTrajectoire.addPoint(nodecenter);
+                circle( currentFrame, center, (int)radius, color, 2, 8, 0 );//draw circle
+                circle( currentFrame, center, 2, color, -1, 8, 0 );//draw the center of circle
+            }
         }
-        (*obj_choose) = obj_courant;
+       // (*obj_choose) = obj_courant;
     }
 
    /* Mat obj_courant = currentFrame(Rect((int)(center.x-radius*2/3),(int)(center.y-radius*2/3),
@@ -97,18 +132,25 @@ void AlgoSoustraction::decter(Mat & currentFrame, double nbFrame)
  * @param currentFtame
  * @return
  */
-Mat AlgoSoustraction::generateBinaryImage(Mat& currentFtame)
+Mat AlgoSoustraction::generateBinaryImage(Mat& tmp)
 {
     Mat binary;
     Mat mv_fond[3];
-    split(currentFtame, mv_fond);
+    split(tmp, mv_fond);
+
+    /*thresh_red_1 = 230;
+    thresh_red_2 = 235;
+    thresh_green_1 = 70;
+    thresh_green_2 = 85;
+    thresh_blue_1 = 0;
+    thresh_blue_2 = 35;*/
 
     Mat binary_red_1;
     threshold(mv_fond[2], binary_red_1, thresh_red_1, 255, THRESH_BINARY_INV);
     Mat binary_red_2;
     threshold(mv_fond[2], binary_red_2, thresh_red_2, 255, THRESH_BINARY);
     Mat binary_red = binary_red_1 + binary_red_2;
-
+    imwrite("binary_red.jpg",binary_red);
     Mat binary_green_1;
     threshold(mv_fond[1], binary_green_1, thresh_green_1, 255, THRESH_BINARY_INV);
     Mat binary_green_2;
@@ -132,10 +174,8 @@ Mat AlgoSoustraction::generateBinaryImage(Mat& currentFtame)
  * @brief AlgoSoustraction::calculeHistograme
  * @param img
  */
-/*void AlgoSoustraction::calculeHistograme()
+void AlgoSoustraction::calculeHistograme(Mat& img)
 {
-    Mat img;
-    current_obj.copyTo(img);
     int bins = 256;                 // number of bins
     int nc = img.channels();        // number of channels
     vector<Mat> hist(nc);           // array for storing the histograms
@@ -196,24 +236,102 @@ Mat AlgoSoustraction::generateBinaryImage(Mat& currentFtame)
             );
         }
     }
-    // Display the histograms
-    if(nc == 1){
-        QImage qimgNB = QImage((const unsigned char*)(canvas[0].data),
-                      canvas[0].cols,canvas[0].rows,QImage::Format_RGB888);
-    }else{
-        QImage qimgRed = QImage((const unsigned char*)(canvas[0].data),
-                      canvas[0].cols,canvas[0].rows,QImage::Format_RGB888);
-        QImage qimgGreen = QImage((const unsigned char*)(canvas[1].data),
-                      canvas[1].cols,canvas[1].rows,QImage::Format_RGB888);
-        QImage qimgBlue = QImage((const unsigned char*)(canvas[2].data),
-                      canvas[2].cols,canvas[2].rows,QImage::Format_RGB888);
-    }
-    thresh_red_1 = binsmin[0];
-    thresh_red_2 = binsmax[0];
+
+    thresh_red_1 = binsmin[2];
+    thresh_red_2 = binsmax[2];
     thresh_green_1 = binsmin[1];
     thresh_green_2 = binsmax[1];
-    thresh_blue_1 = binsmin[2];
-    thresh_blue_2 = binsmax[2];
-}*/
+    thresh_blue_1 = binsmin[0];
+    thresh_blue_2 = binsmax[0];
+}
+
+
+/**
+ * Histogram
+ * @brief AlgoSoustraction::testHistogram
+ * @param src
+ */
+void AlgoSoustraction::testHistogram(Mat & src)
+{
+
+     /// Separate the image in 3 places ( B, G and R )
+      vector<Mat> bgr_planes;
+      split( src, bgr_planes );
+
+      /// Establish the number of bins
+      int histSize = 256;
+
+      /// Set the ranges ( for B,G,R) )
+      float range[] = { 0, 256 } ;
+      const float* histRange = { range };
+
+      bool uniform = true; bool accumulate = false;
+
+      Mat b_hist, g_hist, r_hist;
+
+      /// Compute the histograms:
+      calcHist( &bgr_planes[0], 1, 0, Mat(), b_hist, 1, &histSize, &histRange, uniform, accumulate );
+      calcHist( &bgr_planes[1], 1, 0, Mat(), g_hist, 1, &histSize, &histRange, uniform, accumulate );
+      calcHist( &bgr_planes[2], 1, 0, Mat(), r_hist, 1, &histSize, &histRange, uniform, accumulate );
+
+      /// Calcule max and min value
+      // obtain the minimum value on the abscissa
+      while(b_hist.at<float>(thresh_red_1) == 0){
+          thresh_red_1++;
+      }
+
+      while(g_hist.at<float>(thresh_green_1) == 0){
+          thresh_green_1++;
+      }
+
+      while(r_hist.at<float>(thresh_blue_1) == 0){
+          thresh_blue_1++;
+      }
+
+      // obtain the maximum value on the abscissa
+      while(b_hist.at<float>(thresh_red_2) == 0){
+          thresh_red_2--;
+      }
+
+      while(g_hist.at<float>(thresh_green_2) == 0){
+          thresh_green_2--;
+      }
+
+      while(r_hist.at<float>(thresh_blue_2) == 0){
+          thresh_blue_2--;
+      }
+
+      // Draw the histograms for B, G and R
+      int hist_w = 512; int hist_h = 400;
+      int bin_w = cvRound( (double) hist_w/histSize );
+
+      Mat histImageRed( hist_h, hist_w, CV_8UC3, Scalar( 0,0,0) );
+      Mat histImageGreen( hist_h, hist_w, CV_8UC3, Scalar( 0,0,0) );
+      Mat histImageBlue( hist_h, hist_w, CV_8UC3, Scalar( 0,0,0) );
+
+      /// Normalize the result to [ 0, histImage.rows ]
+      normalize(b_hist, b_hist, 0, histImageBlue.rows, NORM_MINMAX, -1, Mat() );
+      normalize(g_hist, g_hist, 0, histImageGreen.rows, NORM_MINMAX, -1, Mat() );
+      normalize(r_hist, r_hist, 0, histImageRed.rows, NORM_MINMAX, -1, Mat() );
+
+      /// Draw for each channel
+      for( int i = 1; i < histSize; i++ )
+      {
+          line( histImageBlue, Point( bin_w*(i-1), hist_h - cvRound(b_hist.at<float>(i-1)) ) ,
+                           Point( bin_w*(i), hist_h - cvRound(b_hist.at<float>(i)) ),
+                           Scalar( 255, 0, 0), 2, 8, 0  );
+          line( histImageGreen, Point( bin_w*(i-1), hist_h - cvRound(g_hist.at<float>(i-1)) ) ,
+                           Point( bin_w*(i), hist_h - cvRound(g_hist.at<float>(i)) ),
+                           Scalar( 0, 255, 0), 2, 8, 0  );
+          line( histImageRed, Point( bin_w*(i-1), hist_h - cvRound(r_hist.at<float>(i-1)) ) ,
+                           Point( bin_w*(i), hist_h - cvRound(r_hist.at<float>(i)) ),
+                           Scalar( 0, 0, 255), 2, 8, 0  );
+      }
+
+      /// Display
+      /*imwrite("calcHistRed.jpg", histImageRed );
+      imwrite("calcHistGreen.jpg", histImageGreen );
+      imwrite("calcHistBlue.jpg", histImageBlue );*/
+}
 
 

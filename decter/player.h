@@ -29,8 +29,9 @@ class player: public QThread
     int deplacement;
     int framestart;
     int framefin;
-    long nbframe = 0;
+    int nbframe = 0;
     double framecount = 0;
+    int thresh[6];
    // long beginFrame = 1;
    // long finFrame = getNumberOfFrames();
     //Save *mySaver;
@@ -85,7 +86,9 @@ class player: public QThread
     void setFramenb(long);
     long getFramenb();
     Mat getNextframe();
+    void setThresh(int, int ,int, int, int, int);
     bool trajectoreChecked = false;
+    Mat getFistFrame();
     /*void setStartVideo(long start);
     void setFinVideo(long fin);*/
 };

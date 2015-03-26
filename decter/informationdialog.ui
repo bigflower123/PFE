@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>733</width>
-    <height>211</height>
+    <width>735</width>
+    <height>298</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,50 +16,8 @@
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>30</y>
-     <width>691</width>
-     <height>121</height>
-    </rect>
-   </property>
-   <layout class="QHBoxLayout" name="horizontalLayout_4">
-    <item>
-     <widget class="QLabel" name="bluehistLabel">
-      <property name="styleSheet">
-       <string notr="true">Background-color: #000;</string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLabel" name="greenhistLabel">
-      <property name="styleSheet">
-       <string notr="true">Background-color: #000;</string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLabel" name="redhistLabel">
-      <property name="styleSheet">
-       <string notr="true">Background-color: #000;</string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="layoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>500</x>
-     <y>160</y>
+     <x>510</x>
+     <y>260</y>
      <width>201</width>
      <height>16</height>
     </rect>
@@ -91,8 +49,8 @@
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>260</x>
-     <y>160</y>
+     <x>270</x>
+     <y>260</y>
      <width>211</width>
      <height>16</height>
     </rect>
@@ -105,27 +63,13 @@
       </property>
      </widget>
     </item>
-    <item>
-     <widget class="QLabel" name="greenminLabel">
-      <property name="text">
-       <string>G1</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLabel" name="greenmaxLabel">
-      <property name="text">
-       <string>G2</string>
-      </property>
-     </widget>
-    </item>
    </layout>
   </widget>
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>160</y>
+     <y>260</y>
      <width>221</width>
      <height>16</height>
     </rect>
@@ -153,6 +97,80 @@
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QLabel" name="greenminLabel">
+   <property name="geometry">
+    <rect>
+     <x>330</x>
+     <y>260</y>
+     <width>65</width>
+     <height>14</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>G1</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="greenmaxLabel">
+   <property name="geometry">
+    <rect>
+     <x>400</x>
+     <y>260</y>
+     <width>101</width>
+     <height>14</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>G2</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="bluehistLabel">
+   <property name="geometry">
+    <rect>
+     <x>21</x>
+     <y>31</y>
+     <width>212</width>
+     <height>150</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">Background-color: #000;</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="greenhistLabel">
+   <property name="geometry">
+    <rect>
+     <x>256</x>
+     <y>31</y>
+     <width>212</width>
+     <height>150</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">Background-color: #000;</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="redhistLabel">
+   <property name="geometry">
+    <rect>
+     <x>491</x>
+     <y>31</y>
+     <width>212</width>
+     <height>150</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">Background-color: #000;</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
   </widget>
  </widget>
  <resources/>
