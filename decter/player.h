@@ -31,7 +31,7 @@ class player: public QThread
     int framefin;
     int nbframe = 0;
     double framecount = 0;
-    int thresh[6];
+
    // long beginFrame = 1;
    // long finFrame = getNumberOfFrames();
     //Save *mySaver;
@@ -87,6 +87,7 @@ class player: public QThread
     long getFramenb();
     Mat getNextframe();
     void setThresh(int, int ,int, int, int, int);
+    int thresh[6];
     bool trajectoreChecked = false;
     Mat getFistFrame();
     /*void setStartVideo(long start);

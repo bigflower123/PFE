@@ -118,10 +118,12 @@ void player::run()
                 //cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
                 /****************Algo de détection*************************/
                 if(trajectoreChecked == true){
-                       //t_start = clock();
+                       t_start = clock();
                        myAlgo->decter(frame, getCurrentFrame());
-                       //t_end = clock();
-                       //qDebug()<< "detecter time" <<(double)(t_end - t_start) / CLOCKS_PER_SEC;;
+                       this->setThresh(myAlgo->thresh_red_1,myAlgo->thresh_red_2, myAlgo->thresh_green_1,
+                                       myAlgo->thresh_green_2, myAlgo->thresh_blue_1, myAlgo->thresh_blue_2);
+                       t_end = clock();
+                       qDebug()<< "detecter time" <<(double)(t_end - t_start) / CLOCKS_PER_SEC;;
                        t_start1 = clock();
                        myAlgo->getTrajectoire().drawTrajectoire(frame);
                        t_end1 = clock();

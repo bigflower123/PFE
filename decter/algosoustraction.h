@@ -13,18 +13,19 @@ public:
     void calculeHistograme(Mat &);
     void testHistogram(Mat &);
    // vector<Mat>& getHist();
-private:
-    //Mat current_obj;
-    int deplacementmax;     //Parameters of deplacementmax
-    Mat start_frame;        //image of start frame
-    Mat *obj_choose;         //object choose
-    Mat binary_fond;        //binary background image
     double thresh_red_1;    //The lower limit of red channel
     double thresh_red_2;    //The upper limit of red channel
     double thresh_green_1;  //The lower limit of green channel
     double thresh_green_2;  //The upper limit of green channel
     double thresh_blue_1;   //The lower limit of blue channel
     double thresh_blue_2;   //The upper limit of blue channel
+
+private:
+    //Mat current_obj;
+    int deplacementmax;     //Parameters of deplacementmax
+    Mat start_frame;        //image of start frame
+    Mat *obj_choose;         //object choose
+    Mat binary_fond;        //binary background image
     Mat element;
     Point2f center_back;//The last value of the array 'center'
     bool pre_img = true;

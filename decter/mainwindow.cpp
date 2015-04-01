@@ -73,6 +73,12 @@ void MainWindow::updatePlayerUI(QImage img)
     if (!img.isNull())
     {
         displayImage(img, myPlayer->getCurrentFrame());
+        ui->R1label->setText(QString::number(myPlayer->thresh[0]));
+        ui->R2label->setText(QString::number(myPlayer->thresh[1]));
+        ui->V1label->setText(QString::number(myPlayer->thresh[2]));
+        ui->V2label->setText(QString::number(myPlayer->thresh[3]));
+        ui->B1label->setText(QString::number(myPlayer->thresh[4]));
+        ui->B2label->setText(QString::number(myPlayer->thresh[5]));
     }
 }
 

@@ -15,9 +15,9 @@ AlgoSoustraction::AlgoSoustraction(int tmpdpmax, Mat& tmpstart, Mat* tmpobj)
     thresh_green_2 = 255;
     testHistogram(*obj_choose);
     Mat tmp = *obj_choose;
-    imwrite("objchoose.jpg", tmp);
+    //imwrite("objchoose.jpg", tmp);
     binary_fond = generateBinaryImage(start_frame);
-    imwrite("fond.jpg", binary_fond);
+   // imwrite("fond.jpg", binary_fond);
     //current_obj = tmpobj;
 }
 
@@ -44,15 +44,15 @@ void AlgoSoustraction::decter(Mat & currentFrame, int nbFrame)
     //imwrite("start_frame.jpg", start_frame);
     //binary_fond = generateBinaryImage(start_frame);
     binary_frame = generateBinaryImage(currentFrame);
-    imwrite("frame.jpg",binary_frame);
+    //imwrite("frame.jpg",binary_frame);
     /******foreground OU background – background =
      * the binary image which contains only the moving object*************/
     absdiff(binary_frame+binary_fond,binary_fond,img_act);
-    imwrite("img_act.jpg",img_act);
+    //imwrite("img_act.jpg",img_act);
     /*********************************************************************/
     /********Erosion********************************/
     morphologyEx(img_act,clean_act,MORPH_OPEN,element);
-    imwrite("clean_act.jpg",clean_act);
+   // imwrite("clean_act.jpg",clean_act);
     /*************************************************/
     /**************************findContours***********************************/
     vector<vector<Point>> contours;
@@ -98,7 +98,7 @@ void AlgoSoustraction::decter(Mat & currentFrame, int nbFrame)
 
                 obj_courant = currentFrame(Rect((int)(center.x-radius*2/3),(int)(center.y-radius*2/3),
                                              (int)radius*4/3,(int)radius*4/3));
-                this->testHistogram(obj_courant);
+                //this->testHistogram(obj_courant);
                 circle( currentFrame, center, (int)radius, color, 2, 8, 0 );//draw circle
                 circle( currentFrame, center, 2, color, -1, 8, 0 );//draw the center of circle
             }
