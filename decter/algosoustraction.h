@@ -30,7 +30,7 @@ private:
     bool pre_img = true;
     double max_domaine_cc=0; // the surface of the biggest contour
     int max_domaine_i=0; // the number of the contour which has the biggest surface
-
+    int count_refond=0;
 
 };
 

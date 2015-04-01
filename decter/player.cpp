@@ -115,19 +115,20 @@ void player::run()
             qDebug()<<"frame read fin";
         }else{
             if (frame.channels()== 3){
-                cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
+                //cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
                 /****************Algo de détection*************************/
                 if(trajectoreChecked == true){
-                       t_start = clock();
-                       myAlgo->decter(RGBframe, nbframe);
-                       t_end = clock();
-                       qDebug()<< "detecter time" <<(double)(t_end - t_start) / CLOCKS_PER_SEC;;
+                       //t_start = clock();
+                       myAlgo->decter(frame, getCurrentFrame());
+                       //t_end = clock();
+                       //qDebug()<< "detecter time" <<(double)(t_end - t_start) / CLOCKS_PER_SEC;;
                        t_start1 = clock();
-                       myAlgo->getTrajectoire().drawTrajectoire(RGBframe);
+                       myAlgo->getTrajectoire().drawTrajectoire(frame);
                        t_end1 = clock();
                        qDebug()<< "draw time" <<(double)(t_end1 - t_start1) / CLOCKS_PER_SEC;;
                 }
                 /**********************************************************/
+                cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
                 img = QImage((const unsigned char*)(RGBframe.data),
                               RGBframe.cols,RGBframe.rows,QImage::Format_RGB888);
                 /***********Save le vidéo*********************************/

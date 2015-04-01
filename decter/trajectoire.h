@@ -11,6 +11,7 @@ public:
     vector<Node> &getCenterlist();
     void drawTrajectoire(Mat&);
     void setLastcenter(Node&);
+    Node getLastcenter();
 private:
     vector<Node> center_list;
     Node center_back;  //The last value of the array 'center'

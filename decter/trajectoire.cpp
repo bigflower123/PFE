@@ -33,3 +33,8 @@ void Trajectoire::setLastcenter(Node &tmpNode)
 {
     center_back = tmpNode;
 }
+
+Node Trajectoire::getLastcenter()
+{
+    return center_back;
+}

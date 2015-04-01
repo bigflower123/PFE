@@ -47,7 +47,7 @@ public:
     {
         if (InformationDialog->objectName().isEmpty())
             InformationDialog->setObjectName(QStringLiteral("InformationDialog"));
-        InformationDialog->resize(908, 417);
+        InformationDialog->resize(735, 298);
         layoutWidget = new QWidget(InformationDialog);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
         layoutWidget->setGeometry(QRect(510, 260, 201, 16));

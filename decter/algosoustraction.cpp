@@ -14,6 +14,8 @@ AlgoSoustraction::AlgoSoustraction(int tmpdpmax, Mat& tmpstart, Mat* tmpobj)
     thresh_green_1 = 0;
     thresh_green_2 = 255;
     testHistogram(*obj_choose);
+    Mat tmp = *obj_choose;
+    imwrite("objchoose.jpg", tmp);
     binary_fond = generateBinaryImage(start_frame);
     imwrite("fond.jpg", binary_fond);
     //current_obj = tmpobj;
@@ -41,17 +43,16 @@ void AlgoSoustraction::decter(Mat & currentFrame, int nbFrame)
     //testHistogram(*obj_choose);
     //imwrite("start_frame.jpg", start_frame);
     //binary_fond = generateBinaryImage(start_frame);
-    //imwrite("fond.jpg", binary_fond);
     binary_frame = generateBinaryImage(currentFrame);
-    //imwrite("frame.jpg",binary_frame);
+    imwrite("frame.jpg",binary_frame);
     /******foreground OU background – background =
      * the binary image which contains only the moving object*************/
     absdiff(binary_frame+binary_fond,binary_fond,img_act);
-    //imwrite("img_act.jpg",img_act);
+    imwrite("img_act.jpg",img_act);
     /*********************************************************************/
     /********Erosion********************************/
     morphologyEx(img_act,clean_act,MORPH_OPEN,element);
-    //imwrite("clean_act.jpg",clean_act);
+    imwrite("clean_act.jpg",clean_act);
     /*************************************************/
     /**************************findContours***********************************/
     vector<vector<Point>> contours;
@@ -89,14 +90,15 @@ void AlgoSoustraction::decter(Mat & currentFrame, int nbFrame)
         max_domaine_i = 0;
         Mat obj_courant;
         if(!myTrajectoire.getCenterlist().empty()){
-            double x = myTrajectoire.getCenterlist().back().getCenter().x;
-            double y = myTrajectoire.getCenterlist().back().getCenter().y;
+             double x = myTrajectoire.getCenterlist().back().getCenter().x;
+             double y = myTrajectoire.getCenterlist().back().getCenter().y;
             if(sqrt((x-center.x)*(x-center.x) + (y-center.y)*(y-center.y))<deplacementmax){
                 Node nodecenter(center, QDateTime::currentDateTime(), nbFrame);
                 myTrajectoire.addPoint(nodecenter);
 
                 obj_courant = currentFrame(Rect((int)(center.x-radius*2/3),(int)(center.y-radius*2/3),
                                              (int)radius*4/3,(int)radius*4/3));
+                this->testHistogram(obj_courant);
                 circle( currentFrame, center, (int)radius, color, 2, 8, 0 );//draw circle
                 circle( currentFrame, center, 2, color, -1, 8, 0 );//draw the center of circle
             }
@@ -107,9 +109,30 @@ void AlgoSoustraction::decter(Mat & currentFrame, int nbFrame)
                 myTrajectoire.addPoint(nodecenter);
                 circle( currentFrame, center, (int)radius, color, 2, 8, 0 );//draw circle
                 circle( currentFrame, center, 2, color, -1, 8, 0 );//draw the center of circle
+            }else if(sqrt((myTrajectoire.getLastcenter().getCenter().x-center.x)*(myTrajectoire.getLastcenter().getCenter().x-center.x)
+                     + (myTrajectoire.getLastcenter().getCenter().y-center.y)*(myTrajectoire.getLastcenter().getCenter().y-center.y))<deplacementmax*3/2)
+            {
+                Node nodecenter(center, QDateTime::currentDateTime(), nbFrame);
+                myTrajectoire.addPoint(nodecenter);
+                circle( currentFrame, center, (int)radius, color, 2, 8, 0 );
+                circle( currentFrame, center, 2, color, -1, 8, 0 );
+            }else{
+                if(count_refond<=2)
+                {
+                    binary_fond = generateBinaryImage(currentFrame);
+                    count_refond++;
+                }
+                else
+                {
+                    count_refond=0;
+                    Node nodecenter(center, QDateTime::currentDateTime(), nbFrame);
+                    myTrajectoire.addPoint(nodecenter);
+                    circle( currentFrame, center, (int)radius, color, 2, 8, 0 );
+                    circle( currentFrame, center, 2, color, -1, 8, 0 );
+                }
             }
         }
-       // (*obj_choose) = obj_courant;
+       //(*obj_choose) = obj_courant;
     }
 
    /* Mat obj_courant = currentFrame(Rect((int)(center.x-radius*2/3),(int)(center.y-radius*2/3),
@@ -138,12 +161,12 @@ Mat AlgoSoustraction::generateBinaryImage(Mat& tmp)
     Mat mv_fond[3];
     split(tmp, mv_fond);
 
-    /*thresh_red_1 = 230;
+    /*thresh_red_1 = 120;
     thresh_red_2 = 235;
     thresh_green_1 = 70;
-    thresh_green_2 = 85;
-    thresh_blue_1 = 0;
-    thresh_blue_2 = 35;*/
+    thresh_green_2 = 114;
+    thresh_blue_1 = 1;
+    thresh_blue_2 = 65;*/
 
     Mat binary_red_1;
     threshold(mv_fond[2], binary_red_1, thresh_red_1, 255, THRESH_BINARY_INV);
@@ -256,6 +279,8 @@ void AlgoSoustraction::testHistogram(Mat & src)
 
      /// Separate the image in 3 places ( B, G and R )
       vector<Mat> bgr_planes;
+      double maxRedVal = 0, maxGreenVal = 0, maxBlueVal = 0;
+      double RedVal = 0, GreenVal = 0, BlueVal = 0;
       split( src, bgr_planes );
 
       /// Establish the number of bins
@@ -275,34 +300,72 @@ void AlgoSoustraction::testHistogram(Mat & src)
       calcHist( &bgr_planes[2], 1, 0, Mat(), r_hist, 1, &histSize, &histRange, uniform, accumulate );
 
       /// Calcule max and min value
+      // obtain the maximum (peak) value for each channel
+      for (int j = 0; j < 256; j++){
+          if(b_hist.at<float>(j) > maxBlueVal ){
+              maxBlueVal = b_hist.at<float>(j);
+              BlueVal = j;
+          }
+          if(g_hist.at<float>(j) > maxGreenVal ){
+              maxGreenVal = g_hist.at<float>(j);
+              GreenVal = j;
+          }
+          if(r_hist.at<float>(j) > maxRedVal ){
+              maxRedVal = r_hist.at<float>(j);
+              RedVal = j;
+          }
+      }
+      /*minMaxLoc(b_hist, &minBlueVal, &maxBlueVal, 0, 0);
+      minMaxLoc(g_hist, &minGreenVal, &maxGreenVal, 0, 0);
+      minMaxLoc(r_hist, &minRedVal, &maxRedVal, 0, 0);*/
       // obtain the minimum value on the abscissa
-      while(b_hist.at<float>(thresh_red_1) == 0){
+      while(thresh_red_1 < 256 && r_hist.at<float>(thresh_red_1) <= 5){
           thresh_red_1++;
       }
 
-      while(g_hist.at<float>(thresh_green_1) == 0){
+      while(thresh_green_1 < 256 && g_hist.at<float>(thresh_green_1) <= 5){
           thresh_green_1++;
       }
 
-      while(r_hist.at<float>(thresh_blue_1) == 0){
+      while(thresh_blue_1 < 256 && b_hist.at<float>(thresh_blue_1) <= 5){
           thresh_blue_1++;
       }
 
       // obtain the maximum value on the abscissa
-      while(b_hist.at<float>(thresh_red_2) == 0){
+      while(thresh_red_2 >= 0 && r_hist.at<float>(thresh_red_2) <= 5){
           thresh_red_2--;
       }
 
-      while(g_hist.at<float>(thresh_green_2) == 0){
+      while(thresh_green_2 >= 0 && g_hist.at<float>(thresh_green_2) <= 5){
           thresh_green_2--;
       }
 
-      while(r_hist.at<float>(thresh_blue_2) == 0){
+      while(thresh_blue_2 >= 0 && b_hist.at<float>(thresh_blue_2) <= 5){
           thresh_blue_2--;
       }
 
+      thresh_red_1=(int)(thresh_red_1-15);
+      thresh_red_2=(int)(thresh_red_2+15);
+      if((thresh_red_2-RedVal)>3*(RedVal-thresh_red_1)) thresh_red_2=RedVal+3*(RedVal-thresh_red_1);
+      if((RedVal-thresh_red_1)>3*(thresh_red_2-RedVal)) thresh_red_1=RedVal-3*(thresh_red_2-RedVal);
+      if(thresh_red_1<=0)thresh_red_1=1;
+      if(thresh_red_2>=256)thresh_red_2=255;
+
+      thresh_green_1=(int)(thresh_green_1-15);
+      thresh_green_2=(int)(thresh_green_2+15);
+      if((thresh_green_2-GreenVal)>3*(GreenVal-thresh_green_1)) thresh_green_2=GreenVal+3*(GreenVal-thresh_green_1);
+      if((GreenVal-thresh_green_1)>3*(thresh_green_2-GreenVal)) thresh_green_1=GreenVal-3*(thresh_green_2-GreenVal);
+      if(thresh_green_1<=0)thresh_green_1=1;
+      if(thresh_green_2>=256)thresh_green_2=255;
+
+      thresh_blue_1=(int)(thresh_blue_1-15);
+      thresh_blue_2=(int)(thresh_blue_2+15);
+      if((thresh_blue_2-BlueVal)>3*(BlueVal-thresh_blue_1)) thresh_blue_2=BlueVal+3*(BlueVal-thresh_blue_1);
+      if((BlueVal-thresh_blue_1)>3*(thresh_blue_2-BlueVal)) thresh_blue_1=BlueVal-3*(thresh_blue_2-BlueVal);
+      if(thresh_blue_1<=0)thresh_blue_1=1;
+      if(thresh_blue_2>=256)thresh_blue_2=255;
       // Draw the histograms for B, G and R
-      int hist_w = 512; int hist_h = 400;
+     /* int hist_w = 512; int hist_h = 400;
       int bin_w = cvRound( (double) hist_w/histSize );
 
       Mat histImageRed( hist_h, hist_w, CV_8UC3, Scalar( 0,0,0) );
@@ -329,7 +392,7 @@ void AlgoSoustraction::testHistogram(Mat & src)
       }
 
       /// Display
-      /*imwrite("calcHistRed.jpg", histImageRed );
+      imwrite("calcHistRed.jpg", histImageRed );
       imwrite("calcHistGreen.jpg", histImageGreen );
       imwrite("calcHistBlue.jpg", histImageBlue );*/
 }
