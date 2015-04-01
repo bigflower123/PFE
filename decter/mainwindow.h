@@ -25,11 +25,13 @@ public:
 
 private slots:
     //Display video frame in player UI
-    void updatePlayerUI(QImage img);
+   // void updatePlayerUI(QImage img, Node lastNode);
+    void updatePlayerUI(QImage img, QString tmpInfo);
     //Slot for the load video
     void chooseVideo();
     //Slot for choose save path
     void choosePath();
+    void chooseInfoPath();
     //Slot for the play push button.
     void on_playBtn_clicked();
     //QString getFormattedTime(int timeInSeconds);
@@ -82,7 +84,7 @@ private:
 
     //Postion of slider
     int postionSlider;
-
+    int itemNumber = 0;
 };
 
 #endif // MAINWINDOW_H

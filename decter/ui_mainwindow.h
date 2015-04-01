@@ -16,7 +16,7 @@
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QListView>
+#include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
@@ -52,7 +52,6 @@ public:
     QCheckBox *trajectoirecheckBox;
     QPushButton *quickbackwardButton;
     QPushButton *quickforwardButton;
-    QListView *listView;
     QLabel *commentlabel;
     QTextEdit *commenttextEdit;
     QPushButton *commentButton;
@@ -65,6 +64,7 @@ public:
     QLabel *V2label;
     QLabel *B1label;
     QLabel *B2label;
+    QListWidget *listWidget;
     QMenuBar *menuBar;
     QMenu *menuFichier;
     QMenu *menuInformation;
@@ -76,7 +76,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(1165, 706);
+        MainWindow->resize(1185, 706);
         actionOuvrirVideo = new QAction(MainWindow);
         actionOuvrirVideo->setObjectName(QStringLiteral("actionOuvrirVideo"));
         actionSauvegarderVideo = new QAction(MainWindow);
@@ -102,52 +102,49 @@ public:
         VideoLbl->setStyleSheet(QStringLiteral("Background-color: #000;"));
         playBtn = new QPushButton(centralWidget);
         playBtn->setObjectName(QStringLiteral("playBtn"));
-        playBtn->setGeometry(QRect(340, 600, 71, 21));
+        playBtn->setGeometry(QRect(390, 590, 71, 21));
         playBtn->setStyleSheet(QStringLiteral("width:15px;height:15px;border-radius:7.5px;border:2px groove gray;"));
         videoSlider = new QSlider(centralWidget);
         videoSlider->setObjectName(QStringLiteral("videoSlider"));
-        videoSlider->setGeometry(QRect(200, 560, 361, 20));
+        videoSlider->setGeometry(QRect(200, 560, 481, 20));
         videoSlider->setOrientation(Qt::Horizontal);
         currentLable = new QLabel(centralWidget);
         currentLable->setObjectName(QStringLiteral("currentLable"));
-        currentLable->setGeometry(QRect(130, 560, 51, 16));
+        currentLable->setGeometry(QRect(130, 560, 61, 16));
         totalLable = new QLabel(centralWidget);
         totalLable->setObjectName(QStringLiteral("totalLable"));
-        totalLable->setGeometry(QRect(610, 560, 41, 16));
+        totalLable->setGeometry(QRect(700, 560, 61, 16));
         forwardButton = new QPushButton(centralWidget);
         forwardButton->setObjectName(QStringLiteral("forwardButton"));
-        forwardButton->setGeometry(QRect(660, 560, 41, 17));
+        forwardButton->setGeometry(QRect(770, 560, 40, 20));
         forwardButton->setStyleSheet(QStringLiteral("border-radius:7.5px;border:2px groove gray;"));
         backwardButton = new QPushButton(centralWidget);
         backwardButton->setObjectName(QStringLiteral("backwardButton"));
-        backwardButton->setGeometry(QRect(70, 560, 41, 20));
+        backwardButton->setGeometry(QRect(80, 560, 40, 20));
         backwardButton->setStyleSheet(QStringLiteral("border-radius:7.5px;border:2px groove gray;"));
         debutButton = new QPushButton(centralWidget);
         debutButton->setObjectName(QStringLiteral("debutButton"));
-        debutButton->setGeometry(QRect(200, 600, 75, 23));
+        debutButton->setGeometry(QRect(200, 590, 75, 23));
         finButton = new QPushButton(centralWidget);
         finButton->setObjectName(QStringLiteral("finButton"));
-        finButton->setGeometry(QRect(480, 600, 75, 23));
+        finButton->setGeometry(QRect(600, 590, 75, 23));
         trajectoirecheckBox = new QCheckBox(centralWidget);
         trajectoirecheckBox->setObjectName(QStringLiteral("trajectoirecheckBox"));
-        trajectoirecheckBox->setGeometry(QRect(610, 600, 74, 17));
+        trajectoirecheckBox->setGeometry(QRect(720, 590, 74, 17));
         quickbackwardButton = new QPushButton(centralWidget);
         quickbackwardButton->setObjectName(QStringLiteral("quickbackwardButton"));
-        quickbackwardButton->setGeometry(QRect(20, 560, 41, 17));
+        quickbackwardButton->setGeometry(QRect(20, 560, 50, 20));
         quickbackwardButton->setStyleSheet(QStringLiteral("border-radius:7.5px;border:2px groove gray;"));
         quickforwardButton = new QPushButton(centralWidget);
         quickforwardButton->setObjectName(QStringLiteral("quickforwardButton"));
-        quickforwardButton->setGeometry(QRect(720, 560, 51, 20));
+        quickforwardButton->setGeometry(QRect(820, 560, 50, 20));
         quickforwardButton->setStyleSheet(QStringLiteral("border-radius:7.5px;border:2px groove gray;"));
-        listView = new QListView(centralWidget);
-        listView->setObjectName(QStringLiteral("listView"));
-        listView->setGeometry(QRect(900, 20, 256, 321));
         commentlabel = new QLabel(centralWidget);
         commentlabel->setObjectName(QStringLiteral("commentlabel"));
         commentlabel->setGeometry(QRect(900, 350, 67, 16));
         commenttextEdit = new QTextEdit(centralWidget);
         commenttextEdit->setObjectName(QStringLiteral("commenttextEdit"));
-        commenttextEdit->setGeometry(QRect(900, 370, 256, 111));
+        commenttextEdit->setGeometry(QRect(900, 370, 261, 111));
         commentButton = new QPushButton(centralWidget);
         commentButton->setObjectName(QStringLiteral("commentButton"));
         commentButton->setGeometry(QRect(1070, 500, 75, 23));
@@ -178,10 +175,13 @@ public:
         B2label = new QLabel(centralWidget);
         B2label->setObjectName(QStringLiteral("B2label"));
         B2label->setGeometry(QRect(1020, 600, 46, 13));
+        listWidget = new QListWidget(centralWidget);
+        listWidget->setObjectName(QStringLiteral("listWidget"));
+        listWidget->setGeometry(QRect(900, 10, 271, 321));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1165, 21));
+        menuBar->setGeometry(QRect(0, 0, 1185, 21));
         menuFichier = new QMenu(menuBar);
         menuFichier->setObjectName(QStringLiteral("menuFichier"));
         menuInformation = new QMenu(menuBar);

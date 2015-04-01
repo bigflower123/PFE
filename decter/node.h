@@ -14,7 +14,7 @@ public:
     Node();
     Node(Point2f, QDateTime, int);
     Point2f &getCenter();
-
+    QString nodeToString();
 private:
     Point2f center;
     QDateTime timenow;

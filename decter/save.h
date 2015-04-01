@@ -12,9 +12,19 @@ class Save
 {
 public:
     Save(string fileName, Size ImgSize, double Rate, int MyCodec);
+    Save();
     ~Save();
     void SaveVideo(Mat);  //Save video
     void SaveCoordinate(Point &); //Save nombre frame, coordinate(x,y) et le temps courant
+    void setPath(string);
+    string getPath();
+    void setSize(Size);
+    Size getSize();
+    void setRate(double);
+    double getRate();
+    void setCodec(int);
+    int getCodec();
+    void openOutputVideo();
 private:
     VideoWriter outputVideo;
     Size frameSize;

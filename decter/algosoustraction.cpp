@@ -37,12 +37,6 @@ void AlgoSoustraction::decter(Mat & currentFrame, int nbFrame)
     float radius;       //the radius of the circle
 
     Mat drawing = Mat::zeros( currentFrame.size(), CV_8UC3 );
-    //Mat tmp = *obj_choose;
-    //imwrite("objchoose.jpg", tmp);
-    //calculeHistograme(*obj_choose);
-    //testHistogram(*obj_choose);
-    //imwrite("start_frame.jpg", start_frame);
-    //binary_fond = generateBinaryImage(start_frame);
     binary_frame = generateBinaryImage(currentFrame);
     //imwrite("frame.jpg",binary_frame);
     /******foreground OU background – background =
@@ -71,8 +65,8 @@ void AlgoSoustraction::decter(Mat & currentFrame, int nbFrame)
     if(contours.size() == 0){
         if(!myTrajectoire.getCenterlist().empty()){
             myTrajectoire.setLastcenter(myTrajectoire.getCenterlist().back());
+            myTrajectoire.getCenterlist().clear();
         }
-        myTrajectoire.getCenterlist().clear();
     /***********************************************************************************/
     }else if(contours.size() >= 1){
         for( unsigned int i = 0; i < contours.size(); i++ )//find the biggest Connected domain
@@ -95,9 +89,9 @@ void AlgoSoustraction::decter(Mat & currentFrame, int nbFrame)
             if(sqrt((x-center.x)*(x-center.x) + (y-center.y)*(y-center.y))<deplacementmax){
                 Node nodecenter(center, QDateTime::currentDateTime(), nbFrame);
                 myTrajectoire.addPoint(nodecenter);
-
-                obj_courant = currentFrame(Rect((int)(center.x-radius*2/3),(int)(center.y-radius*2/3),
-                                             (int)radius*4/3,(int)radius*4/3));
+                qDebug()<<"Tnonempty:"<<center.x<<center.y;
+                /*obj_courant = currentFrame(Rect((int)(center.x-radius*2/3),(int)(center.y-radius*2/3),
+                                             (int)radius*4/3,(int)radius*4/3));*/
                 //this->testHistogram(obj_courant);
                 circle( currentFrame, center, (int)radius, color, 2, 8, 0 );//draw circle
                 circle( currentFrame, center, 2, color, -1, 8, 0 );//draw the center of circle
@@ -121,16 +115,21 @@ void AlgoSoustraction::decter(Mat & currentFrame, int nbFrame)
                 {
                     binary_fond = generateBinaryImage(currentFrame);
                     count_refond++;
+                    qDebug()<<"count_refond"<<count_refond;
                 }
                 else
                 {
                     count_refond=0;
-                    Node nodecenter(center, QDateTime::currentDateTime(), nbFrame);
-                    myTrajectoire.addPoint(nodecenter);
-                    circle( currentFrame, center, (int)radius, color, 2, 8, 0 );
-                    circle( currentFrame, center, 2, color, -1, 8, 0 );
+                    if(center.x > 0 && center.y > 0){
+                        Node nodecenter(center, QDateTime::currentDateTime(), nbFrame);
+                        myTrajectoire.addPoint(nodecenter);
+                        qDebug()<<center.x<<center.y;
+                        circle( currentFrame, center, (int)radius, color, 2, 8, 0 );
+                        circle( currentFrame, center, 2, color, -1, 8, 0 );
+                    }
                 }
             }
+
         }
        //(*obj_choose) = obj_courant;
     }

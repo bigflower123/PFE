@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1165</width>
+    <width>1185</width>
     <height>706</height>
    </rect>
   </property>
@@ -39,8 +39,8 @@
    <widget class="QPushButton" name="playBtn">
     <property name="geometry">
      <rect>
-      <x>340</x>
-      <y>600</y>
+      <x>390</x>
+      <y>590</y>
       <width>71</width>
       <height>21</height>
      </rect>
@@ -57,7 +57,7 @@
      <rect>
       <x>200</x>
       <y>560</y>
-      <width>361</width>
+      <width>481</width>
       <height>20</height>
      </rect>
     </property>
@@ -70,7 +70,7 @@
      <rect>
       <x>130</x>
       <y>560</y>
-      <width>51</width>
+      <width>61</width>
       <height>16</height>
      </rect>
     </property>
@@ -81,9 +81,9 @@
    <widget class="QLabel" name="totalLable">
     <property name="geometry">
      <rect>
-      <x>610</x>
+      <x>700</x>
       <y>560</y>
-      <width>41</width>
+      <width>61</width>
       <height>16</height>
      </rect>
     </property>
@@ -94,10 +94,10 @@
    <widget class="QPushButton" name="forwardButton">
     <property name="geometry">
      <rect>
-      <x>660</x>
+      <x>770</x>
       <y>560</y>
-      <width>41</width>
-      <height>17</height>
+      <width>40</width>
+      <height>20</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -110,9 +110,9 @@
    <widget class="QPushButton" name="backwardButton">
     <property name="geometry">
      <rect>
-      <x>70</x>
+      <x>80</x>
       <y>560</y>
-      <width>41</width>
+      <width>40</width>
       <height>20</height>
      </rect>
     </property>
@@ -127,7 +127,7 @@
     <property name="geometry">
      <rect>
       <x>200</x>
-      <y>600</y>
+      <y>590</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -139,8 +139,8 @@
    <widget class="QPushButton" name="finButton">
     <property name="geometry">
      <rect>
-      <x>480</x>
-      <y>600</y>
+      <x>600</x>
+      <y>590</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -152,8 +152,8 @@
    <widget class="QCheckBox" name="trajectoirecheckBox">
     <property name="geometry">
      <rect>
-      <x>610</x>
-      <y>600</y>
+      <x>720</x>
+      <y>590</y>
       <width>74</width>
       <height>17</height>
      </rect>
@@ -167,8 +167,8 @@
      <rect>
       <x>20</x>
       <y>560</y>
-      <width>41</width>
-      <height>17</height>
+      <width>50</width>
+      <height>20</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -181,9 +181,9 @@
    <widget class="QPushButton" name="quickforwardButton">
     <property name="geometry">
      <rect>
-      <x>720</x>
+      <x>820</x>
       <y>560</y>
-      <width>51</width>
+      <width>50</width>
       <height>20</height>
      </rect>
     </property>
@@ -192,16 +192,6 @@
     </property>
     <property name="text">
      <string>&gt;&gt;</string>
-    </property>
-   </widget>
-   <widget class="QListView" name="listView">
-    <property name="geometry">
-     <rect>
-      <x>900</x>
-      <y>20</y>
-      <width>256</width>
-      <height>321</height>
-     </rect>
     </property>
    </widget>
    <widget class="QLabel" name="commentlabel">
@@ -222,7 +212,7 @@
      <rect>
       <x>900</x>
       <y>370</y>
-      <width>256</width>
+      <width>261</width>
       <height>111</height>
      </rect>
     </property>
@@ -357,13 +347,23 @@
      <string>B2</string>
     </property>
    </widget>
+   <widget class="QListWidget" name="listWidget">
+    <property name="geometry">
+     <rect>
+      <x>900</x>
+      <y>10</y>
+      <width>271</width>
+      <height>321</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1165</width>
+     <width>1185</width>
      <height>21</height>
     </rect>
    </property>

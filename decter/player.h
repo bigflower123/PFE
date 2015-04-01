@@ -10,6 +10,8 @@
 #include "save.h"
 #include "algosoustraction.h"
 #include <QDebug>
+#include <QFile>
+#include <QTextStream>
 
 using namespace cv;
 class player: public QThread
@@ -26,19 +28,25 @@ class player: public QThread
     QImage img;
     Mat objectchoose;
     QString videoPath;
+    QString infoPath;
     int deplacement;
     int framestart;
     int framefin;
-    int nbframe = 0;
-    double framecount = 0;
-
+    int nbframe;
+    double framecount;
+    AlgoSoustraction *myAlgo;
+    Save mySaver;
+    QString info;
+    QFile infoFile;
+    QTextStream  output;
    // long beginFrame = 1;
    // long finFrame = getNumberOfFrames();
     //Save *mySaver;
 
  signals:
      //Signal to output frame to be displayed
-     void processedImage(const QImage &image);
+    // void processedImage(const QImage &image, Node lastNode);
+     void processedImage(const QImage &image, QString);
 
  protected:
      void run();
@@ -79,6 +87,7 @@ class player: public QThread
     void setObjectChoose(Mat &);
     Mat getObjectChoose();
     void setFileName(QString);
+    void setFileInfoName(QString);
     void setDeplacementMax(int);
     void setVideoStart(int);
     void setVideoFin(int);
@@ -90,6 +99,7 @@ class player: public QThread
     int thresh[6];
     bool trajectoreChecked = false;
     Mat getFistFrame();
+    void prepareSaveInfo();
     /*void setStartVideo(long start);
     void setFinVideo(long fin);*/
 };

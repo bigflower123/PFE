@@ -11,6 +11,18 @@ player::player(QObject *parent)
  : QThread(parent)
 {
     stop = true;
+    nbframe = 0;
+    framecount = 0;
+    videoPath = "";
+    info = "";
+    deplacement = 50;
+    /*infoFile.setFileName("D:/data.csv");
+    infoFile.open(QIODevice::WriteOnly);
+
+   if(!infoFile.isOpen()){
+       qDebug() <<  "Error, unable to open" ;
+   }
+   output.setDevice(&infoFile);*/
 }
 
 /**
@@ -25,6 +37,7 @@ player::~player()
     delete capture;
     condition.wakeOne();
     mutex.unlock();
+    infoFile.close();
     wait();
 }
 
@@ -98,16 +111,24 @@ void player::run()
     clock_t t_start,t_end, t_start1, t_end1;
     double delay = (1000/frameRate);
     /******************************Save le vidéo******************************************/
-    Save mySaver(videoPath.toStdString(), this->getFrameSize(), frameRate, this->getCodec());
+    if(videoPath != ""){
+        //Save mySaver(videoPath.toStdString(), this->getFrameSize(), frameRate, this->getCodec());
+        mySaver.setPath(videoPath.toStdString());
+        mySaver.setSize(this->getFrameSize());
+        mySaver.setRate(frameRate);
+        mySaver.setCodec(this->getCodec());
+        mySaver.openOutputVideo();
+    }
     /*************************************************************************************/
     /******************************Algo de détection**************************************/
-    AlgoSoustraction *myAlgo;
     if(trajectoreChecked == true){
         myAlgo = new AlgoSoustraction(deplacement, this->getFistFrame(), &objectchoose);
+        //nbframe = getCurrentFrame();
     }
 
     /*************************************************************************************/
     qDebug() << framecount;
+    //capture->set(CV_CAP_PROP_POS_FRAMES, this->framestart);
     while(!stop){
         if (!capture->read(frame))
         {
@@ -119,7 +140,12 @@ void player::run()
                 /****************Algo de détection*************************/
                 if(trajectoreChecked == true){
                        t_start = clock();
+                       this->info = "";
                        myAlgo->decter(frame, getCurrentFrame());
+                       if(!myAlgo->getTrajectoire().getCenterlist().empty()){
+                            this->info = myAlgo->getTrajectoire().getCenterlist().back().nodeToString();
+                            output<<this->info + "\n";
+                       }
                        this->setThresh(myAlgo->thresh_red_1,myAlgo->thresh_red_2, myAlgo->thresh_green_1,
                                        myAlgo->thresh_green_2, myAlgo->thresh_blue_1, myAlgo->thresh_blue_2);
                        t_end = clock();
@@ -134,7 +160,9 @@ void player::run()
                 img = QImage((const unsigned char*)(RGBframe.data),
                               RGBframe.cols,RGBframe.rows,QImage::Format_RGB888);
                 /***********Save le vidéo*********************************/
-                 mySaver.SaveVideo(frame);
+                if(videoPath != ""){
+                    mySaver.SaveVideo(frame);
+                }
                 /*********************************************************/
             }
             else
@@ -142,17 +170,21 @@ void player::run()
                 img = QImage((const unsigned char*)(frame.data),
                              frame.cols,frame.rows,QImage::Format_Indexed8);
                 /***********Save le vidéo*********************************/
-                mySaver.SaveVideo(frame);
+                if(videoPath != ""){
+                    mySaver.SaveVideo(frame);
+                 }
                 /*********************************************************/
             }
-            nbframe++;
-            emit processedImage(img);
+            //nbframe++;
+            emit processedImage(img, this->info);
+
             this->msleep(delay);
         }
     }
-    qDebug()<<nbframe;
+    //qDebug()<<nbframe;
     if(trajectoreChecked == true){delete myAlgo;}
-}
+    //if(videoPath != "")  {delete mySaver;}
+ }
 
 
 /*****************Get and set parametres of the video******************/
@@ -282,6 +314,11 @@ void player::setFileName(QString tmpFileName)
     videoPath = tmpFileName;
 }
 
+void player::setFileInfoName(QString tmpInfoName)
+{
+    infoPath = tmpInfoName;
+}
+
 /**
  * set value of deplcamentMax
  * @brief player::setDeplacementMax
@@ -384,7 +421,25 @@ Mat player::getFistFrame()
     if(capture->read(frame)){
         //cv::cvtColor(frame, frame, CV_BGR2RGB);
         return frame;
-     }
+    }
+    return frame;
+}
+
+
+/**
+ * Appelle dans MainWindow pour initialiser fichier à écrire
+ * @brief player::prepareSaveInfo
+ */
+void player::prepareSaveInfo()
+{
+    QString fileName = QDateTime::currentDateTime().toString("d MMMM yyyy hh-mm-ss");
+    infoFile.setFileName("C:/log/" + fileName + ".csv");
+    infoFile.open(QIODevice::WriteOnly);
+    /* Check it opened OK */
+    if(!infoFile.isOpen()){
+        qDebug() <<  "Error, unable to open" ;
+    }
+    output.setDevice(&infoFile);
 }
 
 

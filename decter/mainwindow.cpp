@@ -13,7 +13,9 @@ MainWindow::MainWindow(QWidget *parent) :
     /*********choose and show video******************/
     QObject::connect(ui->actionOuvrirVideo, SIGNAL(triggered()), this, SLOT(chooseVideo()));
     QObject::connect(ui->actionSauvegarderVideo, SIGNAL(triggered()), this, SLOT(choosePath()));
-    QObject::connect(myPlayer, SIGNAL(processedImage(QImage)), this, SLOT(updatePlayerUI(QImage)));
+    QObject::connect(ui->actionSauvegarderDonnees, SIGNAL(triggered()),this, SLOT(chooseInfoPath()));
+   // QObject::connect(myPlayer, SIGNAL(processedImage(QImage, Node)), this, SLOT(updatePlayerUI(QImage, Node)));
+    QObject::connect(myPlayer, SIGNAL(processedImage(QImage, QString)), this, SLOT(updatePlayerUI(QImage, QString)));
     /***********************************************/
     /*****For choose object**************/
     ui->VideoLbl->setMouseTracking(true);
@@ -68,17 +70,42 @@ void MainWindow::displayImage(QImage& img, double framecourant)
  * @brief MainWindow::updatePlayerUI: update the image dans la window
  * @param img
  */
-void MainWindow::updatePlayerUI(QImage img)
+/*void MainWindow::updatePlayerUI(QImage img, Node lastNode)
 {
     if (!img.isNull())
     {
         displayImage(img, myPlayer->getCurrentFrame());
+
         ui->R1label->setText(QString::number(myPlayer->thresh[0]));
         ui->R2label->setText(QString::number(myPlayer->thresh[1]));
         ui->V1label->setText(QString::number(myPlayer->thresh[2]));
         ui->V2label->setText(QString::number(myPlayer->thresh[3]));
         ui->B1label->setText(QString::number(myPlayer->thresh[4]));
         ui->B2label->setText(QString::number(myPlayer->thresh[5]));
+
+        //QListWidgetItem* lst1 = new QListWidgetItem(lastNode.nodeToString(), ui->listWidget);
+       // ui->listWidget->insertItem(++itemNumber,lst1 );
+
+    }
+}*/
+
+void MainWindow::updatePlayerUI(QImage img, QString tmpInfo)
+{
+    if (!img.isNull())
+    {
+        displayImage(img, myPlayer->getCurrentFrame());
+
+        ui->R1label->setText(QString::number(myPlayer->thresh[0]));
+        ui->R2label->setText(QString::number(myPlayer->thresh[1]));
+        ui->V1label->setText(QString::number(myPlayer->thresh[2]));
+        ui->V2label->setText(QString::number(myPlayer->thresh[3]));
+        ui->B1label->setText(QString::number(myPlayer->thresh[4]));
+        ui->B2label->setText(QString::number(myPlayer->thresh[5]));
+
+        if(tmpInfo != ""){
+            QListWidgetItem* lst1 = new QListWidgetItem(tmpInfo, ui->listWidget);
+            ui->listWidget->insertItem(++itemNumber,lst1 );
+        }
     }
 }
 
@@ -116,6 +143,10 @@ void MainWindow::chooseVideo()
             ui->totalLable->setText(QString::number(myPlayer->getNumberOfFrames()));
         }
     }
+    //Clear listWidget
+    ui->listWidget->clear();
+    //Initialiser write stream
+    myPlayer->prepareSaveInfo();
 }
 
 
@@ -128,6 +159,19 @@ void MainWindow::choosePath()
     QString fileName = QFileDialog::getSaveFileName(this, "Save video", "",
                                                     "Vidéo fichiers (*.avi *.mp4 *.asf);;All files (*.*)");
     myPlayer->setFileName(fileName);
+}
+
+/**
+ * Choisir de répertoire à sauvegarder les données de trajectoire
+ * @brief MainWindow::chooseInfoPath
+ */
+void MainWindow::chooseInfoPath()
+{
+    QString fileName = QFileDialog::getSaveFileName(this, "Save trajectoire", "",
+                                                    "csv fichiers (*.csv);;All files (*.*)");
+    myPlayer->setFileInfoName(fileName);
+    //Initialiser write stream
+    //myPlayer->prepareSaveInfo();
 }
 
 /**
