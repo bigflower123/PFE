@@ -1,8 +1,10 @@
 #include "algosoustraction.h"
 #include <QImage>
 #include <QDebug>
+#include <time.h>
+#include <conio.h>
 
-AlgoSoustraction::AlgoSoustraction(int tmpdpmax, Mat& tmpstart, Mat* tmpobj)
+AlgoSoustraction::AlgoSoustraction(int tmpdpmax, Mat& tmpstart, Mat* tmpobj, int i)
 {
     deplacementmax = tmpdpmax;
     start_frame = tmpstart;
@@ -16,8 +18,13 @@ AlgoSoustraction::AlgoSoustraction(int tmpdpmax, Mat& tmpstart, Mat* tmpobj)
     testHistogram(*obj_choose);
     Mat tmp = *obj_choose;
     //imwrite("objchoose.jpg", tmp);
-    binary_fond = generateBinaryImage(start_frame);
-   // imwrite("fond.jpg", binary_fond);
+    binary_fond = generateBinaryImage2(start_frame);
+    //imwrite("fond.jpg", binary_fond);
+    if(i == 0){
+        pre_img = true;
+    }else{
+        pre_img = false;
+    }
     //current_obj = tmpobj;
 }
 
@@ -29,7 +36,7 @@ AlgoSoustraction::AlgoSoustraction(int tmpdpmax, Mat& tmpstart, Mat* tmpobj)
  */
 void AlgoSoustraction::decter(Mat & currentFrame, int nbFrame)
 {
-
+    clock_t t_start,t_end, t_start1, t_end1;
     Mat binary_frame;   //the current frame on binary
     Mat img_act;        //the binary image which contains only the moving object
     Mat clean_act;      //img_act do erosion = clean_act
@@ -37,8 +44,40 @@ void AlgoSoustraction::decter(Mat & currentFrame, int nbFrame)
     float radius;       //the radius of the circle
     Mat obj_courant;
     Mat drawing = Mat::zeros( currentFrame.size(), CV_8UC3 );
-    binary_frame = generateBinaryImage(currentFrame);
+    t_start = clock();
+    binary_frame = generateBinaryImage2(currentFrame);
+    /***********************************************/
+    /*Mat binary_red_1;
+    Mat binary_red_2;
+    Mat binary_green_1;
+    Mat binary_green_2;
+    Mat binary_blue_1;
+    Mat binary_blue_2;
+    Mat binary_red;
+    Mat binary_green;
+    Mat binary_blue;
+    Mat mv_current[3]; //array for 3 channels
+
+    split(currentFrame, mv_current);
+
+    threshold(mv_current[2], binary_red_1, thresh_red_1, 255, THRESH_BINARY_INV);
+    threshold(mv_current[2], binary_red_2, thresh_red_2, 255, THRESH_BINARY);
+    binary_red = binary_red_1 + binary_red_2;
+
+    threshold(mv_current[1], binary_green_1, thresh_green_1, 255, THRESH_BINARY_INV);
+    threshold(mv_current[1], binary_green_2, thresh_green_2, 255, THRESH_BINARY);
+    binary_green = binary_green_1 + binary_green_2;
+
+    threshold(mv_current[0], binary_blue_1, thresh_blue_1, 255, THRESH_BINARY_INV);
+    threshold(mv_current[0], binary_blue_2, thresh_blue_2, 255, THRESH_BINARY);
+    binary_blue = binary_blue_1 + binary_blue_2;
+
+    threshold(binary_blue+binary_green+binary_red, binary_frame, 254, 255, THRESH_BINARY_INV);*/
+    /***********************************************/
+    t_end = clock();
+    qDebug()<< "Binary img" <<(double)(t_end - t_start) / CLOCKS_PER_SEC;
     //imwrite("frame.jpg",binary_frame);
+    t_start1 = clock();
     /******foreground OU background – background =
      * the binary image which contains only the moving object*************/
     absdiff(binary_frame+binary_fond,binary_fond,img_act);
@@ -46,12 +85,21 @@ void AlgoSoustraction::decter(Mat & currentFrame, int nbFrame)
     /*********************************************************************/
     /********Erosion********************************/
     morphologyEx(img_act,clean_act,MORPH_OPEN,element);
-   // imwrite("clean_act.jpg",clean_act);
+    //imwrite("clean_act.jpg",clean_act);
     /*************************************************/
     /**************************findContours***********************************/
     vector<vector<Point>> contours;
     vector<Vec4i> hierarchy;
-    findContours( clean_act, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE );
+    //Copy the src1 image to threshImg
+    Mat threshImg = clean_act.clone();
+    //Covert the threshImg from 8-channel to 1-channel and threshold it to binary image.
+    cvtColor(threshImg,threshImg, CV_RGB2GRAY);
+    //threshold(clean_act, threshImg, thresh, 255, CV_THRESH_BINARY);
+    //Finnaly you can get a contours.
+    //Mat threshCopy = threshImg.clone();
+    //std::vector<std::vector<Point>> contours;
+    //findContours(threshCopy, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE, Point(0,0));
+    findContours( threshImg, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE );
     /*Mat dst= Mat::zeros(clean_act.size(), CV_8UC3);
    for (int i = 0; i< contours.size(); i++)
    {
@@ -60,6 +108,8 @@ void AlgoSoustraction::decter(Mat & currentFrame, int nbFrame)
    }
    imwrite("contours.jpg", dst);*/
     myObject.setContours(contours);
+    t_end1 = clock();
+    qDebug()<< "Traite img" <<(double)(t_end1 - t_start1) / CLOCKS_PER_SEC;
     /****************************************************************************************/
     /***************Determine whether the object moves out of range of video****************/
     if(contours.size() == 0){
@@ -89,7 +139,6 @@ void AlgoSoustraction::decter(Mat & currentFrame, int nbFrame)
             if(sqrt((x-center.x)*(x-center.x) + (y-center.y)*(y-center.y))<deplacementmax){
                 Node nodecenter(center, QDateTime::currentDateTime(), nbFrame);
                 myTrajectoire.addPoint(nodecenter);
-                qDebug()<<"Tnonempty:"<<center.x<<center.y;
                 double obj_x = center.x - radius*2/3;
                 double obj_y = center.y - radius*2/3;
                 if(obj_x < 0 ) obj_x = 0;
@@ -119,7 +168,7 @@ void AlgoSoustraction::decter(Mat & currentFrame, int nbFrame)
                 {
                     binary_fond = generateBinaryImage(currentFrame);
                     count_refond++;
-                    qDebug()<<"count_refond"<<count_refond;
+                    //qDebug()<<"count_refond"<<count_refond;
                 }
                 else
                 {
@@ -127,7 +176,7 @@ void AlgoSoustraction::decter(Mat & currentFrame, int nbFrame)
                     if(center.x > 0 && center.y > 0){
                         Node nodecenter(center, QDateTime::currentDateTime(), nbFrame);
                         myTrajectoire.addPoint(nodecenter);
-                        qDebug()<<center.x<<center.y;
+                        //qDebug()<<center.x<<center.y;
                         circle( currentFrame, center, (int)radius, color, 2, 8, 0 );
                         circle( currentFrame, center, 2, color, -1, 8, 0 );
                     }
@@ -147,7 +196,7 @@ void AlgoSoustraction::decter(Mat & currentFrame, int nbFrame)
     MyTrajectoire.addPoint(nodecenter);*/
 
     // (*objectchoose) = newMat;
-    (*obj_choose) = obj_courant;
+    //(*obj_choose) = obj_courant;
 }
 
 
@@ -163,13 +212,6 @@ Mat AlgoSoustraction::generateBinaryImage(Mat& tmp)
     Mat binary;
     Mat mv_fond[3];
     split(tmp, mv_fond);
-
-    /*thresh_red_1 = 120;
-    thresh_red_2 = 235;
-    thresh_green_1 = 70;
-    thresh_green_2 = 114;
-    thresh_blue_1 = 1;
-    thresh_blue_2 = 65;*/
 
     Mat binary_red_1;
     threshold(mv_fond[2], binary_red_1, thresh_red_1, 255, THRESH_BINARY_INV);
@@ -191,6 +233,55 @@ Mat AlgoSoustraction::generateBinaryImage(Mat& tmp)
 
     threshold(binary_blue+binary_green+binary_red, binary, 254, 255, THRESH_BINARY_INV);
     return binary;
+}
+
+/**
+ * Méthode 2 of binarisation
+ * @brief AlgoSoustraction::generateBinaryImage2
+ * @return
+ */
+Mat AlgoSoustraction::generateBinaryImage2(Mat & src)
+{
+    // accept only char type matrices
+       //CV_Assert(I.depth() != sizeof(uchar));
+       /*const int channels = I.channels();
+       switch(channels)
+       {
+       case 1:
+           {
+               MatIterator_<uchar> it, end;
+               for( it = I.begin<uchar>(), end = I.end<uchar>(); it != end; ++it)
+                   *it = table[*it];
+               break;
+           }
+       case 3:
+           {
+               MatIterator_<Vec3b> it, end;
+               for( it = I.begin<Vec3b>(), end = I.end<Vec3b>(); it != end; ++it)
+               {
+                   (*it)[0] = table[(*it)[0]];
+                   (*it)[1] = table[(*it)[1]];
+                   (*it)[2] = table[(*it)[2]];
+               }
+           }
+       }*/
+       Mat image = src.clone();
+       for(int i=0;i<image.rows;i++)
+       {
+             for(int j=0;j<image.cols;j++)
+             {
+                 if(image.at<Vec3b>(i,j)[0] >= thresh_blue_1 && image.at<Vec3b>(i,j)[0] <= thresh_blue_2
+                 && image.at<Vec3b>(i,j)[1] >= thresh_green_1 && image.at<Vec3b>(i,j)[1] <= thresh_green_2
+                 && image.at<Vec3b>(i,j)[2] >= thresh_red_1 && image.at<Vec3b>(i,j)[2] <= thresh_red_2){
+                    image.at<Vec3b>(i,j)=Vec3b(255,255,255);
+                 }else{
+                    image.at<Vec3b>(i,j)=Vec3b(0,0,0);
+                 }
+                 //image.at<Vec3b>(i,j)[1]=image.at<Vec3b>(i,j)[1]/div*div+div/2;
+                 //image.at<Vec3b>(i,j)[2]=image.at<Vec3b>(i,j)[2]/div*div+div/2;
+            }
+        }
+       return image;
 }
 
 
@@ -367,6 +458,8 @@ void AlgoSoustraction::testHistogram(Mat & src)
       if((BlueVal-thresh_blue_1)>3*(thresh_blue_2-BlueVal)) thresh_blue_1=BlueVal-3*(thresh_blue_2-BlueVal);
       if(thresh_blue_1<=0)thresh_blue_1=1;
       if(thresh_blue_2>=256)thresh_blue_2=255;
+
+
       // Draw the histograms for B, G and R
      /* int hist_w = 512; int hist_h = 400;
       int bin_w = cvRound( (double) hist_w/histSize );

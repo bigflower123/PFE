@@ -7,9 +7,10 @@
 class AlgoSoustraction : public AlgoGeneral
 {
 public:
-    AlgoSoustraction(int, Mat &, Mat *);
+    AlgoSoustraction(int, Mat &, Mat *, int i);
     void decter(Mat &, int);
     Mat generateBinaryImage(Mat &);
+    Mat generateBinaryImage2(Mat &src);
     void calculeHistograme(Mat &);
     void testHistogram(Mat &);
    // vector<Mat>& getHist();
@@ -28,7 +29,7 @@ private:
     Mat binary_fond;        //binary background image
     Mat element;
     Point2f center_back;//The last value of the array 'center'
-    bool pre_img = true;
+    bool pre_img;
     double max_domaine_cc=0; // the surface of the biggest contour
     int max_domaine_i=0; // the number of the contour which has the biggest surface
     int count_refond=0;

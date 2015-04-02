@@ -14,7 +14,6 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(ui->actionOuvrirVideo, SIGNAL(triggered()), this, SLOT(chooseVideo()));
     QObject::connect(ui->actionSauvegarderVideo, SIGNAL(triggered()), this, SLOT(choosePath()));
     QObject::connect(ui->actionSauvegarderDonnees, SIGNAL(triggered()),this, SLOT(chooseInfoPath()));
-   // QObject::connect(myPlayer, SIGNAL(processedImage(QImage, Node)), this, SLOT(updatePlayerUI(QImage, Node)));
     QObject::connect(myPlayer, SIGNAL(processedImage(QImage, QString)), this, SLOT(updatePlayerUI(QImage, QString)));
     /***********************************************/
     /*****For choose object**************/
@@ -42,8 +41,10 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(ui->actionInformationObjet, SIGNAL(triggered()),this, SLOT(openInformationDialog()));
     QObject::connect(ui->actionDeplacement, SIGNAL(triggered()),this, SLOT(openDeplacementDialog()));
     /**************************************/
+    /******Initialisation******************/
     start = 0;
     fin = 0;
+    /*************************************/
 }
 
 MainWindow::~MainWindow()
@@ -60,7 +61,6 @@ MainWindow::~MainWindow()
  */
 void MainWindow::displayImage(QImage& img, double framecourant)
 {
-    //qDebug() << "Début d'affichage de l'image";
     ui->VideoLbl->setAlignment(Qt::AlignCenter);
     ui->VideoLbl->setPixmap(QPixmap::fromImage(img).scaled(ui->VideoLbl->size(),
                             Qt::KeepAspectRatio, Qt::FastTransformation));
@@ -68,33 +68,14 @@ void MainWindow::displayImage(QImage& img, double framecourant)
     ui->VideoLbl->adjustSize();
     ui->videoSlider->setValue(framecourant);
     ui->currentLable->setText(QString::number(framecourant));
-    //qDebug() << "Fin d'affichage de l'image";
-
 }
 
 /**
- * @brief MainWindow::updatePlayerUI: update the image dans la window
+ * Appelle le fonction to show video and show data in ListWidget
+ * @brief MainWindow::updatePlayerUI
  * @param img
+ * @param tmpInfo
  */
-/*void MainWindow::updatePlayerUI(QImage img, Node lastNode)
-{
-    if (!img.isNull())
-    {
-        displayImage(img, myPlayer->getCurrentFrame());
-
-        ui->R1label->setText(QString::number(myPlayer->thresh[0]));
-        ui->R2label->setText(QString::number(myPlayer->thresh[1]));
-        ui->V1label->setText(QString::number(myPlayer->thresh[2]));
-        ui->V2label->setText(QString::number(myPlayer->thresh[3]));
-        ui->B1label->setText(QString::number(myPlayer->thresh[4]));
-        ui->B2label->setText(QString::number(myPlayer->thresh[5]));
-
-        //QListWidgetItem* lst1 = new QListWidgetItem(lastNode.nodeToString(), ui->listWidget);
-       // ui->listWidget->insertItem(++itemNumber,lst1 );
-
-    }
-}*/
-
 void MainWindow::updatePlayerUI(QImage img, QString tmpInfo)
 {
     if (!img.isNull())
@@ -122,6 +103,8 @@ void MainWindow::updatePlayerUI(QImage img, QString tmpInfo)
 void MainWindow::chooseVideo()
 {
     double nbFrame = 0;
+    //If InfoFile is open, we close it
+    myPlayer->closeInfoFile();
     //Open filedialog to choose video file
     QString filename = QFileDialog::getOpenFileName(
                 this, "Ouvrir vidéo",
@@ -138,7 +121,9 @@ void MainWindow::chooseVideo()
         }
         else
         {
+            //Set the video name to window title
             this->setWindowTitle(name.fileName());
+            /************************************/
             ui->playBtn->setEnabled(true);
             ui->videoSlider->setEnabled(true);
             ui->backwardButton->setEnabled(true);
@@ -150,15 +135,32 @@ void MainWindow::chooseVideo()
             //ui->totalLable->setText( getFormattedTime( (int)myPlayer->getNumberOfFrames()/(int)myPlayer->getFrameRate()) );
             ui->totalLable->setText(QString::number(nbFrame));
             ui->finLabel->setText(QString::number(nbFrame));
+            /****************************************/
             //Set video fin
             fin = nbFrame;
             myPlayer->setVideoFin(fin);
+
+            //Show first image of video dans VideoLabel
+            Mat firstimg = myPlayer->getFistFrame();
+            cv::cvtColor(firstimg, firstimg, CV_BGR2RGB);
+            this->displayImage(QImage((const unsigned char*)(firstimg.data),
+                               firstimg.cols,firstimg.rows,QImage::Format_RGB888),1);
         }
     }
     //Clear listWidget
     ui->listWidget->clear();
     //Initialiser write stream
     myPlayer->prepareSaveInfo();
+    //Checkbox
+    if(ui->trajectoirecheckBox->isChecked()){
+        ui->trajectoirecheckBox->setChecked(false);
+        myPlayer->trajectoreChecked = false;
+    }
+    //Release dst, object choose
+    dst = Mat(Size(100, 100), CV_8UC3, Scalar(0, 0, 0));
+    this->dst.release();
+    //Set flagTimeschoose
+    myPlayer->setFlagTimes(0);
 }
 
 
@@ -388,12 +390,17 @@ void MainWindow::myMouseLeft(int x, int y)
     {
         printf("width == 0 || height == 0");
     }
+    //Get the object choose
     dst = org(Rect(min(cur_pt.x,pre_pt.x),min(cur_pt.y,pre_pt.y),zonewidth, zoneheight));
     Mat RGBdst;
     cv::cvtColor(dst, RGBdst, CV_BGR2RGB);
     myPlayer->setObjectChoose(RGBdst);
+    //Set checkbox and menu InformationObject true
     ui->actionInformationObjet->setEnabled(true);
-    ui->trajectoirecheckBox->setEnabled(true);
+    if(!ui->trajectoirecheckBox->isEnabled())
+        ui->trajectoirecheckBox->setEnabled(true);
+    //Set flagTimeschoose
+    myPlayer->setFlagTimes(++i);
 }
 
 /******************Choose object*******************/
@@ -456,12 +463,16 @@ void MainWindow::on_finButton_clicked()
 void MainWindow::on_trajectoirecheckBox_clicked()
 {
     if(!myPlayer->trajectoreChecked){
+         ui->trajectoirecheckBox->setChecked(true);
          myPlayer->trajectoreChecked = true;
          //On peut définir début et fin de vidéo avec trajectoire
          ui->debutButton->setEnabled(true);
          ui->finButton->setEnabled(true);
          ui->listWidget->setEnabled(true);
+         //Prepare algo info
+        // myPlayer->prepareAlgo();
     }else{
+         ui->trajectoirecheckBox->setChecked(false);
          myPlayer->trajectoreChecked = false;
          //Mettre débutvideo à 0 et finvideo à MaxFrameVideo
          ui->debutButton->setEnabled(false);
@@ -471,7 +482,7 @@ void MainWindow::on_trajectoirecheckBox_clicked()
          ui->finLabel->setText(QString::number(myPlayer->getNumberOfFrames()));
          myPlayer->setVideoFin(myPlayer->getNumberOfFrames());
          //Clear ListWidget
-         ui->listWidget->clear();
+         //ui->listWidget->clear();
          ui->listWidget->setEnabled(false);
     }
 }

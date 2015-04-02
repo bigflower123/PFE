@@ -40,6 +40,8 @@ class player: public QThread
     QString info;
     QFile infoFile;
     QTextStream  output;
+    int flagcontinue = 0;
+    int flagtimeschoose = 0;
    // long beginFrame = 1;
    // long finFrame = getNumberOfFrames();
     //Save *mySaver;
@@ -101,6 +103,8 @@ class player: public QThread
     bool trajectoreChecked = false;
     Mat getFistFrame();
     void prepareSaveInfo();
+    void closeInfoFile();
+    void setFlagTimes(int tmpTimes);
     /*void setStartVideo(long start);
     void setFinVideo(long fin);*/
 };

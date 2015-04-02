@@ -1,6 +1,8 @@
 #include "player.h"
 #include <time.h>
 #include <conio.h>
+#include <QDir>
+#include <QMessageBox>
 
 /**
  * Constructeur
@@ -37,7 +39,7 @@ player::~player()
     delete capture;
     condition.wakeOne();
     mutex.unlock();
-    infoFile.close();
+    //infoFile.close();
     wait();
 }
 
@@ -64,6 +66,9 @@ bool player::loadVideo(string filename) {
     if (capture->isOpened())
     {
         frameRate = (int) capture->get(CV_CAP_PROP_FPS);
+        //Set nbframe à 0
+        nbframe = 0;
+        flagcontinue = 0;
         return true;
     }
     else
@@ -109,6 +114,7 @@ bool player::isStopped() const{
 void player::run()
 {
     clock_t t_start,t_end, t_start1, t_end1;
+    clock_t t_start2,t_end2, t_start3, t_end3;
     double delay = (1000/frameRate);
     /******************************Save le vidéo******************************************/
     if(videoPath != ""){
@@ -121,9 +127,9 @@ void player::run()
     }
     /*************************************************************************************/
     /******************************Algo de détection**************************************/
-    if(trajectoreChecked == true){
-        myAlgo = new AlgoSoustraction(deplacement, firstframe, &objectchoose);
-        //nbframe = getCurrentFrame();
+    if(trajectoreChecked == true && (flagcontinue == 0 || this->flagtimeschoose > 1)){
+        myAlgo = new AlgoSoustraction(deplacement, firstframe, &objectchoose, flagcontinue);
+        qDebug()<<"flagcontinue="<<++flagcontinue;
     }
 
     /*************************************************************************************/
@@ -146,18 +152,24 @@ void player::run()
                        t_start = clock();
                        //this->info = "";
                        myAlgo->decter(frame, getCurrentFrame());
+                       t_end = clock();
+                       t_start2 = clock();
                        if(!myAlgo->getTrajectoire().getCenterlist().empty()){
                             this->info = myAlgo->getTrajectoire().getCenterlist().back().nodeToString();
                             output<<this->info + "\n";
                        }
+                       t_end2 = clock();
+                       t_start3 = clock();
                        this->setThresh(myAlgo->thresh_red_1,myAlgo->thresh_red_2, myAlgo->thresh_green_1,
                                        myAlgo->thresh_green_2, myAlgo->thresh_blue_1, myAlgo->thresh_blue_2);
-                       t_end = clock();
-                       qDebug()<< "detecter time" <<(double)(t_end - t_start) / CLOCKS_PER_SEC;;
+                       t_end3 = clock();
+                       qDebug()<< "detecter time" <<(double)(t_end - t_start) / CLOCKS_PER_SEC;
+                       qDebug()<< "donne save time" <<(double)(t_end2 - t_start2) / CLOCKS_PER_SEC;
+                       qDebug()<< "thresh time" <<(double)(t_end3 - t_start3) / CLOCKS_PER_SEC;
                        t_start1 = clock();
                        myAlgo->getTrajectoire().drawTrajectoire(frame);
                        t_end1 = clock();
-                       qDebug()<< "draw time" <<(double)(t_end1 - t_start1) / CLOCKS_PER_SEC;;
+                       qDebug()<< "draw time" <<(double)(t_end1 - t_start1) / CLOCKS_PER_SEC;
                 }
                 /**********************************************************/
                 cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
@@ -186,7 +198,7 @@ void player::run()
         }
     }
     //qDebug()<<nbframe;
-    if(trajectoreChecked == true){delete myAlgo;}
+    if(trajectoreChecked == true && (flagcontinue == 0 || this->flagtimeschoose > 1)){delete myAlgo;}
     //if(videoPath != "")  {delete mySaver;}
  }
 
@@ -445,13 +457,43 @@ Mat player::getFistFrame()
 void player::prepareSaveInfo()
 {
     QString fileName = QDateTime::currentDateTime().toString("d MMMM yyyy hh-mm-ss");
-    infoFile.setFileName("C:/log/" + fileName + ".csv");
+    /***Créer une répertoire******/
+    QDir *temp = new QDir;
+    bool exist = temp->exists("C://temp");
+    if(!exist)
+    {
+       bool ok = temp->mkdir("C://temp");
+    }
+    /****************************/
+    infoFile.setFileName("C://temp/" + fileName + ".csv");
     infoFile.open(QIODevice::WriteOnly);
     /* Check it opened OK */
     if(!infoFile.isOpen()){
         qDebug() <<  "Error, unable to open" ;
     }
     output.setDevice(&infoFile);
+}
+
+
+
+/**
+ *Close info file
+ * @brief player::closeInfoFile
+ */
+void player::closeInfoFile()
+{
+    if(infoFile.isOpen())
+        infoFile.close();
+}
+
+/**
+ * Set flag: times of choose object
+ * @brief player::setFlagTimes
+ * @param tmpTimes
+ */
+void player::setFlagTimes(int tmpTimes)
+{
+    this->flagtimeschoose = tmpTimes;
 }
 
 

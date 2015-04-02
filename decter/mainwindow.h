@@ -89,6 +89,8 @@ private:
     //début et fin
     int start;
     int fin;
+
+    int i = 0;
 };
 
 #endif // MAINWINDOW_H

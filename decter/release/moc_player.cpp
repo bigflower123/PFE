@@ -52,10 +52,10 @@ static const uint qt_meta_data_player[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   19,    2, 0x06 /* Public */,
+       1,    2,   19,    2, 0x06 /* Public */,
 
  // signals: parameters
-    QMetaType::Void, QMetaType::QImage,    3,
+    QMetaType::Void, QMetaType::QImage, QMetaType::QString,    3,    2,
 
        0        // eod
 };
@@ -65,14 +65,14 @@ void player::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
     if (_c == QMetaObject::InvokeMetaMethod) {
         player *_t = static_cast<player *>(_o);
         switch (_id) {
-        case 0: _t->processedImage((*reinterpret_cast< const QImage(*)>(_a[1]))); break;
+        case 0: _t->processedImage((*reinterpret_cast< const QImage(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
         void **func = reinterpret_cast<void **>(_a[1]);
         {
-            typedef void (player::*_t)(const QImage & );
+            typedef void (player::*_t)(const QImage & , QString );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&player::processedImage)) {
                 *result = 0;
             }
@@ -117,9 +117,9 @@ int player::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void player::processedImage(const QImage & _t1)
+void player::processedImage(const QImage & _t1, QString _t2)
 {
-    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 QT_END_MOC_NAMESPACE

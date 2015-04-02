@@ -80,7 +80,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(1185, 706);
+        MainWindow->resize(1204, 706);
         actionOuvrirVideo = new QAction(MainWindow);
         actionOuvrirVideo->setObjectName(QStringLiteral("actionOuvrirVideo"));
         actionSauvegarderVideo = new QAction(MainWindow);
@@ -148,7 +148,7 @@ public:
         commentlabel->setGeometry(QRect(900, 350, 67, 16));
         commenttextEdit = new QTextEdit(centralWidget);
         commenttextEdit->setObjectName(QStringLiteral("commenttextEdit"));
-        commenttextEdit->setGeometry(QRect(900, 370, 261, 111));
+        commenttextEdit->setGeometry(QRect(900, 370, 291, 111));
         commentButton = new QPushButton(centralWidget);
         commentButton->setObjectName(QStringLiteral("commentButton"));
         commentButton->setGeometry(QRect(1070, 500, 75, 23));
@@ -181,7 +181,8 @@ public:
         B2label->setGeometry(QRect(1020, 600, 46, 13));
         listWidget = new QListWidget(centralWidget);
         listWidget->setObjectName(QStringLiteral("listWidget"));
-        listWidget->setGeometry(QRect(900, 10, 271, 321));
+        listWidget->setGeometry(QRect(900, 10, 291, 321));
+        listWidget->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
         label_4 = new QLabel(centralWidget);
         label_4->setObjectName(QStringLiteral("label_4"));
         label_4->setGeometry(QRect(160, 620, 46, 13));
@@ -197,7 +198,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1185, 21));
+        menuBar->setGeometry(QRect(0, 0, 1204, 21));
         menuFichier = new QMenu(menuBar);
         menuFichier->setObjectName(QStringLiteral("menuFichier"));
         menuInformation = new QMenu(menuBar);
