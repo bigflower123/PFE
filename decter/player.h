@@ -22,6 +22,7 @@ class player: public QThread
     QMutex mutex;
     QWaitCondition condition;
     Mat frame;
+    Mat firstframe;
     int frameRate;
     VideoCapture *capture;
     Mat RGBframe;

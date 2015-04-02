@@ -122,25 +122,29 @@ void player::run()
     /*************************************************************************************/
     /******************************Algo de détection**************************************/
     if(trajectoreChecked == true){
-        myAlgo = new AlgoSoustraction(deplacement, this->getFistFrame(), &objectchoose);
+        myAlgo = new AlgoSoustraction(deplacement, firstframe, &objectchoose);
         //nbframe = getCurrentFrame();
     }
 
     /*************************************************************************************/
     qDebug() << framecount;
     //capture->set(CV_CAP_PROP_POS_FRAMES, this->framestart);
-    while(!stop){
+    while(!stop && getCurrentFrame() < this->framefin){
         if (!capture->read(frame))
         {
             stop = true;
             qDebug()<<"frame read fin";
         }else{
+            if(nbframe == 0){
+                frame.copyTo(firstframe);
+            }
             if (frame.channels()== 3){
                 //cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
                 /****************Algo de détection*************************/
+                this->info = "";
                 if(trajectoreChecked == true){
                        t_start = clock();
-                       this->info = "";
+                       //this->info = "";
                        myAlgo->decter(frame, getCurrentFrame());
                        if(!myAlgo->getTrajectoire().getCenterlist().empty()){
                             this->info = myAlgo->getTrajectoire().getCenterlist().back().nodeToString();
@@ -175,7 +179,7 @@ void player::run()
                  }
                 /*********************************************************/
             }
-            //nbframe++;
+            nbframe++;
             emit processedImage(img, this->info);
 
             this->msleep(delay);
@@ -297,7 +301,12 @@ Mat player::getNextframe()
     return RGBframe;
 }
 
-
+/**
+ * Get current Image
+ * @brief player::getcurrentImage
+ * @param frameNumber
+ * @return
+ */
 Mat player::getcurrentImage(int frameNumber){
     capture->set(CV_CAP_PROP_POS_FRAMES, --frameNumber);
     if(frameNumber > 0){
@@ -337,6 +346,8 @@ void player::setDeplacementMax(int tmpDeplacement)
 void player::setVideoStart(int tmpstart)
 {
     framestart = tmpstart;
+    capture->set(CV_CAP_PROP_POS_FRAMES, framestart);
+
 }
 
 /**
@@ -347,6 +358,7 @@ void player::setVideoStart(int tmpstart)
 void player::setVideoFin(int tmpfin)
 {
     framefin = tmpfin;
+    capture->set(CV_CAP_PROP_POS_FRAMES, framestart);
 }
 
 /**

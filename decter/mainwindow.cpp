@@ -32,12 +32,18 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->videoSlider->setEnabled(false);
     ui->quickbackwardButton->setEnabled(false);
     ui->quickforwardButton->setEnabled(false);
+    ui->trajectoirecheckBox->setEnabled(false);
+    ui->debutButton->setEnabled(false);
+    ui->finButton->setEnabled(false);
+    ui->listWidget->setEnabled(false);
     /***********************************/
     ui->actionInformationObjet->setEnabled(false);
     /*************open dialog**************/
     QObject::connect(ui->actionInformationObjet, SIGNAL(triggered()),this, SLOT(openInformationDialog()));
     QObject::connect(ui->actionDeplacement, SIGNAL(triggered()),this, SLOT(openDeplacementDialog()));
     /**************************************/
+    start = 0;
+    fin = 0;
 }
 
 MainWindow::~MainWindow()
@@ -115,6 +121,7 @@ void MainWindow::updatePlayerUI(QImage img, QString tmpInfo)
  */
 void MainWindow::chooseVideo()
 {
+    double nbFrame = 0;
     //Open filedialog to choose video file
     QString filename = QFileDialog::getOpenFileName(
                 this, "Ouvrir vidéo",
@@ -138,9 +145,14 @@ void MainWindow::chooseVideo()
             ui->forwardButton->setEnabled(true);
             ui->quickbackwardButton->setEnabled(true);
             ui->quickforwardButton->setEnabled(true);
-            ui->videoSlider->setMaximum(myPlayer->getNumberOfFrames());
+            nbFrame = myPlayer->getNumberOfFrames();
+            ui->videoSlider->setMaximum(nbFrame);
             //ui->totalLable->setText( getFormattedTime( (int)myPlayer->getNumberOfFrames()/(int)myPlayer->getFrameRate()) );
-            ui->totalLable->setText(QString::number(myPlayer->getNumberOfFrames()));
+            ui->totalLable->setText(QString::number(nbFrame));
+            ui->finLabel->setText(QString::number(nbFrame));
+            //Set video fin
+            fin = nbFrame;
+            myPlayer->setVideoFin(fin);
         }
     }
     //Clear listWidget
@@ -381,6 +393,7 @@ void MainWindow::myMouseLeft(int x, int y)
     cv::cvtColor(dst, RGBdst, CV_BGR2RGB);
     myPlayer->setObjectChoose(RGBdst);
     ui->actionInformationObjet->setEnabled(true);
+    ui->trajectoirecheckBox->setEnabled(true);
 }
 
 /******************Choose object*******************/
@@ -416,8 +429,11 @@ void MainWindow::openDeplacementDialog()
  */
 void MainWindow::on_debutButton_clicked()
 {
-    int start = ui->currentLable->text().toInt();
-    myPlayer->setVideoStart(start);
+    start = ui->currentLable->text().toInt();
+    if(fin >= start){
+        ui->debutLabel->setText(QString::number(start));
+        myPlayer->setVideoStart(start);
+    }
 }
 
 /**
@@ -426,17 +442,37 @@ void MainWindow::on_debutButton_clicked()
  */
 void MainWindow::on_finButton_clicked()
 {
-    int fin = ui->currentLable->text().toInt();
-    myPlayer->setVideoFin(fin);
+    fin = ui->currentLable->text().toInt();
+    if(fin >= start){
+        ui->finLabel->setText(QString::number(fin));
+        myPlayer->setVideoFin(fin);
+    }
 }
-
-
+/*****************************************************/
+/**
+ * Checkbox pour définir si on détecter
+ * @brief MainWindow::on_trajectoirecheckBox_clicked
+ */
 void MainWindow::on_trajectoirecheckBox_clicked()
 {
     if(!myPlayer->trajectoreChecked){
          myPlayer->trajectoreChecked = true;
+         //On peut définir début et fin de vidéo avec trajectoire
+         ui->debutButton->setEnabled(true);
+         ui->finButton->setEnabled(true);
+         ui->listWidget->setEnabled(true);
     }else{
          myPlayer->trajectoreChecked = false;
+         //Mettre débutvideo à 0 et finvideo à MaxFrameVideo
+         ui->debutButton->setEnabled(false);
+         ui->finButton->setEnabled(false);
+         ui->debutLabel->setText(QString::number(0));
+         myPlayer->setVideoStart(0);
+         ui->finLabel->setText(QString::number(myPlayer->getNumberOfFrames()));
+         myPlayer->setVideoFin(myPlayer->getNumberOfFrames());
+         //Clear ListWidget
+         ui->listWidget->clear();
+         ui->listWidget->setEnabled(false);
     }
 }
 

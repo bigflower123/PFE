@@ -139,8 +139,8 @@
    <widget class="QPushButton" name="finButton">
     <property name="geometry">
      <rect>
-      <x>600</x>
-      <y>590</y>
+      <x>630</x>
+      <y>580</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -152,7 +152,7 @@
    <widget class="QCheckBox" name="trajectoirecheckBox">
     <property name="geometry">
      <rect>
-      <x>720</x>
+      <x>100</x>
       <y>590</y>
       <width>74</width>
       <height>17</height>
@@ -355,6 +355,58 @@
       <width>271</width>
       <height>321</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>620</y>
+      <width>46</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Début:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="debutLabel">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>620</y>
+      <width>71</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>0</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>600</x>
+      <y>620</y>
+      <width>46</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Fin:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="finLabel">
+    <property name="geometry">
+     <rect>
+      <x>660</x>
+      <y>620</y>
+      <width>46</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>0</string>
     </property>
    </widget>
   </widget>

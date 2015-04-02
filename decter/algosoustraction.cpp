@@ -35,7 +35,7 @@ void AlgoSoustraction::decter(Mat & currentFrame, int nbFrame)
     Mat clean_act;      //img_act do erosion = clean_act
     Point2f center;     //the center of the circle
     float radius;       //the radius of the circle
-
+    Mat obj_courant;
     Mat drawing = Mat::zeros( currentFrame.size(), CV_8UC3 );
     binary_frame = generateBinaryImage(currentFrame);
     //imwrite("frame.jpg",binary_frame);
@@ -82,7 +82,7 @@ void AlgoSoustraction::decter(Mat & currentFrame, int nbFrame)
         minEnclosingCircle( (Mat)contours[max_domaine_i], center, radius);
         max_domaine_cc = 0;
         max_domaine_i = 0;
-        Mat obj_courant;
+        //Mat obj_courant;
         if(!myTrajectoire.getCenterlist().empty()){
              double x = myTrajectoire.getCenterlist().back().getCenter().x;
              double y = myTrajectoire.getCenterlist().back().getCenter().y;
@@ -90,8 +90,12 @@ void AlgoSoustraction::decter(Mat & currentFrame, int nbFrame)
                 Node nodecenter(center, QDateTime::currentDateTime(), nbFrame);
                 myTrajectoire.addPoint(nodecenter);
                 qDebug()<<"Tnonempty:"<<center.x<<center.y;
-                /*obj_courant = currentFrame(Rect((int)(center.x-radius*2/3),(int)(center.y-radius*2/3),
-                                             (int)radius*4/3,(int)radius*4/3));*/
+                double obj_x = center.x - radius*2/3;
+                double obj_y = center.y - radius*2/3;
+                if(obj_x < 0 ) obj_x = 0;
+                if(obj_y < 0) obj_y = 0;
+                obj_courant = currentFrame(Rect((int)(obj_x),(int)(obj_y),
+                                             (int)radius*4/3,(int)radius*4/3));
                 //this->testHistogram(obj_courant);
                 circle( currentFrame, center, (int)radius, color, 2, 8, 0 );//draw circle
                 circle( currentFrame, center, 2, color, -1, 8, 0 );//draw the center of circle
@@ -140,10 +144,10 @@ void AlgoSoustraction::decter(Mat & currentFrame, int nbFrame)
     MyObject.setRadius(radius);
     QDateTime currenttime = QDateTime::currentDateTime();
     Node nodecenter(center,currenttime,nbFrame);
-    MyTrajectoire.addPoint(nodecenter);
+    MyTrajectoire.addPoint(nodecenter);*/
 
     // (*objectchoose) = newMat;
-    (*obj_choose) = obj_courant;*/
+    (*obj_choose) = obj_courant;
 }
 
 

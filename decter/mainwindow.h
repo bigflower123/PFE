@@ -85,6 +85,10 @@ private:
     //Postion of slider
     int postionSlider;
     int itemNumber = 0;
+
+    //début et fin
+    int start;
+    int fin;
 };
 
 #endif // MAINWINDOW_H

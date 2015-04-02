@@ -144,28 +144,28 @@ void InformationDialog::displayHistogram(Mat &src)
 
      /// Calcule max and min value
      // obtain the minimum value on the abscissa
-     while(b_hist.at<float>(thresh_red_1) == 0){
+     while(thresh_red_1 < 255 && r_hist.at<float>(thresh_red_1) < 5){
          thresh_red_1++;
      }
 
-     while(g_hist.at<float>(thresh_green_1) == 0){
+     while(thresh_green_1 < 255 && g_hist.at<float>(thresh_green_1) < 5){
          thresh_green_1++;
      }
 
-     while(r_hist.at<float>(thresh_blue_1) == 0){
+     while(thresh_blue_1 < 255 && b_hist.at<float>(thresh_blue_1) < 5){
          thresh_blue_1++;
      }
 
      // obtain the maximum value on the abscissa
-     while(b_hist.at<float>(thresh_red_2) == 0){
+     while(thresh_red_2 >=0 && r_hist.at<float>(thresh_red_2) < 5){
          thresh_red_2--;
      }
 
-     while(g_hist.at<float>(thresh_green_2) == 0){
+     while(thresh_green_2 >=0 && g_hist.at<float>(thresh_green_2) < 5){
          thresh_green_2--;
      }
 
-     while(r_hist.at<float>(thresh_blue_2) == 0){
+     while(thresh_blue_2 >= 0 && b_hist.at<float>(thresh_blue_2) < 5){
          thresh_blue_2--;
      }
 
@@ -208,16 +208,16 @@ void InformationDialog::displayHistogram(Mat &src)
      ui->greenhistLabel->setPixmap(QPixmap::fromImage(qimgGreen));
      ui->redhistLabel->setPixmap(QPixmap::fromImage(qimgRed));
 
-     imwrite("calcHistRed.jpg", histImageRed );
-     imwrite("calcHistGreen.jpg", histImageGreen );
-     imwrite("calcHistBlue.jpg", histImageBlue );
+     //imwrite("calcHistRed.jpg", histImageRed );
+     //imwrite("calcHistGreen.jpg", histImageGreen );
+     //imwrite("calcHistBlue.jpg", histImageBlue );
      //show the min and max value of histogram on the abscissa
-     ui->redminLabel->setText(QString::number(thresh_blue_1));
-     ui->redmaxLabel->setText(QString::number(thresh_blue_2));
+     ui->redminLabel->setText(QString::number(thresh_red_1));
+     ui->redmaxLabel->setText(QString::number(thresh_red_2));
      ui->greenminLabel->setText(QString::number(thresh_green_1));
      ui->greenmaxLabel->setText(QString::number(thresh_green_2));
-     ui->blueminLabel->setText(QString::number(thresh_red_1));
-     ui->bluemaxLabel->setText(QString::number(thresh_red_2));
+     ui->blueminLabel->setText(QString::number(thresh_blue_1));
+     ui->bluemaxLabel->setText(QString::number(thresh_blue_2));
 
 }
 
