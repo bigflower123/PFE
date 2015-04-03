@@ -17,8 +17,8 @@ AlgoSoustraction::AlgoSoustraction(int tmpdpmax, Mat& tmpstart, Mat* tmpobj, int
     thresh_green_2 = 255;
     testHistogram(*obj_choose);
     Mat tmp = *obj_choose;
-    //imwrite("objchoose.jpg", tmp);
-    binary_fond = generateBinaryImage2(start_frame);
+   // imwrite("objchoose.jpg", tmp);
+    binary_fond = generateBinaryImage(start_frame);
     //imwrite("fond.jpg", binary_fond);
     if(i == 0){
         pre_img = true;
@@ -45,7 +45,7 @@ void AlgoSoustraction::decter(Mat & currentFrame, int nbFrame)
     Mat obj_courant;
     Mat drawing = Mat::zeros( currentFrame.size(), CV_8UC3 );
     t_start = clock();
-    binary_frame = generateBinaryImage2(currentFrame);
+    binary_frame = generateBinaryImage(currentFrame);
     /***********************************************/
     /*Mat binary_red_1;
     Mat binary_red_2;
@@ -90,16 +90,7 @@ void AlgoSoustraction::decter(Mat & currentFrame, int nbFrame)
     /**************************findContours***********************************/
     vector<vector<Point>> contours;
     vector<Vec4i> hierarchy;
-    //Copy the src1 image to threshImg
-    Mat threshImg = clean_act.clone();
-    //Covert the threshImg from 8-channel to 1-channel and threshold it to binary image.
-    cvtColor(threshImg,threshImg, CV_RGB2GRAY);
-    //threshold(clean_act, threshImg, thresh, 255, CV_THRESH_BINARY);
-    //Finnaly you can get a contours.
-    //Mat threshCopy = threshImg.clone();
-    //std::vector<std::vector<Point>> contours;
-    //findContours(threshCopy, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE, Point(0,0));
-    findContours( threshImg, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE );
+    findContours( clean_act, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE );
     /*Mat dst= Mat::zeros(clean_act.size(), CV_8UC3);
    for (int i = 0; i< contours.size(); i++)
    {

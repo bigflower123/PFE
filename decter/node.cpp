@@ -19,5 +19,8 @@ Point2f &Node::getCenter()
 
 QString Node::nodeToString()
 {
-    return QString("%1;   %2;   %3;   %4").arg(currentFrame).arg(center.x).arg(center.y).arg(timenow.toString());
+    char bufferx[50], buffery[50];
+    sprintf (bufferx, "%-.2f", center.x);
+    sprintf (buffery, "%-.2f", center.y);
+    return QString("%1;   %2;   %3;   %4").arg(currentFrame).arg(bufferx).arg(buffery).arg(timenow.toString());
 }

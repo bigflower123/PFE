@@ -117,7 +117,7 @@ void player::run()
     clock_t t_start2,t_end2, t_start3, t_end3;
     double delay = (1000/frameRate);
     /******************************Save le vidéo******************************************/
-    if(videoPath != ""){
+    if(videoPath != "" && flagcontinue == 0){
         //Save mySaver(videoPath.toStdString(), this->getFrameSize(), frameRate, this->getCodec());
         mySaver.setPath(videoPath.toStdString());
         mySaver.setSize(this->getFrameSize());
@@ -199,7 +199,7 @@ void player::run()
     }
     //qDebug()<<nbframe;
     if(trajectoreChecked == true && (flagcontinue == 0 || this->flagtimeschoose > 1)){delete myAlgo;}
-    //if(videoPath != "")  {delete mySaver;}
+    if(videoPath != "" && flagcontinue == 0){ mySaver.releaseOutputVideo();}
  }
 
 

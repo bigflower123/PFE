@@ -154,6 +154,7 @@ void MainWindow::chooseVideo()
     //Checkbox
     if(ui->trajectoirecheckBox->isChecked()){
         ui->trajectoirecheckBox->setChecked(false);
+        ui->trajectoirecheckBox->setEnabled(false);
         myPlayer->trajectoreChecked = false;
     }
     //Release dst, object choose

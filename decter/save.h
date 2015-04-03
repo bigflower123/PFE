@@ -25,6 +25,7 @@ public:
     void setCodec(int);
     int getCodec();
     void openOutputVideo();
+    void releaseOutputVideo();
 private:
     VideoWriter outputVideo;
     Size frameSize;

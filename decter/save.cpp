@@ -97,3 +97,8 @@ void Save::openOutputVideo()
         printf("output video could not be opened");
     }
 }
+
+void Save::releaseOutputVideo()
+{
+    outputVideo.release();
+}

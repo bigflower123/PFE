@@ -428,7 +428,6 @@
     </property>
     <addaction name="actionOuvrirVideo"/>
     <addaction name="actionSauvegarderVideo"/>
-    <addaction name="actionSauvegarderDonnees"/>
     <addaction name="actionQuitter"/>
    </widget>
    <widget class="QMenu" name="menuInformation">
