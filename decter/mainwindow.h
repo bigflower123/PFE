@@ -62,6 +62,8 @@ private slots:
      void on_trajectoirecheckBox_clicked();
 
 
+     void on_savefinButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     player *myPlayer;

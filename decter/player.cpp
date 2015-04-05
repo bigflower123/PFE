@@ -69,6 +69,7 @@ bool player::loadVideo(string filename) {
         //Set nbframe à 0
         nbframe = 0;
         flagcontinue = 0;
+        flagSave = 0;
         return true;
     }
     else
@@ -117,17 +118,18 @@ void player::run()
     clock_t t_start2,t_end2, t_start3, t_end3;
     double delay = (1000/frameRate);
     /******************************Save le vidéo******************************************/
-    if(videoPath != "" && flagcontinue == 0){
+    if(trajectoreChecked == true && videoPath != "" && flagSave == 0){
         //Save mySaver(videoPath.toStdString(), this->getFrameSize(), frameRate, this->getCodec());
         mySaver.setPath(videoPath.toStdString());
         mySaver.setSize(this->getFrameSize());
         mySaver.setRate(frameRate);
         mySaver.setCodec(this->getCodec());
         mySaver.openOutputVideo();
+        ++flagSave;
     }
     /*************************************************************************************/
     /******************************Algo de détection**************************************/
-    if(trajectoreChecked == true && (flagcontinue == 0 || this->flagtimeschoose > 1)){
+    if(trajectoreChecked == true && flagcontinue == 0){
         myAlgo = new AlgoSoustraction(deplacement, firstframe, &objectchoose, flagcontinue);
         qDebug()<<"flagcontinue="<<++flagcontinue;
     }
@@ -176,7 +178,7 @@ void player::run()
                 img = QImage((const unsigned char*)(RGBframe.data),
                               RGBframe.cols,RGBframe.rows,QImage::Format_RGB888);
                 /***********Save le vidéo*********************************/
-                if(videoPath != ""){
+                if(trajectoreChecked == true && videoPath != ""){
                     mySaver.SaveVideo(frame);
                 }
                 /*********************************************************/
@@ -186,7 +188,7 @@ void player::run()
                 img = QImage((const unsigned char*)(frame.data),
                              frame.cols,frame.rows,QImage::Format_Indexed8);
                 /***********Save le vidéo*********************************/
-                if(videoPath != ""){
+                if(trajectoreChecked == true && videoPath != ""){
                     mySaver.SaveVideo(frame);
                  }
                 /*********************************************************/
@@ -198,8 +200,9 @@ void player::run()
         }
     }
     //qDebug()<<nbframe;
-    if(trajectoreChecked == true && (flagcontinue == 0 || this->flagtimeschoose > 1)){delete myAlgo;}
-    if(videoPath != "" && flagcontinue == 0){ mySaver.releaseOutputVideo();}
+    if(trajectoreChecked == true && flagcontinue == 0){delete myAlgo;}
+    if(trajectoreChecked == true && videoPath != "" && flagSave == 0)
+    { mySaver.releaseOutputVideo();}
  }
 
 
@@ -494,6 +497,28 @@ void player::closeInfoFile()
 void player::setFlagTimes(int tmpTimes)
 {
     this->flagtimeschoose = tmpTimes;
+}
+
+/**
+ * Set flag: flagcontinue
+ * @brief player::setFlagContinue
+ * @param tmpContinue
+ */
+void player::setFlagContinue(int tmpContinue)
+{
+    this->flagcontinue = tmpContinue;
+}
+
+/**
+ * Release outputvideo
+ * @brief player::setSaveFin
+ * @param tmp
+ */
+void player::setSaveFin(bool tmp)
+{
+    if(tmp == true){
+        mySaver.releaseOutputVideo();
+    }
 }
 
 

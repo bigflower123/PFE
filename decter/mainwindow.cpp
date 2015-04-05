@@ -105,6 +105,8 @@ void MainWindow::chooseVideo()
     double nbFrame = 0;
     //If InfoFile is open, we close it
     myPlayer->closeInfoFile();
+    myPlayer->setFileName("");
+    myPlayer->setSaveFin(false);
     //Open filedialog to choose video file
     QString filename = QFileDialog::getOpenFileName(
                 this, "Ouvrir vidéo",
@@ -400,8 +402,8 @@ void MainWindow::myMouseLeft(int x, int y)
     ui->actionInformationObjet->setEnabled(true);
     if(!ui->trajectoirecheckBox->isEnabled())
         ui->trajectoirecheckBox->setEnabled(true);
-    //Set flagTimeschoose
-    myPlayer->setFlagTimes(++i);
+    //Set flagContinue
+    myPlayer->setFlagContinue(0);
 }
 
 /******************Choose object*******************/
@@ -488,6 +490,17 @@ void MainWindow::on_trajectoirecheckBox_clicked()
     }
 }
 
+void MainWindow::on_savefinButton_clicked()
+{
+    QMessageBox msgBox;
+    msgBox.setInformativeText("Voulez-vous confirmer d'enregistrer?");
+    msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Cancel);
+    msgBox.setDefaultButton(QMessageBox::Save);
+    int ret = msgBox.exec();
+    if(ret == QMessageBox::Save){
+        myPlayer->setSaveFin(true);
+    }
+}
 /*void MainWindow::mousePressEvent(QMouseEvent *evt){
     char coord[16];
     myPlayer->Stop();
@@ -636,6 +649,8 @@ void MainWindow::mouseReleaseEvent(QMouseEvent * evt){
     else
         return t.toString("h:mm:ss");
 }*/
+
+
 
 
 

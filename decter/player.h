@@ -42,6 +42,8 @@ class player: public QThread
     QTextStream  output;
     int flagcontinue = 0;
     int flagtimeschoose = 0;
+    int flagSave = 0;
+    bool saveFin = false;
    // long beginFrame = 1;
    // long finFrame = getNumberOfFrames();
     //Save *mySaver;
@@ -105,6 +107,8 @@ class player: public QThread
     void prepareSaveInfo();
     void closeInfoFile();
     void setFlagTimes(int tmpTimes);
+    void setFlagContinue(int tmpContinue);
+    void setSaveFin(bool);
     /*void setStartVideo(long start);
     void setFinVideo(long fin);*/
 };

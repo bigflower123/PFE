@@ -69,6 +69,7 @@ public:
     QLabel *debutLabel;
     QLabel *label_5;
     QLabel *finLabel;
+    QPushButton *savefinButton;
     QMenuBar *menuBar;
     QMenu *menuFichier;
     QMenu *menuInformation;
@@ -106,7 +107,7 @@ public:
         VideoLbl->setStyleSheet(QStringLiteral("Background-color: #000;"));
         playBtn = new QPushButton(centralWidget);
         playBtn->setObjectName(QStringLiteral("playBtn"));
-        playBtn->setGeometry(QRect(390, 590, 71, 21));
+        playBtn->setGeometry(QRect(330, 590, 71, 21));
         playBtn->setStyleSheet(QStringLiteral("width:15px;height:15px;border-radius:7.5px;border:2px groove gray;"));
         videoSlider = new QSlider(centralWidget);
         videoSlider->setObjectName(QStringLiteral("videoSlider"));
@@ -195,6 +196,10 @@ public:
         finLabel = new QLabel(centralWidget);
         finLabel->setObjectName(QStringLiteral("finLabel"));
         finLabel->setGeometry(QRect(660, 620, 46, 13));
+        savefinButton = new QPushButton(centralWidget);
+        savefinButton->setObjectName(QStringLiteral("savefinButton"));
+        savefinButton->setGeometry(QRect(480, 590, 75, 23));
+        savefinButton->setStyleSheet(QStringLiteral("width:15px;height:15px;border-radius:7.5px;border:2px groove gray;"));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -218,7 +223,7 @@ public:
         menuBar->addAction(menuInformation->menuAction());
         menuFichier->addAction(actionOuvrirVideo);
         menuFichier->addAction(actionSauvegarderVideo);
-        menuFichier->addAction(actionSauvegarderDonnees);
+        menuFichier->addSeparator();
         menuFichier->addAction(actionQuitter);
         menuInformation->addAction(actionInformationObjet);
         menuReglage->addAction(actionDeplacement);
@@ -264,6 +269,7 @@ public:
         debutLabel->setText(QApplication::translate("MainWindow", "0", 0));
         label_5->setText(QApplication::translate("MainWindow", "Fin:", 0));
         finLabel->setText(QApplication::translate("MainWindow", "0", 0));
+        savefinButton->setText(QApplication::translate("MainWindow", "Save fin", 0));
         menuFichier->setTitle(QApplication::translate("MainWindow", "Ficher", 0));
         menuInformation->setTitle(QApplication::translate("MainWindow", "Information", 0));
         menuReglage->setTitle(QApplication::translate("MainWindow", "R\303\251glage", 0));
