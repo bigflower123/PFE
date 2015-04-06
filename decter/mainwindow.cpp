@@ -34,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->trajectoirecheckBox->setEnabled(false);
     ui->debutButton->setEnabled(false);
     ui->finButton->setEnabled(false);
-    ui->listWidget->setEnabled(false);
+    //ui->listWidget->setEnabled(false);
     /***********************************/
     ui->actionInformationObjet->setEnabled(false);
     /*************open dialog**************/
@@ -152,7 +152,7 @@ void MainWindow::chooseVideo()
     //Clear listWidget
     ui->listWidget->clear();
     //Initialiser write stream
-    myPlayer->prepareSaveInfo();
+    //myPlayer->prepareSaveInfo();
     //Checkbox
     if(ui->trajectoirecheckBox->isChecked()){
         ui->trajectoirecheckBox->setChecked(false);
@@ -174,8 +174,10 @@ void MainWindow::chooseVideo()
 void MainWindow::choosePath()
 {
     QString fileName = QFileDialog::getSaveFileName(this, "Save video", "",
-                                                    "Vidéo fichiers (*.avi *.mp4 *.asf);;All files (*.*)");
+                                                    "Vidéo fichiers (*.avi *.asf);;All files (*.*)");
     myPlayer->setFileName(fileName);
+    //Initialiser write stream
+    myPlayer->prepareSaveInfo();
 }
 
 /**
@@ -263,10 +265,15 @@ void MainWindow::on_forwardButton_clicked()
 {
     myPlayer->Stop();
     long framecourant = myPlayer->getCurrentFrame();
+    QString line = myPlayer->getNextInfo();
     if(framecourant < myPlayer->getNumberOfFrames()){
         Mat img = myPlayer->getNextframe();
         QImage qimg = QImage((unsigned char*) img.data, img.cols, img.rows, QImage::Format_RGB888);
         displayImage(qimg, ++framecourant);
+        if(line != ""){
+            QListWidgetItem* lst1 = new QListWidgetItem(line, ui->listWidget);
+            ui->listWidget->insertItem(++itemNumber,lst1 );
+        }
     }
 }
 
@@ -326,6 +333,7 @@ void MainWindow::myMouseMove(int x, int y)
 void MainWindow::myMousePressed(int x, int y)
 {
     myPlayer->Stop();
+    this->flagmovepresse = false;
     double framecourant = myPlayer->getCurrentFrame();
     org = myPlayer->getcurrentImage(framecourant);
     org.copyTo(img);//Copy the original images to 'img'
@@ -354,6 +362,7 @@ void MainWindow::myMousePressed(int x, int y)
 void MainWindow::myMouseMovePressed(int x, int y)
 {
     myPlayer->Stop();
+    this->flagmovepresse = true;
     double framecourant = myPlayer->getCurrentFrame();
     img.copyTo(tmp);
     sprintf_s(temp,"(%d,%d)",x,y);
@@ -371,39 +380,41 @@ void MainWindow::myMouseLeft(int x, int y)
 {
     myPlayer->Stop();
     double framecourant = myPlayer->getCurrentFrame();
-    tmp.copyTo(img);
-    sprintf_s(temp,"(%d,%d)",x,y);
-    cur_pt = Point(x*widthscale,y*heightscale);
-    putText(img,temp,cur_pt,FONT_HERSHEY_SIMPLEX,0.8,Scalar(255,0,0,0),2,8);
-    circle(img,pre_pt,2,Scalar(255,0,0,0),CV_FILLED,CV_AA,0);
-    QImage qimg = QImage((const unsigned char*)(img.data),
-                  img.cols,img.rows,QImage::Format_RGB888);
-    displayImage(qimg,framecourant);
-    img.copyTo(tmp);
-    ui->statusBar->showMessage(QString("Mouse left (%1,%2)").arg(x).arg(y));
+    if(this->flagmovepresse == true){
+        tmp.copyTo(img);
+        sprintf_s(temp,"(%d,%d)",x,y);
+        cur_pt = Point(x*widthscale,y*heightscale);
+        putText(img,temp,cur_pt,FONT_HERSHEY_SIMPLEX,0.8,Scalar(255,0,0,0),2,8);
+        circle(img,pre_pt,2,Scalar(255,0,0,0),CV_FILLED,CV_AA,0);
+        QImage qimg = QImage((const unsigned char*)(img.data),
+                      img.cols,img.rows,QImage::Format_RGB888);
+        displayImage(qimg,framecourant);
+        img.copyTo(tmp);
+        ui->statusBar->showMessage(QString("Mouse left (%1,%2)").arg(x).arg(y));
 
-    //Intercept the image surrounded by rectangle, and saved it to dst
-    int zonewidth = abs(pre_pt.x - cur_pt.x);
-    int zoneheight = abs(pre_pt.y - cur_pt.y);
-    if(zonewidth < zoneheight)
-    {taille = zonewidth;}
-    else
-    {taille = zoneheight;}
-    if (zonewidth == 0 || zoneheight == 0)
-    {
-        printf("width == 0 || height == 0");
+        //Intercept the image surrounded by rectangle, and saved it to dst
+        int zonewidth = abs(pre_pt.x - cur_pt.x);
+        int zoneheight = abs(pre_pt.y - cur_pt.y);
+        if(zonewidth < zoneheight)
+        {taille = zonewidth;}
+        else
+        {taille = zoneheight;}
+        if (zonewidth == 0 || zoneheight == 0)
+        {
+            printf("width == 0 || height == 0");
+        }
+        //Get the object choose
+        dst = org(Rect(min(cur_pt.x,pre_pt.x),min(cur_pt.y,pre_pt.y),zonewidth, zoneheight));
+        Mat RGBdst;
+        cv::cvtColor(dst, RGBdst, CV_BGR2RGB);
+        myPlayer->setObjectChoose(RGBdst);
+        //Set checkbox and menu InformationObject true
+        ui->actionInformationObjet->setEnabled(true);
+        if(!ui->trajectoirecheckBox->isEnabled())
+            ui->trajectoirecheckBox->setEnabled(true);
+        //Set flagContinue
+        myPlayer->setFlagContinue(0);
     }
-    //Get the object choose
-    dst = org(Rect(min(cur_pt.x,pre_pt.x),min(cur_pt.y,pre_pt.y),zonewidth, zoneheight));
-    Mat RGBdst;
-    cv::cvtColor(dst, RGBdst, CV_BGR2RGB);
-    myPlayer->setObjectChoose(RGBdst);
-    //Set checkbox and menu InformationObject true
-    ui->actionInformationObjet->setEnabled(true);
-    if(!ui->trajectoirecheckBox->isEnabled())
-        ui->trajectoirecheckBox->setEnabled(true);
-    //Set flagContinue
-    myPlayer->setFlagContinue(0);
 }
 
 /******************Choose object*******************/
@@ -471,7 +482,7 @@ void MainWindow::on_trajectoirecheckBox_clicked()
          //On peut définir début et fin de vidéo avec trajectoire
          ui->debutButton->setEnabled(true);
          ui->finButton->setEnabled(true);
-         ui->listWidget->setEnabled(true);
+         //ui->listWidget->setEnabled(true);
          //Prepare algo info
         // myPlayer->prepareAlgo();
     }else{
@@ -486,7 +497,7 @@ void MainWindow::on_trajectoirecheckBox_clicked()
          myPlayer->setVideoFin(myPlayer->getNumberOfFrames());
          //Clear ListWidget
          //ui->listWidget->clear();
-         ui->listWidget->setEnabled(false);
+         //ui->listWidget->setEnabled(false);
     }
 }
 

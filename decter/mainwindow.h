@@ -79,6 +79,7 @@ private:
     char temp[16];
     double imgheight,imgwidth,labelheight,labelwidth ;
     double  heightscale, widthscale;
+    bool flagmovepresse = false;
 
     //Dialog pointeur
     InformationDialog *infoDialog;

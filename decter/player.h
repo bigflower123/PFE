@@ -40,6 +40,8 @@ class player: public QThread
     QString info;
     QFile infoFile;
     QTextStream  output;
+    QFile readFile;
+    QTextStream readStream;
     int flagcontinue = 0;
     int flagtimeschoose = 0;
     int flagSave = 0;
@@ -109,6 +111,7 @@ class player: public QThread
     void setFlagTimes(int tmpTimes);
     void setFlagContinue(int tmpContinue);
     void setSaveFin(bool);
+    QString getNextInfo();
     /*void setStartVideo(long start);
     void setFinVideo(long fin);*/
 };

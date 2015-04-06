@@ -63,6 +63,15 @@ void player::msleep(int ms){
  */
 bool player::loadVideo(string filename) {
     capture  =  new cv::VideoCapture(filename);
+    //Initialiser readFile
+    QFileInfo fi(QString::fromStdString(filename));
+    QString base = fi.baseName();
+    QString path = fi.path();
+    readFile.setFileName(path + "/" + base + ".csv");
+    //readStream.setDevice(&readFile);
+    if(!readFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        qDebug()<<"Can't open the file!"<<endl;
+    }
     if (capture->isOpened())
     {
         frameRate = (int) capture->get(CV_CAP_PROP_FPS);
@@ -174,6 +183,13 @@ void player::run()
                        qDebug()<< "draw time" <<(double)(t_end1 - t_start1) / CLOCKS_PER_SEC;
                 }
                 /**********************************************************/
+                /**************************************/
+                if(!readFile.atEnd()){
+                    QByteArray line = readFile.readLine();
+                    info = line;
+                    info = info.simplified();
+                }
+                /************************************/
                 cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
                 img = QImage((const unsigned char*)(RGBframe.data),
                               RGBframe.cols,RGBframe.rows,QImage::Format_RGB888);
@@ -203,6 +219,9 @@ void player::run()
     if(trajectoreChecked == true && flagcontinue == 0){delete myAlgo;}
     if(trajectoreChecked == true && videoPath != "" && flagSave == 0)
     { mySaver.releaseOutputVideo();}
+    if(readFile.atEnd()){
+        this->readFile.close();
+    }
  }
 
 
@@ -314,6 +333,20 @@ Mat player::getNextframe()
         }
     }
     return RGBframe;
+}
+
+/**
+ * @brief player::getNextInfo
+ * @return
+ */
+QString player::getNextInfo()
+{
+    if(!readFile.atEnd()){
+        QByteArray line = readFile.readLine();
+        info = line;
+        info = info.simplified();
+    }
+    return info;
 }
 
 /**
@@ -459,22 +492,28 @@ Mat player::getFistFrame()
  */
 void player::prepareSaveInfo()
 {
-    QString fileName = QDateTime::currentDateTime().toString("d MMMM yyyy hh-mm-ss");
-    /***Créer une répertoire******/
-    QDir *temp = new QDir;
-    bool exist = temp->exists("C://temp");
-    if(!exist)
-    {
-       bool ok = temp->mkdir("C://temp");
+       /* QString fileinfoName = QDateTime::currentDateTime().toString("d MMMM yyyy hh-mm-ss");
+
+        QDir *temp = new QDir;
+        bool exist = temp->exists("C://temp");
+        if(!exist)
+        {
+           bool ok = temp->mkdir("C://temp");
+        }
+        infoFile.setFileName("C://temp/" + fileinfoName + ".csv");*/
+
+    if(this->videoPath != ""){
+        QFileInfo fi(videoPath);
+        QString base = fi.baseName();
+        QString path = fi.path();
+        infoFile.setFileName(path + "/" + base + ".csv");
+        infoFile.open(QIODevice::WriteOnly);
+        /* Check it opened OK */
+        if(!infoFile.isOpen()){
+            qDebug() <<  "Error, unable to open" ;
+        }
+        output.setDevice(&infoFile);
     }
-    /****************************/
-    infoFile.setFileName("C://temp/" + fileName + ".csv");
-    infoFile.open(QIODevice::WriteOnly);
-    /* Check it opened OK */
-    if(!infoFile.isOpen()){
-        qDebug() <<  "Error, unable to open" ;
-    }
-    output.setDevice(&infoFile);
 }
 
 
@@ -518,8 +557,11 @@ void player::setSaveFin(bool tmp)
 {
     if(tmp == true){
         mySaver.releaseOutputVideo();
+        infoFile.close();
     }
 }
+
+
 
 
 

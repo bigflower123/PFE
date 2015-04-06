@@ -112,6 +112,8 @@ public:
         videoSlider = new QSlider(centralWidget);
         videoSlider->setObjectName(QStringLiteral("videoSlider"));
         videoSlider->setGeometry(QRect(200, 560, 481, 20));
+        videoSlider->setMinimum(1);
+        videoSlider->setValue(1);
         videoSlider->setOrientation(Qt::Horizontal);
         currentLable = new QLabel(centralWidget);
         currentLable->setObjectName(QStringLiteral("currentLable"));
@@ -245,7 +247,7 @@ public:
         actionDeplacement->setText(QApplication::translate("MainWindow", "D\303\251placement max", 0));
         VideoLbl->setText(QString());
         playBtn->setText(QApplication::translate("MainWindow", "Play", 0));
-        currentLable->setText(QApplication::translate("MainWindow", "0", 0));
+        currentLable->setText(QApplication::translate("MainWindow", "1", 0));
         totalLable->setText(QApplication::translate("MainWindow", "0", 0));
         forwardButton->setText(QApplication::translate("MainWindow", ">", 0));
         backwardButton->setText(QApplication::translate("MainWindow", "<", 0));
