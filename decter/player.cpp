@@ -71,6 +71,9 @@ bool player::loadVideo(string filename) {
     //readStream.setDevice(&readFile);
     if(!readFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
         qDebug()<<"Can't open the file!"<<endl;
+        this->flagFileOpen = false;
+    }else{
+        this->flagFileOpen = true;
     }
     if (capture->isOpened())
     {
@@ -187,7 +190,7 @@ void player::run()
                 if(!readFile.atEnd()){
                     QByteArray line = readFile.readLine();
                     info = line;
-                    info = info.simplified();
+                    info = info.left(info.length()-1);
                 }
                 /************************************/
                 cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
@@ -356,9 +359,10 @@ QString player::getNextInfo()
  */
 int player::getCountLine()
 {
+    int lineNb = 0;
     while(!readFile.atEnd()){
         QByteArray line = readFile.readLine();
-        this->lineNb++;
+        lineNb++;
     }
     readFile.seek(0);
     return lineNb;

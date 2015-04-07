@@ -68,7 +68,7 @@ private:
     Ui::MainWindow *ui;
     player *myPlayer;
     //show video
-    void displayImage(QImage &, double);
+    void displayImage(QImage &, double, QString tmpInfo);
 
     //Choose object
     Mat org, tmp, img, dst;
@@ -94,6 +94,8 @@ private:
     int fin;
 
     int i = 0;
+    //Prémier frame of vidéo avec trajectoire
+    int base = 0;
 };
 
 #endif // MAINWINDOW_H

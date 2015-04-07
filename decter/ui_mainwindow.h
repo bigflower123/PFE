@@ -134,7 +134,7 @@ public:
         debutButton->setGeometry(QRect(200, 590, 75, 23));
         finButton = new QPushButton(centralWidget);
         finButton->setObjectName(QStringLiteral("finButton"));
-        finButton->setGeometry(QRect(630, 580, 75, 23));
+        finButton->setGeometry(QRect(630, 590, 75, 23));
         trajectoirecheckBox = new QCheckBox(centralWidget);
         trajectoirecheckBox->setObjectName(QStringLiteral("trajectoirecheckBox"));
         trajectoirecheckBox->setGeometry(QRect(100, 590, 74, 17));

@@ -117,6 +117,7 @@ class player: public QThread
     int getCountLine();
     QStringList getFileList(int);
     int getFirstValue();
+    bool flagFileOpen = true;
     /*void setStartVideo(long start);
     void setFinVideo(long fin);*/
 };

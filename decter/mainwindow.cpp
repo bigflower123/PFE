@@ -34,6 +34,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->trajectoirecheckBox->setEnabled(false);
     ui->debutButton->setEnabled(false);
     ui->finButton->setEnabled(false);
+    ui->savefinButton->setEnabled(false);
+    ui->commenttextEdit->setEnabled(false);
+    ui->commentButton->setEnabled(false);
     //ui->listWidget->setEnabled(false);
     /***********************************/
     ui->actionInformationObjet->setEnabled(false);
@@ -59,16 +62,25 @@ MainWindow::~MainWindow()
  * @param img: the image to display dans la window
  * @param framecourant
  */
-void MainWindow::displayImage(QImage& img, double framecourant)
+void MainWindow::displayImage(QImage& img, double framecourant, QString tmpInfo)
 {
     ui->VideoLbl->setAlignment(Qt::AlignCenter);
     ui->VideoLbl->setPixmap(QPixmap::fromImage(img).scaled(ui->VideoLbl->size(),
                             Qt::KeepAspectRatio, Qt::FastTransformation));
     //Adjust size of the video
     ui->VideoLbl->adjustSize();
-    int base = myPlayer->getFirstValue();
-    ui->videoSlider->setValue(base + framecourant);
-    ui->currentLable->setText(QString::number(base + framecourant));
+    if(tmpInfo != ""){
+        if(tmpInfo != "-1"){
+          QListWidgetItem* lst1 = new QListWidgetItem(tmpInfo, ui->listWidget);
+         // ui->listWidget->insertItem(++itemNumber,lst1 );
+          ui->listWidget->addItem(lst1);
+        }
+          ui->videoSlider->setValue(base + framecourant - 1);
+          ui->currentLable->setText(QString::number(base + framecourant - 1));
+    }else{
+        ui->videoSlider->setValue(framecourant);
+        ui->currentLable->setText(QString::number(framecourant));
+    }
 }
 
 /**
@@ -81,8 +93,7 @@ void MainWindow::updatePlayerUI(QImage img, QString tmpInfo)
 {
     if (!img.isNull())
     {
-        displayImage(img, myPlayer->getCurrentFrame());
-
+        displayImage(img, myPlayer->getCurrentFrame(),tmpInfo);
         ui->R1label->setText(QString::number(myPlayer->thresh[0]));
         ui->R2label->setText(QString::number(myPlayer->thresh[1]));
         ui->V1label->setText(QString::number(myPlayer->thresh[2]));
@@ -90,10 +101,10 @@ void MainWindow::updatePlayerUI(QImage img, QString tmpInfo)
         ui->B1label->setText(QString::number(myPlayer->thresh[4]));
         ui->B2label->setText(QString::number(myPlayer->thresh[5]));
 
-        if(tmpInfo != ""){
+       /* if(tmpInfo != ""){
             QListWidgetItem* lst1 = new QListWidgetItem(tmpInfo, ui->listWidget);
             ui->listWidget->insertItem(++itemNumber,lst1 );
-        }
+        }*/
     }
 }
 
@@ -104,7 +115,6 @@ void MainWindow::updatePlayerUI(QImage img, QString tmpInfo)
 void MainWindow::chooseVideo()
 {
     int nbFrame = 0;
-    int startFrame = 0;
     //If InfoFile is open, we close it
     myPlayer->closeInfoFile();
     myPlayer->setFileName("");
@@ -135,19 +145,29 @@ void MainWindow::chooseVideo()
             ui->quickbackwardButton->setEnabled(true);
             ui->quickforwardButton->setEnabled(true);
             //nbFrame = myPlayer->getNumberOfFrames();
-            startFrame = myPlayer->getFirstValue();
-            nbFrame = myPlayer->getCountLine();
-            ui->videoSlider->setMinimum(startFrame);
-            ui->videoSlider->setMaximum(startFrame + nbFrame);
-            //ui->totalLable->setText( getFormattedTime( (int)myPlayer->getNumberOfFrames()/(int)myPlayer->getFrameRate()) );
-            ui->totalLable->setText(QString::number(startFrame+nbFrame));
-            ui->currentLable->setText(QString::number(startFrame));
-            ui->finLabel->setText(QString::number(nbFrame));
-            /****************************************/
-            //Set video fin
-            fin = nbFrame;
-            myPlayer->setVideoFin(fin);
-
+            if(myPlayer->flagFileOpen == true){
+                base = myPlayer->getFirstValue();
+                nbFrame = myPlayer->getCountLine();
+                ui->videoSlider->setMinimum(base);
+                ui->videoSlider->setMaximum(base + nbFrame);
+                ui->videoSlider->setValue(base);
+                //ui->totalLable->setText( getFormattedTime( (int)myPlayer->getNumberOfFrames()/(int)myPlayer->getFrameRate()) );
+                ui->totalLable->setText(QString::number(base+nbFrame));
+                ui->currentLable->setText(QString::number(base));
+                ui->debutLabel->setText(QString::number(base));
+                ui->finLabel->setText(QString::number(base+nbFrame));
+                /****************************************/
+                //Set video fin
+                fin = base+nbFrame;
+                myPlayer->setVideoFin(base+nbFrame);
+            }else{
+                nbFrame = myPlayer->getNumberOfFrames();
+                ui->videoSlider->setMaximum(nbFrame);
+                ui->totalLable->setText(QString::number(nbFrame));
+                ui->finLabel->setText(QString::number(nbFrame));
+                fin = nbFrame;
+                myPlayer->setVideoFin(fin);
+            }
             //Show first image of video dans VideoLabel
             /*Mat firstimg = myPlayer->getFistFrame();
             cv::cvtColor(firstimg, firstimg, CV_BGR2RGB);
@@ -226,17 +246,24 @@ void MainWindow::on_videoSlider_sliderReleased()
 {
     //myPlayer->Play();
     //postionSlider = myPlayer->getCurrentFrame();
-    ui->currentLable->setText(QString::number(postionSlider));
+   /* ui->currentLable->setText(QString::number(postionSlider));
     Mat img = myPlayer->showImage(postionSlider);
     ui->VideoLbl->setAlignment(Qt::AlignCenter);
     ui->VideoLbl->setPixmap(QPixmap::fromImage(QImage((unsigned char*) img.data, img.cols, img.rows,
                            QImage::Format_RGB888)).scaled(ui->VideoLbl->size(),Qt::KeepAspectRatio,
                            Qt::FastTransformation));
-    ui->VideoLbl->adjustSize(); //Adjust size of the video
-    //Modifier ListWidget
-    QStringList list = myPlayer->getFileList(postionSlider);
-    ui->listWidget->clear();
-    ui->listWidget->addItems(list);
+    ui->VideoLbl->adjustSize(); //Adjust size of the video*/
+    Mat img = myPlayer->showImage(postionSlider-base);
+    QImage qimg = QImage((unsigned char*) img.data, img.cols, img.rows, QImage::Format_RGB888);
+    if(myPlayer->flagFileOpen == true){
+        //Modifier ListWidget
+        QStringList list = myPlayer->getFileList(postionSlider-base);
+        ui->listWidget->clear();
+        ui->listWidget->addItems(list);
+        displayImage(qimg, postionSlider-base, "-1");
+    }else{
+        displayImage(qimg, postionSlider, "");
+    }
 }
 
 void MainWindow::on_videoSlider_sliderMoved(int position)
@@ -261,13 +288,20 @@ void MainWindow::on_backwardButton_clicked()
     myPlayer->Stop();
     double framecourant = myPlayer->getCurrentFrame();
     if(framecourant > 0){
-        /*QStringList list = myPlayer->getFileList(framecourant);
-        ui->listWidget->clear();
-        ui->listWidget->addItems(list);*/
         Mat img = myPlayer->showImage(--framecourant);
-        QImage qimg = QImage((unsigned char*) img.data, img.cols, img.rows, QImage::Format_RGB888);
-        displayImage(qimg, --framecourant);
+        //Modifier ListWidget
+        if(myPlayer->flagFileOpen == true){
+            QStringList list = myPlayer->getFileList(framecourant);
+            ui->listWidget->clear();
+            ui->listWidget->addItems(list);
+            QImage qimg = QImage((unsigned char*) img.data, img.cols, img.rows, QImage::Format_RGB888);
+            displayImage(qimg, framecourant, "-1");
+        }else{
+            QImage qimg = QImage((unsigned char*) img.data, img.cols, img.rows, QImage::Format_RGB888);
+            displayImage(qimg, framecourant, "");
+        }
     }
+
 }
 
 /**
@@ -282,11 +316,7 @@ void MainWindow::on_forwardButton_clicked()
     if(framecourant < myPlayer->getNumberOfFrames()){
         Mat img = myPlayer->getNextframe();
         QImage qimg = QImage((unsigned char*) img.data, img.cols, img.rows, QImage::Format_RGB888);
-        displayImage(qimg, ++framecourant);
-        if(line != ""){
-            QListWidgetItem* lst1 = new QListWidgetItem(line, ui->listWidget);
-            ui->listWidget->insertItem(++itemNumber,lst1 );
-        }
+        displayImage(qimg, ++framecourant, line);
     }
 }
 
@@ -299,10 +329,18 @@ void MainWindow::on_quickbackwardButton_clicked()
     myPlayer->Stop();
     double framecourant = myPlayer->getCurrentFrame();
     framecourant = framecourant - 10;
-    if(framecourant > 0){
+    if(framecourant >= 0){
         Mat img = myPlayer->showImage(framecourant);
         QImage qimg = QImage((unsigned char*) img.data, img.cols, img.rows, QImage::Format_RGB888);
-        displayImage(qimg, framecourant);
+
+        if(myPlayer->flagFileOpen == true){
+            QStringList list = myPlayer->getFileList(framecourant);
+            ui->listWidget->clear();
+            ui->listWidget->addItems(list);
+            displayImage(qimg, framecourant,"-1");
+        }else{
+            displayImage(qimg, framecourant,"");
+        }
     }
 }
 
@@ -315,10 +353,18 @@ void MainWindow::on_quickforwardButton_clicked()
     myPlayer->Stop();
     double framecourant = myPlayer->getCurrentFrame();
     framecourant = framecourant + 10;
-    if(framecourant < myPlayer->getNumberOfFrames()){
+    if(framecourant <= myPlayer->getNumberOfFrames()){
         Mat img = myPlayer->showImage(framecourant);
         QImage qimg = QImage((unsigned char*) img.data, img.cols, img.rows, QImage::Format_RGB888);
-        displayImage(qimg, framecourant);
+
+        if(myPlayer->flagFileOpen == true){
+            QStringList list = myPlayer->getFileList(framecourant);
+            ui->listWidget->clear();
+            ui->listWidget->addItems(list);
+            displayImage(qimg, framecourant,"-1");
+        }else{
+            displayImage(qimg, framecourant,"");
+        }
     }
 }
 
@@ -368,7 +414,7 @@ void MainWindow::myMousePressed(int x, int y)
     circle(img,pre_pt,2,Scalar(255,0,0,0),CV_FILLED,CV_AA,0);//draw circle
     QImage qimg = QImage((const unsigned char*)(img.data),
                   img.cols,img.rows,QImage::Format_RGB888);
-    displayImage(qimg,framecourant);
+    displayImage(qimg,framecourant,"");
     ui->statusBar->showMessage(QString("Mouse press (%1,%2)").arg(x).arg(y));
 }
 
@@ -384,7 +430,7 @@ void MainWindow::myMouseMovePressed(int x, int y)
     rectangle(tmp,pre_pt,cur_pt,Scalar(0,255,0,0),2,8,0);//Drag the mouse, display the rectangle on the temporary image
     QImage qimg = QImage((const unsigned char*)(tmp.data),
                   tmp.cols,tmp.rows,QImage::Format_RGB888);
-    displayImage(qimg,framecourant);
+    displayImage(qimg,framecourant,"");
     ui->statusBar->showMessage(QString("Mouse move and press (%1,%2)").arg(x).arg(y));
 }
 
@@ -401,7 +447,7 @@ void MainWindow::myMouseLeft(int x, int y)
         circle(img,pre_pt,2,Scalar(255,0,0,0),CV_FILLED,CV_AA,0);
         QImage qimg = QImage((const unsigned char*)(img.data),
                       img.cols,img.rows,QImage::Format_RGB888);
-        displayImage(qimg,framecourant);
+        displayImage(qimg,framecourant,"");
         img.copyTo(tmp);
         ui->statusBar->showMessage(QString("Mouse left (%1,%2)").arg(x).arg(y));
 
