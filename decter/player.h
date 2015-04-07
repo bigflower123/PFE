@@ -12,6 +12,7 @@
 #include <QDebug>
 #include <QFile>
 #include <QTextStream>
+#include <QStringList>
 
 using namespace cv;
 class player: public QThread
@@ -46,6 +47,7 @@ class player: public QThread
     int flagtimeschoose = 0;
     int flagSave = 0;
     bool saveFin = false;
+    int lineNb = 0;
    // long beginFrame = 1;
    // long finFrame = getNumberOfFrames();
     //Save *mySaver;
@@ -112,6 +114,9 @@ class player: public QThread
     void setFlagContinue(int tmpContinue);
     void setSaveFin(bool);
     QString getNextInfo();
+    int getCountLine();
+    QStringList getFileList(int);
+    int getFirstValue();
     /*void setStartVideo(long start);
     void setFinVideo(long fin);*/
 };

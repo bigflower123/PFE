@@ -219,9 +219,9 @@ void player::run()
     if(trajectoreChecked == true && flagcontinue == 0){delete myAlgo;}
     if(trajectoreChecked == true && videoPath != "" && flagSave == 0)
     { mySaver.releaseOutputVideo();}
-    if(readFile.atEnd()){
+   /* if(readFile.atEnd()){
         this->readFile.close();
-    }
+    }*/
  }
 
 
@@ -344,9 +344,61 @@ QString player::getNextInfo()
     if(!readFile.atEnd()){
         QByteArray line = readFile.readLine();
         info = line;
-        info = info.simplified();
+        info = info.left(info.length() - 1);
     }
     return info;
+}
+
+/**
+ * Get count number of file
+ * @brief player::getCountLine
+ * @return
+ */
+int player::getCountLine()
+{
+    while(!readFile.atEnd()){
+        QByteArray line = readFile.readLine();
+        this->lineNb++;
+    }
+    readFile.seek(0);
+    return lineNb;
+
+}
+
+/**
+ * @brief player::getFileList
+ * @return
+ */
+QStringList player::getFileList(int tmpLine)
+{
+    readFile.seek(0);
+    int i = 0;
+    QStringList list;
+    //QTextStream in(&readFile);
+    while(i < tmpLine){
+        QByteArray line = readFile.readLine();
+        QString str = line;
+        str = str.left(str.length() - 1);
+        list.append(str);
+        i++;
+    }
+    return list;
+}
+
+/**
+ * Get the fistFrame Number
+ * @brief player::getFirstValue
+ * @return
+ */
+int player::getFirstValue()
+{
+    readFile.seek(0);
+    QByteArray line = readFile.readLine();
+    QString str = line;
+    QStringList list = str.split(";");
+    str = list.at(0).trimmed();
+    return str.toInt();
+
 }
 
 /**

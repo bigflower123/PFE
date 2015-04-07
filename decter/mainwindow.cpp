@@ -66,8 +66,9 @@ void MainWindow::displayImage(QImage& img, double framecourant)
                             Qt::KeepAspectRatio, Qt::FastTransformation));
     //Adjust size of the video
     ui->VideoLbl->adjustSize();
-    ui->videoSlider->setValue(framecourant);
-    ui->currentLable->setText(QString::number(framecourant));
+    int base = myPlayer->getFirstValue();
+    ui->videoSlider->setValue(base + framecourant);
+    ui->currentLable->setText(QString::number(base + framecourant));
 }
 
 /**
@@ -102,7 +103,8 @@ void MainWindow::updatePlayerUI(QImage img, QString tmpInfo)
  */
 void MainWindow::chooseVideo()
 {
-    double nbFrame = 0;
+    int nbFrame = 0;
+    int startFrame = 0;
     //If InfoFile is open, we close it
     myPlayer->closeInfoFile();
     myPlayer->setFileName("");
@@ -132,10 +134,14 @@ void MainWindow::chooseVideo()
             ui->forwardButton->setEnabled(true);
             ui->quickbackwardButton->setEnabled(true);
             ui->quickforwardButton->setEnabled(true);
-            nbFrame = myPlayer->getNumberOfFrames();
-            ui->videoSlider->setMaximum(nbFrame);
+            //nbFrame = myPlayer->getNumberOfFrames();
+            startFrame = myPlayer->getFirstValue();
+            nbFrame = myPlayer->getCountLine();
+            ui->videoSlider->setMinimum(startFrame);
+            ui->videoSlider->setMaximum(startFrame + nbFrame);
             //ui->totalLable->setText( getFormattedTime( (int)myPlayer->getNumberOfFrames()/(int)myPlayer->getFrameRate()) );
-            ui->totalLable->setText(QString::number(nbFrame));
+            ui->totalLable->setText(QString::number(startFrame+nbFrame));
+            ui->currentLable->setText(QString::number(startFrame));
             ui->finLabel->setText(QString::number(nbFrame));
             /****************************************/
             //Set video fin
@@ -143,10 +149,10 @@ void MainWindow::chooseVideo()
             myPlayer->setVideoFin(fin);
 
             //Show first image of video dans VideoLabel
-            Mat firstimg = myPlayer->getFistFrame();
+            /*Mat firstimg = myPlayer->getFistFrame();
             cv::cvtColor(firstimg, firstimg, CV_BGR2RGB);
             this->displayImage(QImage((const unsigned char*)(firstimg.data),
-                               firstimg.cols,firstimg.rows,QImage::Format_RGB888),1);
+                               firstimg.cols,firstimg.rows,QImage::Format_RGB888),1);*/
         }
     }
     //Clear listWidget
@@ -227,6 +233,10 @@ void MainWindow::on_videoSlider_sliderReleased()
                            QImage::Format_RGB888)).scaled(ui->VideoLbl->size(),Qt::KeepAspectRatio,
                            Qt::FastTransformation));
     ui->VideoLbl->adjustSize(); //Adjust size of the video
+    //Modifier ListWidget
+    QStringList list = myPlayer->getFileList(postionSlider);
+    ui->listWidget->clear();
+    ui->listWidget->addItems(list);
 }
 
 void MainWindow::on_videoSlider_sliderMoved(int position)
@@ -251,6 +261,9 @@ void MainWindow::on_backwardButton_clicked()
     myPlayer->Stop();
     double framecourant = myPlayer->getCurrentFrame();
     if(framecourant > 0){
+        /*QStringList list = myPlayer->getFileList(framecourant);
+        ui->listWidget->clear();
+        ui->listWidget->addItems(list);*/
         Mat img = myPlayer->showImage(--framecourant);
         QImage qimg = QImage((unsigned char*) img.data, img.cols, img.rows, QImage::Format_RGB888);
         displayImage(qimg, --framecourant);
