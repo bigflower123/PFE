@@ -313,8 +313,11 @@ int player::getFrameWidth(){
  * @return
  */
 Mat& player::showImage(int frameNumber){
-    capture->set(CV_CAP_PROP_POS_FRAMES, --frameNumber);
-    if(frameNumber > 0){
+    if(frameNumber != 0){
+        --frameNumber;
+    }
+    capture->set(CV_CAP_PROP_POS_FRAMES, frameNumber);
+    if(frameNumber >= 0){
         if(capture->read(frame)){
              cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
              return RGBframe;
@@ -530,7 +533,7 @@ void player::setThresh(int red1, int red2, int blue1, int blue2, int green1, int
  * @brief player::getFistFrame
  * @return
  */
-Mat player::getFistFrame()
+Mat player::getFirstFrame()
 {
     Mat frame;
     capture->set(CV_CAP_PROP_POS_FRAMES, 1);

@@ -25,7 +25,6 @@ public:
 
 private slots:
     //Display video frame in player UI
-   // void updatePlayerUI(QImage img, Node lastNode);
     void updatePlayerUI(QImage img, QString tmpInfo);
     //Slot for the load video
     void chooseVideo();
@@ -94,7 +93,7 @@ private:
     int fin;
 
     int i = 0;
-    //Prémier frame of vidéo avec trajectoire
+    //Prémier frame de vidéo avec trajectoire
     int base = 0;
 };
 

@@ -37,7 +37,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->savefinButton->setEnabled(false);
     ui->commenttextEdit->setEnabled(false);
     ui->commentButton->setEnabled(false);
-    //ui->listWidget->setEnabled(false);
     /***********************************/
     ui->actionInformationObjet->setEnabled(false);
     /*************open dialog**************/
@@ -69,14 +68,17 @@ void MainWindow::displayImage(QImage& img, double framecourant, QString tmpInfo)
                             Qt::KeepAspectRatio, Qt::FastTransformation));
     //Adjust size of the video
     ui->VideoLbl->adjustSize();
+
     if(tmpInfo != ""){
         if(tmpInfo != "-1"){
           QListWidgetItem* lst1 = new QListWidgetItem(tmpInfo, ui->listWidget);
-         // ui->listWidget->insertItem(++itemNumber,lst1 );
           ui->listWidget->addItem(lst1);
+          ui->videoSlider->setValue(base + framecourant-1);
+          ui->currentLable->setText(QString::number(base + framecourant-1));
+        }else{
+          ui->videoSlider->setValue(framecourant);
+          ui->currentLable->setText(QString::number(framecourant));
         }
-          ui->videoSlider->setValue(base + framecourant - 1);
-          ui->currentLable->setText(QString::number(base + framecourant - 1));
     }else{
         ui->videoSlider->setValue(framecourant);
         ui->currentLable->setText(QString::number(framecourant));
@@ -94,12 +96,12 @@ void MainWindow::updatePlayerUI(QImage img, QString tmpInfo)
     if (!img.isNull())
     {
         displayImage(img, myPlayer->getCurrentFrame(),tmpInfo);
-        ui->R1label->setText(QString::number(myPlayer->thresh[0]));
+        /*ui->R1label->setText(QString::number(myPlayer->thresh[0]));
         ui->R2label->setText(QString::number(myPlayer->thresh[1]));
         ui->V1label->setText(QString::number(myPlayer->thresh[2]));
         ui->V2label->setText(QString::number(myPlayer->thresh[3]));
         ui->B1label->setText(QString::number(myPlayer->thresh[4]));
-        ui->B2label->setText(QString::number(myPlayer->thresh[5]));
+        ui->B2label->setText(QString::number(myPlayer->thresh[5]));*/
 
        /* if(tmpInfo != ""){
             QListWidgetItem* lst1 = new QListWidgetItem(tmpInfo, ui->listWidget);
@@ -162,8 +164,11 @@ void MainWindow::chooseVideo()
                 myPlayer->setVideoFin(base+nbFrame);
             }else{
                 nbFrame = myPlayer->getNumberOfFrames();
+                ui->videoSlider->setMinimum(1);
                 ui->videoSlider->setMaximum(nbFrame);
+                ui->videoSlider->setValue(1);
                 ui->totalLable->setText(QString::number(nbFrame));
+                ui->currentLable->setText(QString::number(1));
                 ui->finLabel->setText(QString::number(nbFrame));
                 fin = nbFrame;
                 myPlayer->setVideoFin(fin);
@@ -253,15 +258,17 @@ void MainWindow::on_videoSlider_sliderReleased()
                            QImage::Format_RGB888)).scaled(ui->VideoLbl->size(),Qt::KeepAspectRatio,
                            Qt::FastTransformation));
     ui->VideoLbl->adjustSize(); //Adjust size of the video*/
-    Mat img = myPlayer->showImage(postionSlider-base);
-    QImage qimg = QImage((unsigned char*) img.data, img.cols, img.rows, QImage::Format_RGB888);
     if(myPlayer->flagFileOpen == true){
+        Mat img = myPlayer->showImage(postionSlider-base+1);
+        QImage qimg = QImage((unsigned char*) img.data, img.cols, img.rows, QImage::Format_RGB888);
         //Modifier ListWidget
-        QStringList list = myPlayer->getFileList(postionSlider-base);
+        QStringList list = myPlayer->getFileList(postionSlider-base+1);
         ui->listWidget->clear();
         ui->listWidget->addItems(list);
-        displayImage(qimg, postionSlider-base, "-1");
+        displayImage(qimg, postionSlider, "-1");
     }else{
+        Mat img = myPlayer->showImage(postionSlider);
+        QImage qimg = QImage((unsigned char*) img.data, img.cols, img.rows, QImage::Format_RGB888);
         displayImage(qimg, postionSlider, "");
     }
 }
@@ -541,25 +548,25 @@ void MainWindow::on_trajectoirecheckBox_clicked()
          //On peut définir début et fin de vidéo avec trajectoire
          ui->debutButton->setEnabled(true);
          ui->finButton->setEnabled(true);
-         //ui->listWidget->setEnabled(true);
-         //Prepare algo info
-        // myPlayer->prepareAlgo();
+         ui->savefinButton->setEnabled(true);
     }else{
          ui->trajectoirecheckBox->setChecked(false);
          myPlayer->trajectoreChecked = false;
          //Mettre débutvideo à 0 et finvideo à MaxFrameVideo
          ui->debutButton->setEnabled(false);
          ui->finButton->setEnabled(false);
+         ui->savefinButton->setEnabled(false);
          ui->debutLabel->setText(QString::number(0));
          myPlayer->setVideoStart(0);
          ui->finLabel->setText(QString::number(myPlayer->getNumberOfFrames()));
          myPlayer->setVideoFin(myPlayer->getNumberOfFrames());
-         //Clear ListWidget
-         //ui->listWidget->clear();
-         //ui->listWidget->setEnabled(false);
     }
 }
 
+/**
+ * Confirmer de sauvegarder le vidéo
+ * @brief MainWindow::on_savefinButton_clicked
+ */
 void MainWindow::on_savefinButton_clicked()
 {
     QMessageBox msgBox;

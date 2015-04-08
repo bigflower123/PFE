@@ -54,7 +54,6 @@ class player: public QThread
 
  signals:
      //Signal to output frame to be displayed
-    // void processedImage(const QImage &image, Node lastNode);
      void processedImage(const QImage &image, QString);
 
  protected:
@@ -107,7 +106,7 @@ class player: public QThread
     void setThresh(int, int ,int, int, int, int);
     int thresh[6];
     bool trajectoreChecked = false;
-    Mat getFistFrame();
+    Mat getFirstFrame();
     void prepareSaveInfo();
     void closeInfoFile();
     void setFlagTimes(int tmpTimes);
