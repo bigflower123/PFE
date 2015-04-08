@@ -14,6 +14,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QCheckBox>
+#include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QListWidget>
@@ -21,6 +22,7 @@
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QRadioButton>
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTextEdit>
@@ -61,6 +63,10 @@ public:
     QLabel *label_5;
     QLabel *finLabel;
     QPushButton *savefinButton;
+    QGroupBox *groupBox;
+    QRadioButton *visualiserButton;
+    QRadioButton *traiterButton;
+    QPushButton *ouvrirButton;
     QMenuBar *menuBar;
     QMenu *menuFichier;
     QMenu *menuInformation;
@@ -72,7 +78,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(1204, 706);
+        MainWindow->resize(1204, 729);
         actionOuvrirVideo = new QAction(MainWindow);
         actionOuvrirVideo->setObjectName(QStringLiteral("actionOuvrirVideo"));
         actionSauvegarderVideo = new QAction(MainWindow);
@@ -89,7 +95,7 @@ public:
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         VideoLbl = new video_qlabel(centralWidget);
         VideoLbl->setObjectName(QStringLiteral("VideoLbl"));
-        VideoLbl->setGeometry(QRect(9, 9, 871, 511));
+        VideoLbl->setGeometry(QRect(9, 69, 871, 491));
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -98,74 +104,89 @@ public:
         VideoLbl->setStyleSheet(QStringLiteral("Background-color: #000;"));
         playBtn = new QPushButton(centralWidget);
         playBtn->setObjectName(QStringLiteral("playBtn"));
-        playBtn->setGeometry(QRect(330, 590, 71, 21));
+        playBtn->setGeometry(QRect(390, 610, 71, 21));
         playBtn->setStyleSheet(QStringLiteral("width:15px;height:15px;border-radius:7.5px;border:2px groove gray;"));
         videoSlider = new QSlider(centralWidget);
         videoSlider->setObjectName(QStringLiteral("videoSlider"));
-        videoSlider->setGeometry(QRect(200, 560, 481, 20));
+        videoSlider->setGeometry(QRect(190, 580, 481, 20));
         videoSlider->setMinimum(1);
         videoSlider->setValue(1);
         videoSlider->setOrientation(Qt::Horizontal);
         currentLable = new QLabel(centralWidget);
         currentLable->setObjectName(QStringLiteral("currentLable"));
-        currentLable->setGeometry(QRect(130, 560, 61, 16));
+        currentLable->setGeometry(QRect(120, 580, 61, 16));
         totalLable = new QLabel(centralWidget);
         totalLable->setObjectName(QStringLiteral("totalLable"));
-        totalLable->setGeometry(QRect(700, 560, 61, 16));
+        totalLable->setGeometry(QRect(700, 580, 61, 16));
         forwardButton = new QPushButton(centralWidget);
         forwardButton->setObjectName(QStringLiteral("forwardButton"));
-        forwardButton->setGeometry(QRect(770, 560, 40, 20));
+        forwardButton->setGeometry(QRect(760, 580, 40, 20));
         forwardButton->setStyleSheet(QStringLiteral("border-radius:7.5px;border:2px groove gray;"));
         backwardButton = new QPushButton(centralWidget);
         backwardButton->setObjectName(QStringLiteral("backwardButton"));
-        backwardButton->setGeometry(QRect(80, 560, 40, 20));
+        backwardButton->setGeometry(QRect(70, 580, 40, 20));
         backwardButton->setStyleSheet(QStringLiteral("border-radius:7.5px;border:2px groove gray;"));
         debutButton = new QPushButton(centralWidget);
         debutButton->setObjectName(QStringLiteral("debutButton"));
-        debutButton->setGeometry(QRect(200, 590, 75, 23));
+        debutButton->setGeometry(QRect(190, 610, 75, 23));
         finButton = new QPushButton(centralWidget);
         finButton->setObjectName(QStringLiteral("finButton"));
-        finButton->setGeometry(QRect(630, 590, 75, 23));
+        finButton->setGeometry(QRect(620, 610, 75, 23));
         trajectoirecheckBox = new QCheckBox(centralWidget);
         trajectoirecheckBox->setObjectName(QStringLiteral("trajectoirecheckBox"));
-        trajectoirecheckBox->setGeometry(QRect(100, 590, 74, 17));
+        trajectoirecheckBox->setGeometry(QRect(90, 610, 74, 17));
         quickbackwardButton = new QPushButton(centralWidget);
         quickbackwardButton->setObjectName(QStringLiteral("quickbackwardButton"));
-        quickbackwardButton->setGeometry(QRect(20, 560, 50, 20));
+        quickbackwardButton->setGeometry(QRect(10, 580, 50, 20));
         quickbackwardButton->setStyleSheet(QStringLiteral("border-radius:7.5px;border:2px groove gray;"));
         quickforwardButton = new QPushButton(centralWidget);
         quickforwardButton->setObjectName(QStringLiteral("quickforwardButton"));
-        quickforwardButton->setGeometry(QRect(820, 560, 50, 20));
+        quickforwardButton->setGeometry(QRect(820, 580, 50, 20));
         quickforwardButton->setStyleSheet(QStringLiteral("border-radius:7.5px;border:2px groove gray;"));
         commentlabel = new QLabel(centralWidget);
         commentlabel->setObjectName(QStringLiteral("commentlabel"));
-        commentlabel->setGeometry(QRect(900, 350, 67, 16));
+        commentlabel->setGeometry(QRect(910, 480, 67, 16));
         commenttextEdit = new QTextEdit(centralWidget);
         commenttextEdit->setObjectName(QStringLiteral("commenttextEdit"));
-        commenttextEdit->setGeometry(QRect(900, 370, 291, 111));
+        commenttextEdit->setGeometry(QRect(900, 510, 291, 111));
         commentButton = new QPushButton(centralWidget);
         commentButton->setObjectName(QStringLiteral("commentButton"));
-        commentButton->setGeometry(QRect(1070, 500, 75, 23));
+        commentButton->setGeometry(QRect(1110, 630, 75, 23));
         listWidget = new QListWidget(centralWidget);
         listWidget->setObjectName(QStringLiteral("listWidget"));
-        listWidget->setGeometry(QRect(900, 10, 291, 321));
+        listWidget->setGeometry(QRect(900, 70, 291, 351));
         listWidget->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
         label_4 = new QLabel(centralWidget);
         label_4->setObjectName(QStringLiteral("label_4"));
-        label_4->setGeometry(QRect(160, 620, 46, 13));
+        label_4->setGeometry(QRect(150, 640, 46, 13));
         debutLabel = new QLabel(centralWidget);
         debutLabel->setObjectName(QStringLiteral("debutLabel"));
-        debutLabel->setGeometry(QRect(220, 620, 71, 16));
+        debutLabel->setGeometry(QRect(210, 640, 71, 16));
         label_5 = new QLabel(centralWidget);
         label_5->setObjectName(QStringLiteral("label_5"));
-        label_5->setGeometry(QRect(600, 620, 46, 13));
+        label_5->setGeometry(QRect(580, 640, 46, 13));
         finLabel = new QLabel(centralWidget);
         finLabel->setObjectName(QStringLiteral("finLabel"));
-        finLabel->setGeometry(QRect(660, 620, 46, 13));
+        finLabel->setGeometry(QRect(640, 640, 46, 13));
         savefinButton = new QPushButton(centralWidget);
         savefinButton->setObjectName(QStringLiteral("savefinButton"));
-        savefinButton->setGeometry(QRect(480, 590, 91, 23));
+        savefinButton->setGeometry(QRect(1070, 440, 91, 23));
         savefinButton->setStyleSheet(QStringLiteral("width:15px;height:15px;border-radius:7.5px;border:2px groove gray;"));
+        groupBox = new QGroupBox(centralWidget);
+        groupBox->setObjectName(QStringLiteral("groupBox"));
+        groupBox->setGeometry(QRect(10, 0, 241, 51));
+        visualiserButton = new QRadioButton(groupBox);
+        visualiserButton->setObjectName(QStringLiteral("visualiserButton"));
+        visualiserButton->setGeometry(QRect(10, 20, 82, 17));
+        visualiserButton->setChecked(false);
+        traiterButton = new QRadioButton(groupBox);
+        traiterButton->setObjectName(QStringLiteral("traiterButton"));
+        traiterButton->setGeometry(QRect(110, 20, 82, 17));
+        traiterButton->setChecked(true);
+        ouvrirButton = new QPushButton(centralWidget);
+        ouvrirButton->setObjectName(QStringLiteral("ouvrirButton"));
+        ouvrirButton->setGeometry(QRect(940, 440, 81, 23));
+        ouvrirButton->setStyleSheet(QStringLiteral("width:15px;height:15px;border-radius:7.5px;border:2px groove gray;"));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -226,7 +247,11 @@ public:
         debutLabel->setText(QApplication::translate("MainWindow", "0", 0));
         label_5->setText(QApplication::translate("MainWindow", "Fin:", 0));
         finLabel->setText(QApplication::translate("MainWindow", "0", 0));
-        savefinButton->setText(QApplication::translate("MainWindow", "Sauvegarde fin", 0));
+        savefinButton->setText(QApplication::translate("MainWindow", "Sauvegarde ", 0));
+        groupBox->setTitle(QApplication::translate("MainWindow", "Modalit\303\251", 0));
+        visualiserButton->setText(QApplication::translate("MainWindow", "Visualiser", 0));
+        traiterButton->setText(QApplication::translate("MainWindow", "Traiter", 0));
+        ouvrirButton->setText(QApplication::translate("MainWindow", "Ouvrir", 0));
         menuFichier->setTitle(QApplication::translate("MainWindow", "Ficher", 0));
         menuInformation->setTitle(QApplication::translate("MainWindow", "Information", 0));
         menuReglage->setTitle(QApplication::translate("MainWindow", "R\303\251glage", 0));

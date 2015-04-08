@@ -34,11 +34,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->trajectoirecheckBox->setEnabled(false);
     ui->debutButton->setEnabled(false);
     ui->finButton->setEnabled(false);
-    ui->savefinButton->setEnabled(false);
+    ui->ouvrirButton->setVisible(false);
     ui->commenttextEdit->setEnabled(false);
     ui->commentButton->setEnabled(false);
+    ui->savefinButton->setEnabled(false);
     /***********************************/
     ui->actionInformationObjet->setEnabled(false);
+
     /*************open dialog**************/
     QObject::connect(ui->actionInformationObjet, SIGNAL(triggered()),this, SLOT(openInformationDialog()));
     QObject::connect(ui->actionDeplacement, SIGNAL(triggered()),this, SLOT(openDeplacementDialog()));
@@ -121,6 +123,7 @@ void MainWindow::chooseVideo()
     myPlayer->closeInfoFile();
     myPlayer->setFileName("");
     myPlayer->setSaveFin(false);
+    ui->playBtn->setText(tr("Play"));
     //Open filedialog to choose video file
     QString filename = QFileDialog::getOpenFileName(
                 this, "Ouvrir vidéo",
@@ -139,6 +142,7 @@ void MainWindow::chooseVideo()
         {
             //Set the video name to window title
             this->setWindowTitle(name.fileName());
+            this->videoName = name.fileName().left(name.fileName().length()-4);
             /************************************/
             ui->playBtn->setEnabled(true);
             ui->videoSlider->setEnabled(true);
@@ -147,9 +151,9 @@ void MainWindow::chooseVideo()
             ui->quickbackwardButton->setEnabled(true);
             ui->quickforwardButton->setEnabled(true);
             //nbFrame = myPlayer->getNumberOfFrames();
-            if(myPlayer->flagFileOpen == true){
+            /*if(myPlayer->flagFileOpen == true){
                 base = myPlayer->getFirstValue();
-                nbFrame = myPlayer->getCountLine();
+                //nbFrame = myPlayer->getCountLine();
                 ui->videoSlider->setMinimum(base);
                 ui->videoSlider->setMaximum(base + nbFrame);
                 ui->videoSlider->setValue(base);
@@ -158,11 +162,10 @@ void MainWindow::chooseVideo()
                 ui->currentLable->setText(QString::number(base));
                 ui->debutLabel->setText(QString::number(base));
                 ui->finLabel->setText(QString::number(base+nbFrame));
-                /****************************************/
                 //Set video fin
                 fin = base+nbFrame;
                 myPlayer->setVideoFin(base+nbFrame);
-            }else{
+            }else{*/
                 nbFrame = myPlayer->getNumberOfFrames();
                 ui->videoSlider->setMinimum(1);
                 ui->videoSlider->setMaximum(nbFrame);
@@ -172,7 +175,7 @@ void MainWindow::chooseVideo()
                 ui->finLabel->setText(QString::number(nbFrame));
                 fin = nbFrame;
                 myPlayer->setVideoFin(fin);
-            }
+            //}
             //Show first image of video dans VideoLabel
             /*Mat firstimg = myPlayer->getFistFrame();
             cv::cvtColor(firstimg, firstimg, CV_BGR2RGB);
@@ -208,7 +211,7 @@ void MainWindow::choosePath()
                                                     "Vidéo fichiers (*.avi *.asf);;All files (*.*)");
     myPlayer->setFileName(fileName);
     //Initialiser write stream
-    myPlayer->prepareSaveInfo();
+     myPlayer->prepareSaveInfo();
 }
 
 /**
@@ -234,6 +237,16 @@ void MainWindow::on_playBtn_clicked()
     {
         myPlayer->Play();
         ui->playBtn->setText(tr("Stop"));
+        /***************************************/
+        if(myPlayer->trajectoreChecked == true){
+            ui->backwardButton->setEnabled(false);
+            ui->forwardButton->setEnabled(false);
+            ui->quickbackwardButton->setEnabled(false);
+            ui->quickforwardButton->setEnabled(false);
+            ui->debutButton->setEnabled(false);
+            ui->finButton->setEnabled(false);
+        }
+        /*************************************/
     }else
     {
         myPlayer->Stop();
@@ -569,15 +582,89 @@ void MainWindow::on_trajectoirecheckBox_clicked()
  */
 void MainWindow::on_savefinButton_clicked()
 {
+    //QMessageBox pour confirmer de sauvegarder
     QMessageBox msgBox;
+    QFile infoFile;
+    QTextStream output;
+    QString listitem;
     msgBox.setInformativeText("Voulez-vous confirmer d'enregistrer?");
     msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Cancel);
     msgBox.setDefaultButton(QMessageBox::Save);
     int ret = msgBox.exec();
     if(ret == QMessageBox::Save){
-        myPlayer->setSaveFin(true);
+        //myPlayer->setSaveFin(true);
+        /****Créer une répertoire avec le nom de vidéo*************/
+        QDir *temp = new QDir;
+        QString repertoire = "C://temp/"+videoName;
+        bool exist = temp->exists(repertoire);
+        if(!exist)
+        {
+           bool ok = temp->mkdir(repertoire);
+        }
+        //Ouvrir la fenêtre de sauvegarder
+        QString fileName = QFileDialog::getSaveFileName(this, "Sauvegarder trajectoire", repertoire,
+                                                        "csv fichiers (*.csv);;All files (*.*)");
+        infoFile.setFileName(fileName);
+        infoFile.open(QIODevice::WriteOnly);
+        /* Check it opened OK */
+        if(!infoFile.isOpen()){
+            qDebug() <<  "Error, unable to open" ;
+        }
+        output.setDevice(&infoFile);
+        //Sauvegarder les textes dans QListWidget
+        int c = ui->listWidget->count();
+        for(int row = 0; row < c; row++){
+            QListWidgetItem *item = ui->listWidget->item(row);
+            listitem = item->text() + "\n";
+            output<<listitem;
+        }
     }
 }
+
+/**
+ * Ouvrir la fichier de données
+ * @brief MainWindow::on_ouvrirButton_clicked
+ */
+void MainWindow::on_ouvrirButton_clicked()
+{
+    QString fileInfoName = QFileDialog::getOpenFileName(
+                            this, "Ouvrir données",
+                            "C://temp/"+videoName,
+                            "csv fichiers (*.csv);;All files (*.*)");
+    myPlayer->setFileInfoName(fileInfoName);
+}
+/****************Choisir la modalité*************************/
+/**
+ * RadioButton: Modalité visualiser
+ * @brief MainWindow::on_visualiserButton_clicked
+ */
+void MainWindow::on_visualiserButton_clicked()
+{
+    if(ui->visualiserButton->isChecked()){
+        this->flagVisualier = true;
+        ui->savefinButton->setVisible(false);
+        ui->ouvrirButton->setVisible(true);
+    }else{
+        this->flagVisualier = false;
+    }
+
+}
+
+/**
+ * RadioButton: Modalité traiter
+ * @brief MainWindow::on_traiterButton_clicked
+ */
+void MainWindow::on_traiterButton_clicked()
+{
+    if(ui->traiterButton->isChecked()){
+        this->flagTraiter = true;
+        ui->savefinButton->setVisible(true);
+        ui->ouvrirButton->setVisible(false);
+    }else{
+        this->flagTraiter = false;
+    }
+}
+/*******************************************************/
 /*void MainWindow::mousePressEvent(QMouseEvent *evt){
     char coord[16];
     myPlayer->Stop();
@@ -726,6 +813,11 @@ void MainWindow::mouseReleaseEvent(QMouseEvent * evt){
     else
         return t.toString("h:mm:ss");
 }*/
+
+
+
+
+
 
 
 

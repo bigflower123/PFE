@@ -63,6 +63,12 @@ private slots:
 
      void on_savefinButton_clicked();
 
+     void on_visualiserButton_clicked();
+
+     void on_traiterButton_clicked();
+
+     void on_ouvrirButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     player *myPlayer;
@@ -95,6 +101,10 @@ private:
     int i = 0;
     //Prémier frame de vidéo avec trajectoire
     int base = 0;
+
+    bool flagVisualier = false;
+    bool flagTraiter = false;
+    QString videoName;
 };
 
 #endif // MAINWINDOW_H

@@ -48,6 +48,7 @@ class player: public QThread
     int flagSave = 0;
     bool saveFin = false;
     int lineNb = 0;
+    QHash<int, Point2f> hash;
    // long beginFrame = 1;
    // long finFrame = getNumberOfFrames();
     //Save *mySaver;
@@ -117,6 +118,8 @@ class player: public QThread
     QStringList getFileList(int);
     int getFirstValue();
     bool flagFileOpen = true;
+    vector<Point2f> findList(int);
+    void drawLine(Mat&, vector<Point2f>);
     /*void setStartVideo(long start);
     void setFinVideo(long fin);*/
 };

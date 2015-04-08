@@ -64,17 +64,16 @@ void player::msleep(int ms){
 bool player::loadVideo(string filename) {
     capture  =  new cv::VideoCapture(filename);
     //Initialiser readFile
-    QFileInfo fi(QString::fromStdString(filename));
+    /*QFileInfo fi(QString::fromStdString(filename));
     QString base = fi.baseName();
     QString path = fi.path();
     readFile.setFileName(path + "/" + base + ".csv");
-    //readStream.setDevice(&readFile);
     if(!readFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
         qDebug()<<"Can't open the file!"<<endl;
         this->flagFileOpen = false;
     }else{
         this->flagFileOpen = true;
-    }
+    }*/
     if (capture->isOpened())
     {
         frameRate = (int) capture->get(CV_CAP_PROP_FPS);
@@ -128,9 +127,11 @@ void player::run()
 {
     clock_t t_start,t_end, t_start1, t_end1;
     clock_t t_start2,t_end2, t_start3, t_end3;
+    char bufferx[50], buffery[50];
     double delay = (1000/frameRate);
+    int currentFrame = this->getCurrentFrame();
     /******************************Save le vidéo******************************************/
-    if(trajectoreChecked == true && videoPath != "" && flagSave == 0){
+    /*if(trajectoreChecked == true && videoPath != "" && flagSave == 0){
         //Save mySaver(videoPath.toStdString(), this->getFrameSize(), frameRate, this->getCodec());
         mySaver.setPath(videoPath.toStdString());
         mySaver.setSize(this->getFrameSize());
@@ -138,7 +139,7 @@ void player::run()
         mySaver.setCodec(this->getCodec());
         mySaver.openOutputVideo();
         ++flagSave;
-    }
+    }*/
     /*************************************************************************************/
     /******************************Algo de détection**************************************/
     if(trajectoreChecked == true && flagcontinue == 0){
@@ -149,7 +150,8 @@ void player::run()
     /*************************************************************************************/
     qDebug() << framecount;
     //capture->set(CV_CAP_PROP_POS_FRAMES, this->framestart);
-    while(!stop && getCurrentFrame() < this->framefin){
+    while(!stop && currentFrame < this->framefin){
+        currentFrame = getCurrentFrame();
         if (!capture->read(frame))
         {
             stop = true;
@@ -170,7 +172,7 @@ void player::run()
                        t_start2 = clock();
                        if(!myAlgo->getTrajectoire().getCenterlist().empty()){
                             this->info = myAlgo->getTrajectoire().getCenterlist().back().nodeToString();
-                            output<<this->info + "\n";
+                            //output<<this->info + "\n";
                        }
                        t_end2 = clock();
                        t_start3 = clock();
@@ -187,19 +189,25 @@ void player::run()
                 }
                 /**********************************************************/
                 /**************************************/
-                if(!readFile.atEnd()){
+                /*if(!readFile.atEnd()){
                     QByteArray line = readFile.readLine();
                     info = line;
                     info = info.left(info.length()-1);
+                }*/
+                if(hash.contains(currentFrame)){
+                   sprintf_s(bufferx, "%-.2f", hash[currentFrame].x);
+                   sprintf_s(buffery, "%-.2f", hash[currentFrame].y);
+                   info = QString("%1;   %2;   %3").arg(currentFrame).arg(bufferx).arg(buffery);
+                   drawLine(frame, findList(currentFrame));
                 }
                 /************************************/
                 cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
                 img = QImage((const unsigned char*)(RGBframe.data),
                               RGBframe.cols,RGBframe.rows,QImage::Format_RGB888);
                 /***********Save le vidéo*********************************/
-                if(trajectoreChecked == true && videoPath != ""){
+               /* if(trajectoreChecked == true && videoPath != ""){
                     mySaver.SaveVideo(frame);
-                }
+                }*/
                 /*********************************************************/
             }
             else
@@ -207,9 +215,9 @@ void player::run()
                 img = QImage((const unsigned char*)(frame.data),
                              frame.cols,frame.rows,QImage::Format_Indexed8);
                 /***********Save le vidéo*********************************/
-                if(trajectoreChecked == true && videoPath != ""){
+                /*if(trajectoreChecked == true && videoPath != ""){
                     mySaver.SaveVideo(frame);
-                 }
+                 }*/
                 /*********************************************************/
             }
             nbframe++;
@@ -220,8 +228,8 @@ void player::run()
     }
     //qDebug()<<nbframe;
     if(trajectoreChecked == true && flagcontinue == 0){delete myAlgo;}
-    if(trajectoreChecked == true && videoPath != "" && flagSave == 0)
-    { mySaver.releaseOutputVideo();}
+    /*if(trajectoreChecked == true && videoPath != "" && flagSave == 0)
+    { mySaver.releaseOutputVideo();}*/
    /* if(readFile.atEnd()){
         this->readFile.close();
     }*/
@@ -409,6 +417,36 @@ int player::getFirstValue()
 }
 
 /**
+ * return trajectoire à dessiner
+ * @brief player::findList
+ */
+vector<Point2f> player::findList(int currentFrame)
+{
+     vector<Point2f> list;
+     while(hash.contains(currentFrame)){
+         list.push_back(hash[currentFrame]);
+         --currentFrame;
+     }
+     return list;
+}
+
+/**
+ * dessiner trajectoire
+ * @brief player::drawLine
+ */
+void player::drawLine(Mat &frame, vector<Point2f> list)
+{
+    Scalar color( 0, 0, 255);
+    if(list.size()>1)
+    {
+        for(unsigned int i = 1; i<list.size() ; i++)
+        {
+            line(frame, list[i], list[i-1],color,3);
+        }
+     }
+}
+
+/**
  * Get current Image
  * @brief player::getcurrentImage
  * @param frameNumber
@@ -433,6 +471,25 @@ void player::setFileName(QString tmpFileName)
 void player::setFileInfoName(QString tmpInfoName)
 {
     infoPath = tmpInfoName;
+    QString donnee;
+    Point2f pt;
+    QByteArray line;
+    //Initialiser readFile
+    readFile.setFileName(tmpInfoName);
+    if(!readFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        qDebug()<<"Can't open the file!"<<endl;
+        this->flagFileOpen = false;
+    }else{
+        this->flagFileOpen = true;
+        while(!readFile.atEnd()){
+             line = readFile.readLine();
+             donnee = line;
+             pt.x = donnee.section(";",1,1).toFloat();
+             pt.y = donnee.section(";",2,2).toFloat();
+             hash[donnee.section(";",0,0).toInt()] = pt;
+        }
+
+    }
 }
 
 /**
