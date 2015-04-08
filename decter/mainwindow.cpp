@@ -330,13 +330,26 @@ void MainWindow::on_backwardButton_clicked()
  */
 void MainWindow::on_forwardButton_clicked()
 {
+    vector<Point2f> ptList;
+    QString str;
+    QStringList list;
     myPlayer->Stop();
     long framecourant = myPlayer->getCurrentFrame();
-    QString line = myPlayer->getNextInfo();
+    //QString line = myPlayer->getNextInfo();
     if(framecourant < myPlayer->getNumberOfFrames()){
         Mat img = myPlayer->getNextframe();
+        ptList = myPlayer->findList(framecourant);
+        if(!ptList.empty()){
+            myPlayer->drawLine(img, ptList);
+            for(int i = 0; i < ptList.size(); i++){
+                 str = QString("%1; %2; %3").arg(framecourant).arg(ptList[i].x).arg(ptList[i].y);
+                 list.append(str);
+            }
+            ui->listWidget->clear();
+            ui->listWidget->addItems(list);
+        }
         QImage qimg = QImage((unsigned char*) img.data, img.cols, img.rows, QImage::Format_RGB888);
-        displayImage(qimg, ++framecourant, line);
+        displayImage(qimg, ++framecourant, "");
     }
 }
 

@@ -430,6 +430,7 @@ vector<Point2f> player::findList(int currentFrame)
      return list;
 }
 
+
 /**
  * dessiner trajectoire
  * @brief player::drawLine
