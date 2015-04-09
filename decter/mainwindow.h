@@ -101,9 +101,8 @@ private:
     int i = 0;
     //Prémier frame de vidéo avec trajectoire
     int base = 0;
-
     bool flagVisualier = false;
-    bool flagTraiter = false;
+    bool flagTraiter = true;
     QString videoName;
 };
 

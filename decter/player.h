@@ -49,6 +49,10 @@ class player: public QThread
     bool saveFin = false;
     int lineNb = 0;
     QHash<int, Point2f> hash;
+    int beginFrame = 0;
+    QStringList strList;
+    bool flagVisualier = false;
+    bool flagTraiter = false;
    // long beginFrame = 1;
    // long finFrame = getNumberOfFrames();
     //Save *mySaver;
@@ -120,6 +124,9 @@ class player: public QThread
     bool flagFileOpen = true;
     vector<Point2f> findList(int);
     void drawLine(Mat&, vector<Point2f>);
+    QStringList getStrList();
+    void setFlagVisualiser(bool);
+    void setFlagTraiter(bool);
     /*void setStartVideo(long start);
     void setFinVideo(long fin);*/
 };

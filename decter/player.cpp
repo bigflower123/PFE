@@ -423,9 +423,17 @@ int player::getFirstValue()
 vector<Point2f> player::findList(int currentFrame)
 {
      vector<Point2f> list;
-     while(hash.contains(currentFrame)){
-         list.push_back(hash[currentFrame]);
-         --currentFrame;
+     QString tmp;
+     char bufferx[50], buffery[50];
+     strList.clear();
+     if(hash.contains(currentFrame)){
+         for(int i = beginFrame; i <= currentFrame; i++){
+             list.push_back(hash[i]);
+             sprintf_s(bufferx, "%-.2f", hash[i].x);
+             sprintf_s(buffery, "%-.2f", hash[i].y);
+             tmp = QString("%1;  %2;  %3").arg(i).arg(bufferx).arg(buffery);
+             strList.append(tmp);
+         }
      }
      return list;
 }
@@ -437,14 +445,33 @@ vector<Point2f> player::findList(int currentFrame)
  */
 void player::drawLine(Mat &frame, vector<Point2f> list)
 {
-    Scalar color( 0, 0, 255);
+    Scalar color( 0, 255, 0);
     if(list.size()>1)
     {
         for(unsigned int i = 1; i<list.size() ; i++)
         {
             line(frame, list[i], list[i-1],color,3);
         }
-     }
+    }
+}
+
+/**
+ * @brief player::getStrList
+ * @return
+ */
+QStringList player::getStrList()
+{
+    return strList;
+}
+
+void player::setFlagTraiter(bool tmpTraiter)
+{
+    this->flagTraiter = tmpTraiter;
+}
+
+void player::setFlagVisualiser(bool tmpVisualiser)
+{
+    this->flagVisualier = tmpVisualiser;
 }
 
 /**
@@ -471,6 +498,7 @@ void player::setFileName(QString tmpFileName)
 
 void player::setFileInfoName(QString tmpInfoName)
 {
+    int i = 0;
     infoPath = tmpInfoName;
     QString donnee;
     Point2f pt;
@@ -485,6 +513,10 @@ void player::setFileInfoName(QString tmpInfoName)
         while(!readFile.atEnd()){
              line = readFile.readLine();
              donnee = line;
+             if(i == 0){
+                beginFrame = donnee.section(";",0,0).toInt();
+                i = 1;
+             }
              pt.x = donnee.section(";",1,1).toFloat();
              pt.y = donnee.section(";",2,2).toFloat();
              hash[donnee.section(";",0,0).toInt()] = pt;

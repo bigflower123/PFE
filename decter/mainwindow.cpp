@@ -72,15 +72,10 @@ void MainWindow::displayImage(QImage& img, double framecourant, QString tmpInfo)
     ui->VideoLbl->adjustSize();
 
     if(tmpInfo != ""){
-        if(tmpInfo != "-1"){
           QListWidgetItem* lst1 = new QListWidgetItem(tmpInfo, ui->listWidget);
           ui->listWidget->addItem(lst1);
-          ui->videoSlider->setValue(base + framecourant-1);
-          ui->currentLable->setText(QString::number(base + framecourant-1));
-        }else{
           ui->videoSlider->setValue(framecourant);
           ui->currentLable->setText(QString::number(framecourant));
-        }
     }else{
         ui->videoSlider->setValue(framecourant);
         ui->currentLable->setText(QString::number(framecourant));
@@ -271,16 +266,21 @@ void MainWindow::on_videoSlider_sliderReleased()
                            QImage::Format_RGB888)).scaled(ui->VideoLbl->size(),Qt::KeepAspectRatio,
                            Qt::FastTransformation));
     ui->VideoLbl->adjustSize(); //Adjust size of the video*/
-    if(myPlayer->flagFileOpen == true){
-        Mat img = myPlayer->showImage(postionSlider-base+1);
+    vector<Point2f> vlist;
+    Mat img = myPlayer->showImage(postionSlider);
+    if(this->flagVisualier == true){
+        vlist = myPlayer->findList(postionSlider);
+        if(!vlist.empty()){
+            myPlayer->drawLine(img,vlist);
+        }
         QImage qimg = QImage((unsigned char*) img.data, img.cols, img.rows, QImage::Format_RGB888);
         //Modifier ListWidget
-        QStringList list = myPlayer->getFileList(postionSlider-base+1);
+        QStringList list = myPlayer->getStrList();
         ui->listWidget->clear();
         ui->listWidget->addItems(list);
-        displayImage(qimg, postionSlider, "-1");
-    }else{
-        Mat img = myPlayer->showImage(postionSlider);
+        displayImage(qimg, postionSlider, "");
+    }
+    if(this->flagTraiter == true){
         QImage qimg = QImage((unsigned char*) img.data, img.cols, img.rows, QImage::Format_RGB888);
         displayImage(qimg, postionSlider, "");
     }
@@ -305,18 +305,25 @@ void MainWindow::on_videoSlider_sliderMoved(int position)
 void MainWindow::on_backwardButton_clicked()
 {
     //QImage img;
+    vector<Point2f> vlist;
     myPlayer->Stop();
     double framecourant = myPlayer->getCurrentFrame();
     if(framecourant > 0){
         Mat img = myPlayer->showImage(--framecourant);
         //Modifier ListWidget
-        if(myPlayer->flagFileOpen == true){
-            QStringList list = myPlayer->getFileList(framecourant);
+        if(this->flagVisualier == true){
+            vlist = myPlayer->findList(framecourant);
+            if(vlist.size()>1){
+                myPlayer->drawLine(img,vlist);
+            }
+            QImage qimg = QImage((unsigned char*) img.data, img.cols, img.rows, QImage::Format_RGB888);
+            //Modifier ListWidget
+            QStringList list = myPlayer->getStrList();
             ui->listWidget->clear();
             ui->listWidget->addItems(list);
-            QImage qimg = QImage((unsigned char*) img.data, img.cols, img.rows, QImage::Format_RGB888);
-            displayImage(qimg, framecourant, "-1");
-        }else{
+            displayImage(qimg, framecourant, "");
+        }
+        if(this->flagTraiter == true){
             QImage qimg = QImage((unsigned char*) img.data, img.cols, img.rows, QImage::Format_RGB888);
             displayImage(qimg, framecourant, "");
         }
@@ -330,7 +337,7 @@ void MainWindow::on_backwardButton_clicked()
  */
 void MainWindow::on_forwardButton_clicked()
 {
-    vector<Point2f> ptList;
+   /* vector<Point2f> ptList;
     QString str;
     QStringList list;
     myPlayer->Stop();
@@ -350,7 +357,31 @@ void MainWindow::on_forwardButton_clicked()
         }
         QImage qimg = QImage((unsigned char*) img.data, img.cols, img.rows, QImage::Format_RGB888);
         displayImage(qimg, ++framecourant, "");
+    }*/
+    vector<Point2f> vlist;
+    myPlayer->Stop();
+    double framecourant = myPlayer->getCurrentFrame();
+    if(framecourant < myPlayer->getNumberOfFrames()){
+        Mat img = myPlayer->getNextframe();
+        //Modifier ListWidget
+        if(this->flagVisualier == true){
+            vlist = myPlayer->findList(framecourant);
+            if(vlist.size()>1){
+                myPlayer->drawLine(img,vlist);
+            }
+            QImage qimg = QImage((unsigned char*) img.data, img.cols, img.rows, QImage::Format_RGB888);
+            //Modifier ListWidget
+            QStringList list = myPlayer->getStrList();
+            ui->listWidget->clear();
+            ui->listWidget->addItems(list);
+            displayImage(qimg, framecourant, "");
+        }
+        if(this->flagTraiter == true){
+            QImage qimg = QImage((unsigned char*) img.data, img.cols, img.rows, QImage::Format_RGB888);
+            displayImage(qimg, framecourant, "");
+        }
     }
+
 }
 
 /**
@@ -360,18 +391,25 @@ void MainWindow::on_forwardButton_clicked()
 void MainWindow::on_quickbackwardButton_clicked()
 {
     myPlayer->Stop();
+    vector<Point2f> vlist;
     double framecourant = myPlayer->getCurrentFrame();
     framecourant = framecourant - 10;
     if(framecourant >= 0){
         Mat img = myPlayer->showImage(framecourant);
-        QImage qimg = QImage((unsigned char*) img.data, img.cols, img.rows, QImage::Format_RGB888);
-
-        if(myPlayer->flagFileOpen == true){
-            QStringList list = myPlayer->getFileList(framecourant);
+        if(this->flagVisualier == true){
+            vlist = myPlayer->findList(framecourant);
+            if(vlist.size()>1){
+                myPlayer->drawLine(img,vlist);
+            }
+            QImage qimg = QImage((unsigned char*) img.data, img.cols, img.rows, QImage::Format_RGB888);
+            //Modifier ListWidget
+            QStringList list = myPlayer->getStrList();
             ui->listWidget->clear();
             ui->listWidget->addItems(list);
-            displayImage(qimg, framecourant,"-1");
-        }else{
+            displayImage(qimg, framecourant,"");
+        }
+        if(this->flagTraiter == true){
+            QImage qimg = QImage((unsigned char*) img.data, img.cols, img.rows, QImage::Format_RGB888);
             displayImage(qimg, framecourant,"");
         }
     }
@@ -384,18 +422,25 @@ void MainWindow::on_quickbackwardButton_clicked()
 void MainWindow::on_quickforwardButton_clicked()
 {
     myPlayer->Stop();
+    vector<Point2f> vlist;
     double framecourant = myPlayer->getCurrentFrame();
     framecourant = framecourant + 10;
     if(framecourant <= myPlayer->getNumberOfFrames()){
         Mat img = myPlayer->showImage(framecourant);
-        QImage qimg = QImage((unsigned char*) img.data, img.cols, img.rows, QImage::Format_RGB888);
-
-        if(myPlayer->flagFileOpen == true){
-            QStringList list = myPlayer->getFileList(framecourant);
+        if(this->flagVisualier == true){
+            vlist = myPlayer->findList(framecourant);
+            if(vlist.size()>1){
+                myPlayer->drawLine(img,vlist);
+            }
+            QImage qimg = QImage((unsigned char*) img.data, img.cols, img.rows, QImage::Format_RGB888);
+            //Modifier ListWidget
+            QStringList list = myPlayer->getStrList();
             ui->listWidget->clear();
             ui->listWidget->addItems(list);
-            displayImage(qimg, framecourant,"-1");
-        }else{
+            displayImage(qimg, framecourant,"");
+        }
+        if(this->flagTraiter == true){
+            QImage qimg = QImage((unsigned char*) img.data, img.cols, img.rows, QImage::Format_RGB888);
             displayImage(qimg, framecourant,"");
         }
     }
@@ -654,10 +699,14 @@ void MainWindow::on_ouvrirButton_clicked()
 void MainWindow::on_visualiserButton_clicked()
 {
     if(ui->visualiserButton->isChecked()){
+        //myPlayer->setFlagVisualiser(true);
         this->flagVisualier = true;
         ui->savefinButton->setVisible(false);
         ui->ouvrirButton->setVisible(true);
+        myPlayer->trajectoreChecked = false;
+        ui->trajectoirecheckBox->setChecked(false);
     }else{
+        //myPlayer->setFlagVisualiser(false);
         this->flagVisualier = false;
     }
 
@@ -670,10 +719,12 @@ void MainWindow::on_visualiserButton_clicked()
 void MainWindow::on_traiterButton_clicked()
 {
     if(ui->traiterButton->isChecked()){
+        //myPlayer->setFlagTraiter(true);
         this->flagTraiter = true;
         ui->savefinButton->setVisible(true);
         ui->ouvrirButton->setVisible(false);
     }else{
+        //myPlayer->setFlagTraiter(false);
         this->flagTraiter = false;
     }
 }
