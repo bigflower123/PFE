@@ -70,15 +70,12 @@ void MainWindow::displayImage(QImage& img, double framecourant, QString tmpInfo)
                             Qt::KeepAspectRatio, Qt::FastTransformation));
     //Adjust size of the video
     ui->VideoLbl->adjustSize();
+    ui->videoSlider->setValue(framecourant);
+    ui->currentLable->setText(QString::number(framecourant));
 
     if(tmpInfo != ""){
           QListWidgetItem* lst1 = new QListWidgetItem(tmpInfo, ui->listWidget);
           ui->listWidget->addItem(lst1);
-          ui->videoSlider->setValue(framecourant);
-          ui->currentLable->setText(QString::number(framecourant));
-    }else{
-        ui->videoSlider->setValue(framecourant);
-        ui->currentLable->setText(QString::number(framecourant));
     }
 }
 
@@ -93,12 +90,6 @@ void MainWindow::updatePlayerUI(QImage img, QString tmpInfo)
     if (!img.isNull())
     {
         displayImage(img, myPlayer->getCurrentFrame(),tmpInfo);
-        /*ui->R1label->setText(QString::number(myPlayer->thresh[0]));
-        ui->R2label->setText(QString::number(myPlayer->thresh[1]));
-        ui->V1label->setText(QString::number(myPlayer->thresh[2]));
-        ui->V2label->setText(QString::number(myPlayer->thresh[3]));
-        ui->B1label->setText(QString::number(myPlayer->thresh[4]));
-        ui->B2label->setText(QString::number(myPlayer->thresh[5]));*/
 
        /* if(tmpInfo != ""){
             QListWidgetItem* lst1 = new QListWidgetItem(tmpInfo, ui->listWidget);
@@ -230,16 +221,28 @@ void MainWindow::on_playBtn_clicked()
 {
     if (myPlayer->isStopped())
     {
-        myPlayer->Play();
-        ui->playBtn->setText(tr("Stop"));
-        /***************************************/
-        if(myPlayer->trajectoreChecked == true){
-            ui->backwardButton->setEnabled(false);
-            ui->forwardButton->setEnabled(false);
-            ui->quickbackwardButton->setEnabled(false);
-            ui->quickforwardButton->setEnabled(false);
-            ui->debutButton->setEnabled(false);
-            ui->finButton->setEnabled(false);
+        if(flagVisualier == true){
+            if(myPlayer->getInfoPath() == ""){
+                QMessageBox msgBox;
+                msgBox.setText("Vous n'avez pas choisit le fichier!");
+                msgBox.exec();
+            }else{
+                myPlayer->Play();
+                ui->playBtn->setText(tr("Stop"));
+            }
+        }
+        if(flagTraiter == true){
+            myPlayer->Play();
+            ui->playBtn->setText(tr("Stop"));
+            /***************************************/
+            if(myPlayer->trajectoreChecked == true){
+                ui->backwardButton->setEnabled(false);
+                ui->forwardButton->setEnabled(false);
+                ui->quickbackwardButton->setEnabled(false);
+                ui->quickforwardButton->setEnabled(false);
+                ui->debutButton->setEnabled(false);
+                ui->finButton->setEnabled(false);
+            }
         }
         /*************************************/
     }else
@@ -698,15 +701,24 @@ void MainWindow::on_ouvrirButton_clicked()
  */
 void MainWindow::on_visualiserButton_clicked()
 {
+    //Clear listWidget
+    ui->listWidget->clear();
     if(ui->visualiserButton->isChecked()){
-        //myPlayer->setFlagVisualiser(true);
+        myPlayer->setFlagVisualiser(true);
         this->flagVisualier = true;
+        myPlayer->setFlagTraiter(false);
+        this->flagTraiter = false;
         ui->savefinButton->setVisible(false);
         ui->ouvrirButton->setVisible(true);
         myPlayer->trajectoreChecked = false;
         ui->trajectoirecheckBox->setChecked(false);
+        ui->trajectoirecheckBox->setEnabled(false);
+        ui->forwardButton->setEnabled(true);
+        ui->backwardButton->setEnabled(true);
+        ui->quickforwardButton->setEnabled(true);
+        ui->quickbackwardButton->setEnabled(true);
     }else{
-        //myPlayer->setFlagVisualiser(false);
+        myPlayer->setFlagVisualiser(false);
         this->flagVisualier = false;
     }
 
@@ -718,14 +730,18 @@ void MainWindow::on_visualiserButton_clicked()
  */
 void MainWindow::on_traiterButton_clicked()
 {
+    //Clear listWidget
+    ui->listWidget->clear();
     if(ui->traiterButton->isChecked()){
-        //myPlayer->setFlagTraiter(true);
+        myPlayer->setFlagTraiter(true);
         this->flagTraiter = true;
+        myPlayer->setFlagVisualiser(false);
+        this->flagVisualier = false;
         ui->savefinButton->setVisible(true);
         ui->ouvrirButton->setVisible(false);
     }else{
-        //myPlayer->setFlagTraiter(false);
-        this->flagTraiter = false;
+         myPlayer->setFlagTraiter(false);
+         this->flagTraiter = false;
     }
 }
 /*******************************************************/

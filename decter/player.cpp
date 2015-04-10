@@ -63,6 +63,8 @@ void player::msleep(int ms){
  */
 bool player::loadVideo(string filename) {
     capture  =  new cv::VideoCapture(filename);
+    //Clear hash
+    hash.clear();
     //Initialiser readFile
     /*QFileInfo fi(QString::fromStdString(filename));
     QString base = fi.baseName();
@@ -194,11 +196,13 @@ void player::run()
                     info = line;
                     info = info.left(info.length()-1);
                 }*/
-                if(hash.contains(currentFrame)){
-                   sprintf_s(bufferx, "%-.2f", hash[currentFrame].x);
-                   sprintf_s(buffery, "%-.2f", hash[currentFrame].y);
-                   info = QString("%1;   %2;   %3").arg(currentFrame).arg(bufferx).arg(buffery);
-                   drawLine(frame, findList(currentFrame));
+                if(this->flagVisualier == true && this->flagTraiter == false){
+                    if(hash.contains(currentFrame)){
+                       sprintf_s(bufferx, "%-.2f", hash[currentFrame].x);
+                       sprintf_s(buffery, "%-.2f", hash[currentFrame].y);
+                       info = QString("%1;   %2;   %3").arg(currentFrame).arg(bufferx).arg(buffery);
+                       drawLine(frame, findList(currentFrame));
+                    }
                 }
                 /************************************/
                 cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
@@ -467,6 +471,11 @@ QStringList player::getStrList()
 void player::setFlagTraiter(bool tmpTraiter)
 {
     this->flagTraiter = tmpTraiter;
+}
+
+QString player::getInfoPath()
+{
+    return this->infoPath;
 }
 
 void player::setFlagVisualiser(bool tmpVisualiser)

@@ -127,6 +127,7 @@ class player: public QThread
     QStringList getStrList();
     void setFlagVisualiser(bool);
     void setFlagTraiter(bool);
+    QString getInfoPath();
     /*void setStartVideo(long start);
     void setFinVideo(long fin);*/
 };
