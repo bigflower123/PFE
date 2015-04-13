@@ -139,7 +139,7 @@ $(OBJECTS) $(LIBS)
 	mt.exe /nologo /manifest release\decter.exe.embed.manifest /outputresource:$(DESTDIR_TARGET);1
 
 qmake: FORCE
-	@$(QMAKE) -spec win32-msvc2013 CONFIG+=debug -o Makefile.Release decter.pro
+	@$(QMAKE) -spec win32-msvc2013 -o Makefile.Release decter.pro
 
 qmake_all: FORCE
 
@@ -308,6 +308,7 @@ release\moc_mainwindow.cpp: C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QMainWi
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDebug \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QFile \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QTextStream \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QStringList \
 		video_qlabel.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QLabel \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qlabel.h \
@@ -430,6 +431,7 @@ release\moc_player.cpp: C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QMutex \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qfile.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qfiledevice.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QTextStream \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QStringList \
 		player.h
 	C:\Qt\Qt5.3.2\5.3\msvc2013\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -IC:/Qt/Qt5.3.2/5.3/msvc2013/mkspecs/win32-msvc2013 -ID:/PFE/decter -IC:/opencv/build/include -IC:/Qt/Qt5.3.2/5.3/msvc2013/include -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtWidgets -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtGui -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtANGLE -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtCore player.h -o release\moc_player.cpp
 
@@ -566,6 +568,7 @@ release\moc_video_qlabel.cpp: C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QLabe
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDebug \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QFile \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QTextStream \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QStringList \
 		video_qlabel.h
 	C:\Qt\Qt5.3.2\5.3\msvc2013\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -IC:/Qt/Qt5.3.2/5.3/msvc2013/mkspecs/win32-msvc2013 -ID:/PFE/decter -IC:/opencv/build/include -IC:/Qt/Qt5.3.2/5.3/msvc2013/include -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtWidgets -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtGui -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtANGLE -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtCore video_qlabel.h -o release\moc_video_qlabel.cpp
 
@@ -699,6 +702,7 @@ release\moc_informationdialog.cpp: C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDebug \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QFile \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QTextStream \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QStringList \
 		informationdialog.h
 	C:\Qt\Qt5.3.2\5.3\msvc2013\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -IC:/Qt/Qt5.3.2/5.3/msvc2013/mkspecs/win32-msvc2013 -ID:/PFE/decter -IC:/opencv/build/include -IC:/Qt/Qt5.3.2/5.3/msvc2013/include -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtWidgets -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtGui -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtANGLE -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtCore informationdialog.h -o release\moc_informationdialog.cpp
 
@@ -832,6 +836,7 @@ release\moc_deplacementmaxdialog.cpp: C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidge
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDebug \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QFile \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QTextStream \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QStringList \
 		deplacementmaxdialog.h
 	C:\Qt\Qt5.3.2\5.3\msvc2013\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -IC:/Qt/Qt5.3.2/5.3/msvc2013/mkspecs/win32-msvc2013 -ID:/PFE/decter -IC:/opencv/build/include -IC:/Qt/Qt5.3.2/5.3/msvc2013/include -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtWidgets -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtGui -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtANGLE -IC:/Qt/Qt5.3.2/5.3/msvc2013/include/QtCore deplacementmaxdialog.h -o release\moc_deplacementmaxdialog.cpp
 
@@ -974,7 +979,8 @@ ui_mainwindow.h: mainwindow.ui \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qdatetime.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDebug \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QFile \
-		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QTextStream
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QTextStream \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QStringList
 	C:\Qt\Qt5.3.2\5.3\msvc2013\bin\uic.exe mainwindow.ui -o ui_mainwindow.h
 
 ui_informationdialog.h: informationdialog.ui
@@ -1137,6 +1143,7 @@ release\main.obj: main.cpp mainwindow.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDebug \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QFile \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QTextStream \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QStringList \
 		video_qlabel.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QLabel \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qlabel.h \
@@ -1295,6 +1302,7 @@ release\mainwindow.obj: mainwindow.cpp mainwindow.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDebug \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QFile \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QTextStream \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QStringList \
 		video_qlabel.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QLabel \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qlabel.h \
@@ -1320,6 +1328,8 @@ release\mainwindow.obj: mainwindow.cpp mainwindow.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QCheckBox \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qcheckbox.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qabstractbutton.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QGroupBox \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qgroupbox.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QHeaderView \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qheaderview.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qabstractitemview.h \
@@ -1345,6 +1355,8 @@ release\mainwindow.obj: mainwindow.cpp mainwindow.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qmenubar.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QPushButton \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qpushbutton.h \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QRadioButton \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qradiobutton.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QSlider \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QStatusBar \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qstatusbar.h \
@@ -1471,6 +1483,7 @@ release\player.obj: player.cpp player.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qfile.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qfiledevice.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QTextStream \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QStringList \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDir \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qdir.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qfileinfo.h \
@@ -1627,7 +1640,8 @@ release\video_qlabel.obj: video_qlabel.cpp video_qlabel.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qdatetime.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDebug \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QFile \
-		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QTextStream
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QTextStream \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QStringList
 
 release\save.obj: save.cpp save.h \
 		C:\opencv\build\include\opencv2\core\core.hpp \
@@ -1808,6 +1822,7 @@ release\informationdialog.obj: informationdialog.cpp informationdialog.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDebug \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QFile \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QTextStream \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QStringList \
 		ui_informationdialog.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QVariant \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QAction \
@@ -1981,6 +1996,7 @@ release\deplacementmaxdialog.obj: deplacementmaxdialog.cpp deplacementmaxdialog.
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDebug \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QFile \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QTextStream \
+		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QStringList \
 		ui_deplacementmaxdialog.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QVariant \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QAction \

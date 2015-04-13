@@ -130,8 +130,12 @@ void player::run()
     clock_t t_start,t_end, t_start1, t_end1;
     clock_t t_start2,t_end2, t_start3, t_end3;
     char bufferx[50], buffery[50];
+    int currentFrame;
     double delay = (1000/frameRate);
-    int currentFrame = this->getCurrentFrame();
+    if(nbframe == 0 ){
+        capture->set(CV_CAP_PROP_POS_FRAMES,0);
+    }
+    currentFrame = this->getCurrentFrame();
     /******************************Save le vidéo******************************************/
     /*if(trajectoreChecked == true && videoPath != "" && flagSave == 0){
         //Save mySaver(videoPath.toStdString(), this->getFrameSize(), frameRate, this->getCodec());
@@ -150,7 +154,7 @@ void player::run()
     }
 
     /*************************************************************************************/
-    qDebug() << framecount;
+    qDebug() << framecount<<" "<<currentFrame<<" "<<this->framefin;
     //capture->set(CV_CAP_PROP_POS_FRAMES, this->framestart);
     while(!stop && currentFrame < this->framefin){
         currentFrame = getCurrentFrame();
@@ -230,7 +234,7 @@ void player::run()
             this->msleep(delay);
         }
     }
-    //qDebug()<<nbframe;
+    qDebug()<<nbframe;
     if(trajectoreChecked == true && flagcontinue == 0){delete myAlgo;}
     /*if(trajectoreChecked == true && videoPath != "" && flagSave == 0)
     { mySaver.releaseOutputVideo();}*/

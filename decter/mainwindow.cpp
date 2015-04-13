@@ -13,7 +13,6 @@ MainWindow::MainWindow(QWidget *parent) :
     /*********choose and show video******************/
     QObject::connect(ui->actionOuvrirVideo, SIGNAL(triggered()), this, SLOT(chooseVideo()));
     QObject::connect(ui->actionSauvegarderVideo, SIGNAL(triggered()), this, SLOT(choosePath()));
-    QObject::connect(ui->actionSauvegarderDonnees, SIGNAL(triggered()),this, SLOT(chooseInfoPath()));
     QObject::connect(myPlayer, SIGNAL(processedImage(QImage, QString)), this, SLOT(updatePlayerUI(QImage, QString)));
     /***********************************************/
     /*****For choose object**************/
