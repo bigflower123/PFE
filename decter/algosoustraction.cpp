@@ -15,9 +15,10 @@ AlgoSoustraction::AlgoSoustraction(int tmpdpmax, Mat& tmpstart, Mat* tmpobj, int
     thresh_blue_2 = 255;
     thresh_green_1 = 0;
     thresh_green_2 = 255;
-    testHistogram(*obj_choose);
+    calculeHistogram(*obj_choose);
     Mat tmp = *obj_choose;
-   // imwrite("objchoose.jpg", tmp);
+    //imwrite("objchoose.jpg", tmp);
+    //imwrite("startframe.jpg", start_frame);
     binary_fond = generateBinaryImage(start_frame);
     //imwrite("fond.jpg", binary_fond);
     if(i == 0){
@@ -25,7 +26,6 @@ AlgoSoustraction::AlgoSoustraction(int tmpdpmax, Mat& tmpstart, Mat* tmpobj, int
     }else{
         pre_img = false;
     }
-    //current_obj = tmpobj;
 }
 
 
@@ -45,41 +45,15 @@ void AlgoSoustraction::decter(Mat & currentFrame, int nbFrame)
     Mat obj_courant;
     Mat drawing = Mat::zeros( currentFrame.size(), CV_8UC3 );
     t_start = clock();
+    //imwrite("currentframe.jpg",currentFrame);
     binary_frame = generateBinaryImage(currentFrame);
-    /***********************************************/
-    /*Mat binary_red_1;
-    Mat binary_red_2;
-    Mat binary_green_1;
-    Mat binary_green_2;
-    Mat binary_blue_1;
-    Mat binary_blue_2;
-    Mat binary_red;
-    Mat binary_green;
-    Mat binary_blue;
-    Mat mv_current[3]; //array for 3 channels
-
-    split(currentFrame, mv_current);
-
-    threshold(mv_current[2], binary_red_1, thresh_red_1, 255, THRESH_BINARY_INV);
-    threshold(mv_current[2], binary_red_2, thresh_red_2, 255, THRESH_BINARY);
-    binary_red = binary_red_1 + binary_red_2;
-
-    threshold(mv_current[1], binary_green_1, thresh_green_1, 255, THRESH_BINARY_INV);
-    threshold(mv_current[1], binary_green_2, thresh_green_2, 255, THRESH_BINARY);
-    binary_green = binary_green_1 + binary_green_2;
-
-    threshold(mv_current[0], binary_blue_1, thresh_blue_1, 255, THRESH_BINARY_INV);
-    threshold(mv_current[0], binary_blue_2, thresh_blue_2, 255, THRESH_BINARY);
-    binary_blue = binary_blue_1 + binary_blue_2;
-
-    threshold(binary_blue+binary_green+binary_red, binary_frame, 254, 255, THRESH_BINARY_INV);*/
-    /***********************************************/
     t_end = clock();
     qDebug()<< "Binary img" <<(double)(t_end - t_start) / CLOCKS_PER_SEC;
-    //imwrite("frame.jpg",binary_frame);
+    //imwrite("binaryframe.jpg",binary_frame);
     t_start1 = clock();
     /******foreground OU background – background =
      * the binary image which contains only the moving object*************/
+    //imwrite("add.jpg",binary_frame+binary_fond);
     absdiff(binary_frame+binary_fond,binary_fond,img_act);
     //imwrite("img_act.jpg",img_act);
     /*********************************************************************/
@@ -137,8 +111,8 @@ void AlgoSoustraction::decter(Mat & currentFrame, int nbFrame)
                 obj_courant = currentFrame(Rect((int)(obj_x),(int)(obj_y),
                                              (int)radius*4/3,(int)radius*4/3));
                 //this->testHistogram(obj_courant);
-                circle( currentFrame, center, (int)radius, color, 2, 8, 0 );//draw circle
-                circle( currentFrame, center, 2, color, -1, 8, 0 );//draw the center of circle
+                //circle( currentFrame, center, (int)radius, color, 2, 8, 0 );//draw circle
+                //circle( currentFrame, center, 2, color, -1, 8, 0 );//draw the center of circle
             }
         }else{
             if(pre_img){
@@ -175,19 +149,7 @@ void AlgoSoustraction::decter(Mat & currentFrame, int nbFrame)
             }
 
         }
-       //(*obj_choose) = obj_courant;
     }
-
-   /* Mat obj_courant = currentFrame(Rect((int)(center.x-radius*2/3),(int)(center.y-radius*2/3),
-                             (int)radius*4/3,(int)radius*4/3));
-    MyObject.setCenter(center);
-    MyObject.setRadius(radius);
-    QDateTime currenttime = QDateTime::currentDateTime();
-    Node nodecenter(center,currenttime,nbFrame);
-    MyTrajectoire.addPoint(nodecenter);*/
-
-    // (*objectchoose) = newMat;
-    //(*obj_choose) = obj_courant;
 }
 
 
@@ -209,7 +171,6 @@ Mat AlgoSoustraction::generateBinaryImage(Mat& tmp)
     Mat binary_red_2;
     threshold(mv_fond[2], binary_red_2, thresh_red_2, 255, THRESH_BINARY);
     Mat binary_red = binary_red_1 + binary_red_2;
-    imwrite("binary_red.jpg",binary_red);
     Mat binary_green_1;
     threshold(mv_fond[1], binary_green_1, thresh_green_1, 255, THRESH_BINARY_INV);
     Mat binary_green_2;
@@ -227,62 +188,11 @@ Mat AlgoSoustraction::generateBinaryImage(Mat& tmp)
 }
 
 /**
- * Méthode 2 of binarisation
- * @brief AlgoSoustraction::generateBinaryImage2
- * @return
- */
-Mat AlgoSoustraction::generateBinaryImage2(Mat & src)
-{
-    // accept only char type matrices
-       //CV_Assert(I.depth() != sizeof(uchar));
-       /*const int channels = I.channels();
-       switch(channels)
-       {
-       case 1:
-           {
-               MatIterator_<uchar> it, end;
-               for( it = I.begin<uchar>(), end = I.end<uchar>(); it != end; ++it)
-                   *it = table[*it];
-               break;
-           }
-       case 3:
-           {
-               MatIterator_<Vec3b> it, end;
-               for( it = I.begin<Vec3b>(), end = I.end<Vec3b>(); it != end; ++it)
-               {
-                   (*it)[0] = table[(*it)[0]];
-                   (*it)[1] = table[(*it)[1]];
-                   (*it)[2] = table[(*it)[2]];
-               }
-           }
-       }*/
-       Mat image = src.clone();
-       for(int i=0;i<image.rows;i++)
-       {
-             for(int j=0;j<image.cols;j++)
-             {
-                 if(image.at<Vec3b>(i,j)[0] >= thresh_blue_1 && image.at<Vec3b>(i,j)[0] <= thresh_blue_2
-                 && image.at<Vec3b>(i,j)[1] >= thresh_green_1 && image.at<Vec3b>(i,j)[1] <= thresh_green_2
-                 && image.at<Vec3b>(i,j)[2] >= thresh_red_1 && image.at<Vec3b>(i,j)[2] <= thresh_red_2){
-                    image.at<Vec3b>(i,j)=Vec3b(255,255,255);
-                 }else{
-                    image.at<Vec3b>(i,j)=Vec3b(0,0,0);
-                 }
-                 //image.at<Vec3b>(i,j)[1]=image.at<Vec3b>(i,j)[1]/div*div+div/2;
-                 //image.at<Vec3b>(i,j)[2]=image.at<Vec3b>(i,j)[2]/div*div+div/2;
-            }
-        }
-       return image;
-}
-
-
-
-/**
  * calcule histograme of three channels
  * @brief AlgoSoustraction::calculeHistograme
  * @param img
  */
-void AlgoSoustraction::calculeHistograme(Mat& img)
+void AlgoSoustraction::calcule1Histograme(Mat& img)
 {
     int bins = 256;                 // number of bins
     int nc = img.channels();        // number of channels
@@ -359,7 +269,7 @@ void AlgoSoustraction::calculeHistograme(Mat& img)
  * @brief AlgoSoustraction::testHistogram
  * @param src
  */
-void AlgoSoustraction::testHistogram(Mat & src)
+void AlgoSoustraction::calculeHistogram(Mat & src)
 {
 
      /// Separate the image in 3 places ( B, G and R )

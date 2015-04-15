@@ -124,6 +124,7 @@ class player: public QThread
     bool flagFileOpen = true;
     vector<Point2f> findList(int);
     void drawLine(Mat&, vector<Point2f>);
+    void drawTrack(int currentFrame, Mat &frame);
     QStringList getStrList();
     void setFlagVisualiser(bool);
     void setFlagTraiter(bool);

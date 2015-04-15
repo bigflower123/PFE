@@ -205,7 +205,8 @@ void player::run()
                        sprintf_s(bufferx, "%-.2f", hash[currentFrame].x);
                        sprintf_s(buffery, "%-.2f", hash[currentFrame].y);
                        info = QString("%1;   %2;   %3").arg(currentFrame).arg(bufferx).arg(buffery);
-                       drawLine(frame, findList(currentFrame));
+                       //drawLine(frame, findList(currentFrame));
+                       drawTrack(currentFrame, frame);
                     }
                 }
                 /************************************/
@@ -436,11 +437,13 @@ vector<Point2f> player::findList(int currentFrame)
      strList.clear();
      if(hash.contains(currentFrame)){
          for(int i = beginFrame; i <= currentFrame; i++){
-             list.push_back(hash[i]);
-             sprintf_s(bufferx, "%-.2f", hash[i].x);
-             sprintf_s(buffery, "%-.2f", hash[i].y);
-             tmp = QString("%1;  %2;  %3").arg(i).arg(bufferx).arg(buffery);
-             strList.append(tmp);
+             if(hash.contains(i)){
+                 list.push_back(hash[i]);
+                 sprintf_s(bufferx, "%-.2f", hash[i].x);
+                 sprintf_s(buffery, "%-.2f", hash[i].y);
+                 tmp = QString("%1;  %2;  %3").arg(i).arg(bufferx).arg(buffery);
+                 strList.append(tmp);
+             }
          }
      }
      return list;
@@ -459,6 +462,31 @@ void player::drawLine(Mat &frame, vector<Point2f> list)
         for(unsigned int i = 1; i<list.size() ; i++)
         {
             line(frame, list[i], list[i-1],color,3);
+        }
+    }
+}
+
+void player::drawTrack(int currentFrame,Mat &frame)
+{
+    QString tmp;
+    char bufferx[50], buffery[50];
+    int j = 0;
+    strList.clear();
+    if(hash.contains(currentFrame)){
+        for(int i = beginFrame; i <= currentFrame; i++){
+            if(hash.contains(i)){
+                sprintf_s(bufferx, "%-.2f", hash[i].x);
+                sprintf_s(buffery, "%-.2f", hash[i].y);
+                tmp = QString("%1;  %2;  %3").arg(i).arg(bufferx).arg(buffery);
+                strList.append(tmp);
+                if(hash.contains(i+1)){
+                    if(j >= 0){
+                        j = 255 - i*0.1;
+                    }
+                     Scalar color( j, j, 255);
+                     line(frame, hash[i], hash[i+1],color,3);
+                }
+            }
         }
     }
 }

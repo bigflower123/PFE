@@ -16,12 +16,16 @@ vector<Node>& Trajectoire::getCenterlist()
 
 void Trajectoire::drawTrajectoire(Mat &frame)
 {
-    Scalar color( 255, 0, 0 );
+    //Scalar color( 255, 0, 0 );
+    int j = 0;
     if(center_list.size()>1)
     {
         for(unsigned int i = 1; i<center_list.size() ; i++)
         {
-            //line(frame,center_list[i_tj],center_list[i_tj-1],color,5);
+            if(j >= 0){
+                j = 255 - i*0.1;
+            }
+            Scalar color( 255, j, j );
             line(frame, center_list[i].getCenter(), center_list[i-1].getCenter(),color,3);
         }
      }
