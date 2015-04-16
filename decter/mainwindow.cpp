@@ -34,9 +34,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->debutButton->setEnabled(false);
     ui->finButton->setEnabled(false);
     ui->ouvrirButton->setVisible(false);
-    ui->commenttextEdit->setEnabled(false);
-    ui->commentButton->setEnabled(false);
+    //ui->commenttextEdit->setEnabled(false);
+    //ui->commentButton->setEnabled(false);
     ui->savefinButton->setEnabled(false);
+    ui->VideoLbl->setEnabled(false);
     /***********************************/
     ui->actionInformationObjet->setEnabled(false);
 
@@ -48,6 +49,7 @@ MainWindow::MainWindow(QWidget *parent) :
     start = 0;
     fin = 0;
     /*************************************/
+
 }
 
 MainWindow::~MainWindow()
@@ -76,6 +78,8 @@ void MainWindow::displayImage(QImage& img, double framecourant, QString tmpInfo)
           QListWidgetItem* lst1 = new QListWidgetItem(tmpInfo, ui->listWidget);
           ui->listWidget->addItem(lst1);
     }
+    //QListWidget moving to end of list automatically
+    ui->listWidget->scrollToBottom();
 }
 
 /**
@@ -183,6 +187,7 @@ void MainWindow::chooseVideo()
     this->dst.release();
     //Set flagTimeschoose
     myPlayer->setFlagTimes(0);
+    ui->VideoLbl->setEnabled(true);
 }
 
 
@@ -271,10 +276,11 @@ void MainWindow::on_videoSlider_sliderReleased()
     vector<Point2f> vlist;
     Mat img = myPlayer->showImage(postionSlider);
     if(this->flagVisualier == true){
-        vlist = myPlayer->findList(postionSlider);
+        /*vlist = myPlayer->findList(postionSlider);
         if(!vlist.empty()){
             myPlayer->drawLine(img,vlist);
-        }
+        }*/
+        myPlayer->drawTrack(postionSlider,img);
         QImage qimg = QImage((unsigned char*) img.data, img.cols, img.rows, QImage::Format_RGB888);
         //Modifier ListWidget
         QStringList list = myPlayer->getStrList();
@@ -314,10 +320,11 @@ void MainWindow::on_backwardButton_clicked()
         Mat img = myPlayer->showImage(--framecourant);
         //Modifier ListWidget
         if(this->flagVisualier == true){
-            vlist = myPlayer->findList(framecourant);
+            /*vlist = myPlayer->findList(framecourant);
             if(vlist.size()>1){
                 myPlayer->drawLine(img,vlist);
-            }
+            }*/
+            myPlayer->drawTrack(framecourant,img);
             QImage qimg = QImage((unsigned char*) img.data, img.cols, img.rows, QImage::Format_RGB888);
             //Modifier ListWidget
             QStringList list = myPlayer->getStrList();
@@ -367,10 +374,11 @@ void MainWindow::on_forwardButton_clicked()
         Mat img = myPlayer->getNextframe();
         //Modifier ListWidget
         if(this->flagVisualier == true){
-            vlist = myPlayer->findList(framecourant);
+            /*vlist = myPlayer->findList(framecourant);
             if(vlist.size()>1){
                 myPlayer->drawLine(img,vlist);
-            }
+            }*/
+            myPlayer->drawTrack(framecourant,img);
             QImage qimg = QImage((unsigned char*) img.data, img.cols, img.rows, QImage::Format_RGB888);
             //Modifier ListWidget
             QStringList list = myPlayer->getStrList();
@@ -399,10 +407,11 @@ void MainWindow::on_quickbackwardButton_clicked()
     if(framecourant >= 0){
         Mat img = myPlayer->showImage(framecourant);
         if(this->flagVisualier == true){
-            vlist = myPlayer->findList(framecourant);
+            /*vlist = myPlayer->findList(framecourant);
             if(vlist.size()>1){
                 myPlayer->drawLine(img,vlist);
-            }
+            }*/
+            myPlayer->drawTrack(framecourant,img);
             QImage qimg = QImage((unsigned char*) img.data, img.cols, img.rows, QImage::Format_RGB888);
             //Modifier ListWidget
             QStringList list = myPlayer->getStrList();
@@ -430,10 +439,11 @@ void MainWindow::on_quickforwardButton_clicked()
     if(framecourant <= myPlayer->getNumberOfFrames()){
         Mat img = myPlayer->showImage(framecourant);
         if(this->flagVisualier == true){
-            vlist = myPlayer->findList(framecourant);
+           /* vlist = myPlayer->findList(framecourant);
             if(vlist.size()>1){
                 myPlayer->drawLine(img,vlist);
-            }
+            }*/
+            myPlayer->drawTrack(framecourant,img);
             QImage qimg = QImage((unsigned char*) img.data, img.cols, img.rows, QImage::Format_RGB888);
             //Modifier ListWidget
             QStringList list = myPlayer->getStrList();

@@ -80,8 +80,8 @@ void AlgoSoustraction::decter(Mat & currentFrame, int nbFrame)
     if(contours.size() == 0){
         if(!myTrajectoire.getCenterlist().empty()){
             myTrajectoire.setLastcenter(myTrajectoire.getCenterlist().back());
-            myTrajectoire.getCenterlist().clear();
         }
+        myTrajectoire.getCenterlist().clear();
     /***********************************************************************************/
     }else if(contours.size() >= 1){
         for( unsigned int i = 0; i < contours.size(); i++ )//find the biggest Connected domain

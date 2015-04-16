@@ -180,14 +180,9 @@ void player::run()
                             this->info = myAlgo->getTrajectoire().getCenterlist().back().nodeToString();
                             //output<<this->info + "\n";
                        }
-                       t_end2 = clock();
-                       t_start3 = clock();
-                       this->setThresh(myAlgo->thresh_red_1,myAlgo->thresh_red_2, myAlgo->thresh_green_1,
-                                       myAlgo->thresh_green_2, myAlgo->thresh_blue_1, myAlgo->thresh_blue_2);
-                       t_end3 = clock();
+                       t_end2 = clock();              
                        qDebug()<< "detecter time" <<(double)(t_end - t_start) / CLOCKS_PER_SEC;
                        qDebug()<< "donne save time" <<(double)(t_end2 - t_start2) / CLOCKS_PER_SEC;
-                       qDebug()<< "thresh time" <<(double)(t_end3 - t_start3) / CLOCKS_PER_SEC;
                        t_start1 = clock();
                        myAlgo->getTrajectoire().drawTrajectoire(frame);
                        t_end1 = clock();
@@ -205,8 +200,10 @@ void player::run()
                        sprintf_s(bufferx, "%-.2f", hash[currentFrame].x);
                        sprintf_s(buffery, "%-.2f", hash[currentFrame].y);
                        info = QString("%1;   %2;   %3").arg(currentFrame).arg(bufferx).arg(buffery);
-                       //drawLine(frame, findList(currentFrame));
-                       drawTrack(currentFrame, frame);
+                       //drawLine(frame, findList(currentFrame));                 
+                    }
+                    if(currentFrame >= beginFrame){
+                        drawTrack(currentFrame, frame);
                     }
                 }
                 /************************************/
@@ -472,7 +469,7 @@ void player::drawTrack(int currentFrame,Mat &frame)
     char bufferx[50], buffery[50];
     int j = 0;
     strList.clear();
-    if(hash.contains(currentFrame)){
+    if(currentFrame >= beginFrame){
         for(int i = beginFrame; i <= currentFrame; i++){
             if(hash.contains(i)){
                 sprintf_s(bufferx, "%-.2f", hash[i].x);
@@ -483,7 +480,7 @@ void player::drawTrack(int currentFrame,Mat &frame)
                     if(j >= 0){
                         j = 255 - i*0.1;
                     }
-                     Scalar color( j, j, 255);
+                     Scalar color( j, 255, j);
                      line(frame, hash[i], hash[i+1],color,3);
                 }
             }
