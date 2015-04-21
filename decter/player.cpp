@@ -17,7 +17,7 @@ player::player(QObject *parent)
     framecount = 0;
     videoPath = "";
     info = "";
-    deplacement = 50;
+    deplacement = 150;
     /*infoFile.setFileName("D:/data.csv");
     infoFile.open(QIODevice::WriteOnly);
 
@@ -134,6 +134,7 @@ void player::run()
     double delay = (1000/frameRate);
     if(nbframe == 0 ){
         capture->set(CV_CAP_PROP_POS_FRAMES,0);
+        firstframe = this->getFirstFrame();
     }
     currentFrame = this->getCurrentFrame();
     /******************************Save le vidéo******************************************/
@@ -163,9 +164,9 @@ void player::run()
             stop = true;
             qDebug()<<"frame read fin";
         }else{
-            if(nbframe == 0){
+            /*if(nbframe == 0){
                 frame.copyTo(firstframe);
-            }
+            }*/
             if (frame.channels()== 3){
                 //cv::cvtColor(frame, RGBframe, CV_BGR2RGB);
                 /****************Algo de détection*************************/

@@ -77,9 +77,9 @@ void MainWindow::displayImage(QImage& img, double framecourant, QString tmpInfo)
     if(tmpInfo != ""){
           QListWidgetItem* lst1 = new QListWidgetItem(tmpInfo, ui->listWidget);
           ui->listWidget->addItem(lst1);
+          //QListWidget moving to end of list automatically
+          ui->listWidget->scrollToBottom();
     }
-    //QListWidget moving to end of list automatically
-    ui->listWidget->scrollToBottom();
 }
 
 /**
@@ -166,10 +166,10 @@ void MainWindow::chooseVideo()
                 myPlayer->setVideoFin(fin);
             //}
             //Show first image of video dans VideoLabel
-            /*Mat firstimg = myPlayer->getFistFrame();
+            Mat firstimg = myPlayer->getFirstFrame();
             cv::cvtColor(firstimg, firstimg, CV_BGR2RGB);
             this->displayImage(QImage((const unsigned char*)(firstimg.data),
-                               firstimg.cols,firstimg.rows,QImage::Format_RGB888),1);*/
+                               firstimg.cols,firstimg.rows,QImage::Format_RGB888),1,"");
         }
     }
     //Clear listWidget
@@ -563,6 +563,11 @@ void MainWindow::myMouseLeft(int x, int y)
             ui->trajectoirecheckBox->setEnabled(true);
         //Set flagContinue
         myPlayer->setFlagContinue(0);
+        /*namedWindow("zoom");
+        Size dsize = Size(dst.cols*2,dst.rows*2);
+        Mat dst1 = Mat(dsize,CV_32S);
+        cv::resize(dst,dst1,dsize);
+        imshow("zoom",dst1);*/
     }
 }
 

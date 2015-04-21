@@ -113,6 +113,9 @@ void AlgoSoustraction::decter(Mat & currentFrame, int nbFrame)
                 //this->testHistogram(obj_courant);
                 //circle( currentFrame, center, (int)radius, color, 2, 8, 0 );//draw circle
                 //circle( currentFrame, center, 2, color, -1, 8, 0 );//draw the center of circle
+            }else{
+                //Clear trajectoire
+                myTrajectoire.getCenterlist().clear();
             }
         }else{
             if(pre_img){
