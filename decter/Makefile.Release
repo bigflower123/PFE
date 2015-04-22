@@ -139,7 +139,7 @@ $(OBJECTS) $(LIBS)
 	mt.exe /nologo /manifest release\decter.exe.embed.manifest /outputresource:$(DESTDIR_TARGET);1
 
 qmake: FORCE
-	@$(QMAKE) -spec win32-msvc2013 CONFIG+=debug -o Makefile.Release decter.pro
+	@$(QMAKE) -spec win32-msvc2013 -o Makefile.Release decter.pro
 
 qmake_all: FORCE
 
@@ -1360,13 +1360,6 @@ release\mainwindow.obj: mainwindow.cpp mainwindow.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QSlider \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QStatusBar \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qstatusbar.h \
-		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QTextEdit \
-		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qtextedit.h \
-		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qtextdocument.h \
-		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qtextoption.h \
-		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qtextcursor.h \
-		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qtextformat.h \
-		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qpen.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QToolBar \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qtoolbar.h \
 		C:\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QWidget

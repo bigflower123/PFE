@@ -22,8 +22,12 @@ DeplacementMaxDialog::~DeplacementMaxDialog()
 void DeplacementMaxDialog::on_OkButton_clicked()
 {
     int deplacement = ui->deplacementlineEdit->text().toInt();
-    myPlayer->setDeplacementMax(deplacement);
-    QMessageBox::StandardButton reply;
-    reply = QMessageBox::information(this, tr("Confirme"), "déplacement ok");
-    this->close();
+    if(ui->deplacementlineEdit->text() != ""){
+        myPlayer->setDeplacementMax(deplacement);
+        //QMessageBox::StandardButton reply;
+        //reply = QMessageBox::information(this, tr("Confirme"), "déplacement ok");
+        this->close();
+    }else{
+        ui->msgLabel->setText("Il faut saisir déplacement");
+    }
 }

@@ -563,13 +563,15 @@ void MainWindow::myMouseLeft(int x, int y)
             ui->trajectoirecheckBox->setEnabled(true);
         //Set flagContinue
         myPlayer->setFlagContinue(0);
-        /*namedWindow("zoom");
+       /* namedWindow("zoom");
         Size dsize = Size(dst.cols*2,dst.rows*2);
         Mat dst1 = Mat(dsize,CV_32S);
         cv::resize(dst,dst1,dsize);
+        setMouseCallback("zoom",on_mouse,ui->VideoLbl);//Callback function
         imshow("zoom",dst1);*/
     }
 }
+
 
 /******************Choose object*******************/
 
@@ -657,12 +659,14 @@ void MainWindow::on_trajectoirecheckBox_clicked()
  */
 void MainWindow::on_savefinButton_clicked()
 {
+    myPlayer->Stop();
+    ui->playBtn->setText("Play");
     //QMessageBox pour confirmer de sauvegarder
     QMessageBox msgBox;
     QFile infoFile;
     QTextStream output;
     QString listitem;
-    msgBox.setInformativeText("Voulez-vous confirmer d'enregistrer?");
+    msgBox.setInformativeText("Voulez-vous confirmer l'enregistrement?");
     msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Cancel);
     msgBox.setDefaultButton(QMessageBox::Save);
     int ret = msgBox.exec();
@@ -708,6 +712,8 @@ void MainWindow::on_ouvrirButton_clicked()
                             "csv fichiers (*.csv);;All files (*.*)");
     myPlayer->setFileInfoName(fileInfoName);
 }
+
+
 /****************Choisir la modalité*************************/
 /**
  * RadioButton: Modalité visualiser

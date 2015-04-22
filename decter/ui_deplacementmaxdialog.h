@@ -27,6 +27,7 @@ public:
     QLabel *label;
     QLineEdit *deplacementlineEdit;
     QPushButton *OkButton;
+    QLabel *msgLabel;
 
     void setupUi(QDialog *DeplacementMaxDialog)
     {
@@ -41,7 +42,10 @@ public:
         deplacementlineEdit->setGeometry(QRect(120, 30, 133, 20));
         OkButton = new QPushButton(DeplacementMaxDialog);
         OkButton->setObjectName(QStringLiteral("OkButton"));
-        OkButton->setGeometry(QRect(80, 70, 75, 23));
+        OkButton->setGeometry(QRect(90, 80, 75, 23));
+        msgLabel = new QLabel(DeplacementMaxDialog);
+        msgLabel->setObjectName(QStringLiteral("msgLabel"));
+        msgLabel->setGeometry(QRect(120, 60, 131, 16));
 
         retranslateUi(DeplacementMaxDialog);
 
@@ -53,6 +57,7 @@ public:
         DeplacementMaxDialog->setWindowTitle(QApplication::translate("DeplacementMaxDialog", "D\303\251placement Max", 0));
         label->setText(QApplication::translate("DeplacementMaxDialog", "D\303\251placement Max:", 0));
         OkButton->setText(QApplication::translate("DeplacementMaxDialog", "Confirme", 0));
+        msgLabel->setText(QString());
     } // retranslateUi
 
 };
