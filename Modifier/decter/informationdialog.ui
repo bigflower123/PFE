@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>InformationDialog</class>
+ <widget class="QDialog" name="InformationDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>735</width>
+    <height>298</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Information object</string>
+  </property>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>510</x>
+     <y>260</y>
+     <width>201</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_3">
+    <item>
+     <widget class="QLabel" name="redlabel">
+      <property name="text">
+       <string>Red:</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="redminLabel">
+      <property name="text">
+       <string>R1</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="redmaxLabel">
+      <property name="text">
+       <string>R2</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>260</y>
+     <width>211</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <item>
+     <widget class="QLabel" name="greenlabel">
+      <property name="text">
+       <string>Green:</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>260</y>
+     <width>221</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QLabel" name="bluelabel">
+      <property name="text">
+       <string>Blue:</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="blueminLabel">
+      <property name="text">
+       <string>B1</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="bluemaxLabel">
+      <property name="text">
+       <string>B2</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QLabel" name="greenminLabel">
+   <property name="geometry">
+    <rect>
+     <x>330</x>
+     <y>260</y>
+     <width>65</width>
+     <height>14</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>G1</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="greenmaxLabel">
+   <property name="geometry">
+    <rect>
+     <x>400</x>
+     <y>260</y>
+     <width>101</width>
+     <height>14</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>G2</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="bluehistLabel">
+   <property name="geometry">
+    <rect>
+     <x>21</x>
+     <y>31</y>
+     <width>212</width>
+     <height>150</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">Background-color: #000;</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="greenhistLabel">
+   <property name="geometry">
+    <rect>
+     <x>256</x>
+     <y>31</y>
+     <width>212</width>
+     <height>150</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">Background-color: #000;</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="redhistLabel">
+   <property name="geometry">
+    <rect>
+     <x>491</x>
+     <y>31</y>
+     <width>212</width>
+     <height>150</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">Background-color: #000;</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

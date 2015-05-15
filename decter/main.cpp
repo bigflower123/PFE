@@ -1,3 +1,9 @@
+/**
+ * @Author: Lin SHEN
+ * @Version: 2.0
+ * @Date: 04/2015
+ */
+
 #include "mainwindow.h"
 #include <QApplication>
 

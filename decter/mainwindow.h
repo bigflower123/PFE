@@ -28,8 +28,6 @@ private slots:
     void updatePlayerUI(QImage img, QString tmpInfo);
     //Slot for the load video
     void chooseVideo();
-    //Slot for choose save path
-    void choosePath();
     void chooseInfoPath();
     //Slot for the play push button.
     void on_playBtn_clicked();
@@ -60,14 +58,15 @@ private slots:
      void on_finButton_clicked();
      void on_trajectoirecheckBox_clicked();
 
-
+     // Save information of coordinate
      void on_savefinButton_clicked();
+     // Open file csv of information of coordinate
+     void on_ouvrirButton_clicked();
 
+     //2 modality
      void on_visualiserButton_clicked();
-
      void on_traiterButton_clicked();
 
-     void on_ouvrirButton_clicked();
 
 private:
     Ui::MainWindow *ui;

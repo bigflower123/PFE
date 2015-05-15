@@ -10,7 +10,6 @@ public:
     AlgoSoustraction(int, Mat &, Mat *, int i);
     void decter(Mat &, int);
     Mat generateBinaryImage(Mat &);
-    void calcule1Histograme(Mat &);
     void calculeHistogram(Mat &);
     double thresh_red_1;    //The lower limit of red channel
     double thresh_red_2;    //The upper limit of red channel

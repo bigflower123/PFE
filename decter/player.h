@@ -7,7 +7,6 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
-#include "save.h"
 #include "algosoustraction.h"
 #include <QDebug>
 #include <QFile>
@@ -37,7 +36,6 @@ class player: public QThread
     int nbframe;
     double framecount;
     AlgoSoustraction *myAlgo;
-    Save mySaver;
     QString info;
     QFile infoFile;
     QTextStream  output;
@@ -53,9 +51,6 @@ class player: public QThread
     QStringList strList;
     bool flagVisualier = false;
     bool flagTraiter = false;
-   // long beginFrame = 1;
-   // long finFrame = getNumberOfFrames();
-    //Save *mySaver;
 
  signals:
      //Signal to output frame to be displayed
@@ -93,44 +88,38 @@ class player: public QThread
 
     //Show image
     Mat &showImage( int frameNumber );
+    //Get next frame
+    Mat getNextframe();
 
     //Get current image
     Mat getcurrentImage( int frameNumber );
 
+    // Set and get object choose
     void setObjectChoose(Mat &);
     Mat getObjectChoose();
+
     void setFileName(QString);
     void setFileInfoName(QString);
+    // Set max travel
     void setDeplacementMax(int);
+
+    // Set start and fin of video
     void setVideoStart(int);
     void setVideoFin(int);
+
     vector<Mat> hist;
     void setFramenb(long);
     long getFramenb();
-    Mat getNextframe();
-    void setThresh(int, int ,int, int, int, int);
-    int thresh[6];
     bool trajectoreChecked = false;
     Mat getFirstFrame();
-    void prepareSaveInfo();
-    void closeInfoFile();
     void setFlagTimes(int tmpTimes);
     void setFlagContinue(int tmpContinue);
-    void setSaveFin(bool);
-    QString getNextInfo();
-    int getCountLine();
-    QStringList getFileList(int);
-    int getFirstValue();
     bool flagFileOpen = true;
-    vector<Point2f> findList(int);
-    void drawLine(Mat&, vector<Point2f>);
     void drawTrack(int currentFrame, Mat &frame);
     QStringList getStrList();
     void setFlagVisualiser(bool);
     void setFlagTraiter(bool);
     QString getInfoPath();
-    /*void setStartVideo(long start);
-    void setFinVideo(long fin);*/
 };
 
 #endif // PLAYER_H

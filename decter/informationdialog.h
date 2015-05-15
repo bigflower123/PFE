@@ -18,10 +18,7 @@ class InformationDialog : public QDialog
 public:
     explicit InformationDialog(player *, QWidget *parent = 0);
     ~InformationDialog();
-    void showHistogram(Mat &img);
-    void displayHistogram(Mat &src);
-private slots:
-    //void on_showButton_clicked();
+    void displayHistogram(Mat &src);  //Display histogram
 
 private:
     Ui::InformationDialog *ui;

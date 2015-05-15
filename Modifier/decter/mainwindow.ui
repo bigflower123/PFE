@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1248</width>
+    <height>685</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Vidéo</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="video_qlabel" name="VideoLbl">
+    <property name="geometry">
+     <rect>
+      <x>9</x>
+      <y>19</y>
+      <width>901</width>
+      <height>501</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">Background-color: #000;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="playBtn">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>580</y>
+      <width>71</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">width:15px;height:15px;border-radius:7.5px;border:2px groove gray;</string>
+    </property>
+    <property name="text">
+     <string>Play</string>
+    </property>
+   </widget>
+   <widget class="QSlider" name="videoSlider">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>550</y>
+      <width>481</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
+    <property name="value">
+     <number>1</number>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="currentLable">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>550</y>
+      <width>61</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>0</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="totalLable">
+    <property name="geometry">
+     <rect>
+      <x>700</x>
+      <y>550</y>
+      <width>61</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>0</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="forwardButton">
+    <property name="geometry">
+     <rect>
+      <x>760</x>
+      <y>550</y>
+      <width>40</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius:7.5px;border:2px groove gray;</string>
+    </property>
+    <property name="text">
+     <string>&gt;</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="backwardButton">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>550</y>
+      <width>40</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius:7.5px;border:2px groove gray;</string>
+    </property>
+    <property name="text">
+     <string>&lt;</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="debutButton">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>580</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Début</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="finButton">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>580</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Fin</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="trajectoirecheckBox">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>580</y>
+      <width>74</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Trajectoire</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="quickbackwardButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>550</y>
+      <width>50</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius:7.5px;border:2px groove gray;</string>
+    </property>
+    <property name="text">
+     <string>&lt;&lt;</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="quickforwardButton">
+    <property name="geometry">
+     <rect>
+      <x>820</x>
+      <y>550</y>
+      <width>50</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius:7.5px;border:2px groove gray;</string>
+    </property>
+    <property name="text">
+     <string>&gt;&gt;</string>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="listWidget">
+    <property name="geometry">
+     <rect>
+      <x>940</x>
+      <y>80</y>
+      <width>291</width>
+      <height>431</height>
+     </rect>
+    </property>
+    <property name="verticalScrollMode">
+     <enum>QAbstractItemView::ScrollPerPixel</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>610</y>
+      <width>46</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Début:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="debutLabel">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>610</y>
+      <width>71</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>0</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>610</y>
+      <width>46</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Fin:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="finLabel">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>610</y>
+      <width>46</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>0</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="savefinButton">
+    <property name="geometry">
+     <rect>
+      <x>1130</x>
+      <y>550</y>
+      <width>91</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">width:15px;height:15px;border-radius:7.5px;border:2px groove gray;</string>
+    </property>
+    <property name="text">
+     <string>Sauvegarde </string>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>940</x>
+      <y>20</y>
+      <width>241</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Modalité</string>
+    </property>
+    <widget class="QRadioButton" name="visualiserButton">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>82</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Visualiser</string>
+     </property>
+     <property name="checked">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="traiterButton">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>20</y>
+       <width>82</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Traiter</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="ouvrirButton">
+    <property name="geometry">
+     <rect>
+      <x>950</x>
+      <y>550</y>
+      <width>81</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">width:15px;height:15px;border-radius:7.5px;border:2px groove gray;</string>
+    </property>
+    <property name="text">
+     <string>Ouvrir</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1248</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFichier">
+    <property name="title">
+     <string>Ficher</string>
+    </property>
+    <addaction name="actionOuvrirVideo"/>
+    <addaction name="separator"/>
+    <addaction name="actionQuitter"/>
+   </widget>
+   <widget class="QMenu" name="menuInformation">
+    <property name="title">
+     <string>Information</string>
+    </property>
+    <addaction name="actionInformationObjet"/>
+   </widget>
+   <widget class="QMenu" name="menuReglage">
+    <property name="title">
+     <string>Réglage</string>
+    </property>
+    <addaction name="actionDeplacement"/>
+   </widget>
+   <addaction name="menuFichier"/>
+   <addaction name="menuReglage"/>
+   <addaction name="menuInformation"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionOuvrirVideo">
+   <property name="text">
+    <string>Ouvrir vidéo</string>
+   </property>
+  </action>
+  <action name="actionSauvegarderVideo">
+   <property name="text">
+    <string>Sauvegarder vidéo</string>
+   </property>
+  </action>
+  <action name="actionSauvegarderDonnees">
+   <property name="text">
+    <string>Sauvegarder données</string>
+   </property>
+  </action>
+  <action name="actionQuitter">
+   <property name="text">
+    <string>Quitter</string>
+   </property>
+  </action>
+  <action name="actionInformationObjet">
+   <property name="text">
+    <string>Information objet</string>
+   </property>
+  </action>
+  <action name="actionDeplacement">
+   <property name="text">
+    <string>Déplacement max</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>video_qlabel</class>
+   <extends>QLabel</extends>
+   <header location="global">video_qlabel.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>actionQuitter</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>319</x>
+     <y>232</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

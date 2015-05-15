@@ -16,7 +16,6 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     player.cpp \
     video_qlabel.cpp \
-    save.cpp \
     informationdialog.cpp \
     deplacementmaxdialog.cpp \
     informationobject.cpp \
@@ -28,7 +27,6 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h \
     player.h \
     video_qlabel.h \
-    save.h \
     informationdialog.h \
     deplacementmaxdialog.h \
     informationobject.h \
